@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
-
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -24,10 +24,10 @@ const Navbar = () => {
             />
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button color="inherit">Home</Button>
+            <Button component={Link} to="/" color="inherit">Home</Button>
             <Button color="inherit">Profile</Button>
             <Button color="inherit">Map</Button>
-            <Button color="inherit">Logout</Button>
+            <Button component={Link} to="/Login" color="inherit">Log In</Button>
           </Stack>
         </Toolbar>
       </AppBar>
