@@ -1,19 +1,20 @@
 import React from "react";
-import Navbar from "./components/Navbar";
 import Theme from "./Theme";
-import Hero from "./pages/LandingPage/Hero";
-import Search from "./pages/LandingPage/Search";
-import Carousell from "./pages/LandingPage/Carousell";
-import Footer from "./components/Footer";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import Register from "./pages/RegisterPage/RegisterPage";
+import {Route, Routes} from 'react-router-dom'
 import {ThemeProvider } from '@mui/material/styles';
+
 export default function App() {
   return (
-    <ThemeProvider theme={Theme}>
-        <Navbar />
-        <Hero/>
-        <Search/>
-        <Carousell/>
-        <Footer/>
-    </ThemeProvider>
+
+      <ThemeProvider theme={Theme}>
+        <Routes>
+          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/register" element={<Register/>}/>
+        </Routes>   
+      </ThemeProvider>
   );
 }
