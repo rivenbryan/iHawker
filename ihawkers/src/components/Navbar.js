@@ -25,7 +25,7 @@ const Navbar = () => {
           </Box>
           <Stack direction="row" spacing={2}>
             <Button component={Link} to="/" color="inherit">Home</Button>
-            <Button color="inherit">Profile</Button>
+            <Button component={Link} to="/Stall" color="inherit">Profile</Button>
             <Button color="inherit">Map</Button>
             <Button component={Link} to="/Login" color="inherit">Log In</Button>
           </Stack>
