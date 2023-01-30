@@ -14,6 +14,7 @@ const Footer = () => {
         height: "8vh", 
         color: "white",
         marginTop: "3vh",
+        display: "flex"
         }}>
           <Box   
             margin={"0 auto"}
