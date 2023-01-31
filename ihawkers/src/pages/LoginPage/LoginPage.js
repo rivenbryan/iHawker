@@ -11,7 +11,6 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from '../../components/Navbar';
 function Copyright(props) {
   return (
@@ -26,7 +25,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
 
 export default function LoginPage() {
   const handleSubmit = (event) => {
