@@ -11,6 +11,5 @@ app.use(express.json())
 app.use("/api/hawker", hawker_router)
 app.use("/api/stall", stall_router)
 app.use("*", (req, res) => res.status(404).json({ error: "not found"}))
-app.listen(5000, () => console.log("Server Running"))
 
 export default app

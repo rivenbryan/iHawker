@@ -5,6 +5,9 @@ dotenv.config()
 const MongoClient = mongodb.MongoClient
 
 const port = process.env.PORT || 8000
+export let CLIENT
+export let hawkerCollection
+export let stallCollection
 
 MongoClient.connect(
     process.env.HAWKERDB_URI,
@@ -19,6 +22,11 @@ MongoClient.connect(
     })
     .then(async () => {
       app.listen(port, () => {
-        console.log(`listening on port ${port}`)
+        console.log(`Server Running`)
       })
+      CLIENT = (new MongoClient(process.env.HAWKERDB_URI)).db("hawkercentre");
+      hawkerCollection = CLIENT.collection("hawker")
+      stallCollection = CLIENT.collection("stall")
     })
+
+    

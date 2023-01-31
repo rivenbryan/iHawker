@@ -8,3 +8,4 @@ stall_router.get("/:id", StallController.getStallById)
 stall_router.delete("/:id", StallController.deleteStallById)
 
 export default stall_router
+
