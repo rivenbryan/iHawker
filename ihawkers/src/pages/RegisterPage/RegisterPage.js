@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -29,14 +28,42 @@ function Copyright(props) {
 
 
 export default function Register() {
-  const handleSubmit = (event) => {
+
+  const  [name, setName] = React.useState('')
+  const  [password, setPassword] = React.useState('')
+  const  [email, setEmail] = React.useState('')
+
+
+  async function registerUser(event) {
+    console.log(name, password, email)
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    const response = await fetch('http://localhost:5000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      })
+    })
+
+    const data = await response.json()
+    console.log(data)
+
+  }
+
+  const handleChange = (e) => {
+    if(e.target.id == 'name'){
+      setName( e.target.value)
+    }else if (e.target.id === 'password'){
+      setPassword(e.target.value)
+
+    }else if (e.target.id === 'email'){
+      setEmail(e.target.value)
+    }
+  }
 
   return (
       <Container component="main">
@@ -56,17 +83,19 @@ export default function Register() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={registerUser} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+
                   required
                   fullWidth
-                  id="firstName"
+                  id="name"
                   label="First Name"
                   autoFocus
+                  value={name}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -86,7 +115,8 @@ export default function Register() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
+                  value={email}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -98,6 +128,8 @@ export default function Register() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
