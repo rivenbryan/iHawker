@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Toolbar, Typography } from '@mui/material';
+import { Button, Container, Toolbar, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
 import { Link } from "react-router-dom";
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
@@ -8,7 +8,10 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 
 const Footer = () => {
   return (
-      <Toolbar style={{ 
+      <Box sx={{ 
+        ml: -5,
+        mr: -1,
+        mb: -1,
         position: "static", 
         backgroundColor: "#000000", 
         height: "8vh", 
@@ -51,7 +54,7 @@ const Footer = () => {
             </Button>
           </Stack>
           </Box>
-      </Toolbar>
+      </Box>
   )
 }
 

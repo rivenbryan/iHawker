@@ -6,6 +6,7 @@ import Register from "./pages/RegisterPage/RegisterPage";
 import StallPage from "./pages/StallPage/StallPage";
 import {Route, Routes} from 'react-router-dom'
 import {ThemeProvider } from '@mui/material/styles';
+import MapPage from "./pages/MapPage/MapPage";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/stall" element={<StallPage/>}/>
+          <Route path="/map" element={<MapPage/>}/>
         </Routes>   
       </ThemeProvider>
   );
