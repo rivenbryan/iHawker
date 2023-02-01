@@ -17,10 +17,12 @@ const Footer = () => {
         height: "8vh", 
         color: "white",
         marginTop: "3vh",
+        display: "flex",
+        width: "100%"
         }}>
           <Box   
             margin={"0 auto"}
-            display="flex"
+            display="inherit"
             justifyContent="center"
           >
           <Button component={Link} to="/" color="inherit">
