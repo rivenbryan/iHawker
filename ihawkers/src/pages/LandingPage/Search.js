@@ -8,7 +8,7 @@ const Search = () => {
   return (
     <Container sx={{ paddingTop: 20, paddingBottom: 10}}>
         <SearchTitle />
-        <Searchbar searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Searchbar filterBySearch={setSearchValue} size="small" />
         <SearchCategory/>
     </Container>
   );
