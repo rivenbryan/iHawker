@@ -1,12 +1,18 @@
 import React from 'react'
+import CardComponent from './CardComponent'
+import { Grid } from '@mui/material'
+export default function Content({ filteredList }) {
 
-export default function Content({filteredList}) {
-  
   return (
     <>
-    {filteredList && filteredList.map((item) => (
-      <li> {item.name_of_centre}</li>
-    ))}
+      <Grid sx={{pt: 5}}container spacing={5}>
+        {filteredList && filteredList.map((item) =>
+          <Grid item xs={4}>
+            <CardComponent img={item.img} short_description={item.short_description} name_of_centre={item.name_of_centre} />
+          </Grid>
+        )}
+
+      </Grid>
     </>
   )
 }
