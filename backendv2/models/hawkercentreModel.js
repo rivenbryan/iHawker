@@ -21,6 +21,21 @@ const hawkercentreSchema = new Schema({
     },
     img: {
         type: String,
+    },
+    lat: {
+        type: Number
+    },
+    long: {
+        type: Number
+    },
+    img: {
+        type: String
+    },
+    short_description: {
+        type: String
+    },
+    long_description: {
+        type: String
     }
 })
 
