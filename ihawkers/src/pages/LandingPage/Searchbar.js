@@ -3,13 +3,14 @@ import React from 'react'
 import { TextField, InputAdornment , IconButton } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-const Searchbar = ({searchValue, setSearchValue}) => {
+const Searchbar = ({filterBySearch, size }) => {
+
     return (
         <TextField
+        size=	{size}
         fullWidth
         variant="outlined"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={filterBySearch}
         placeholder="Search food or hawker centres..."
         InputProps={{
             startAdornment: (
