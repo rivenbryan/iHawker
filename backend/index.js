@@ -1,16 +1,13 @@
-import app from "./server.js"
-import mongodb from "mongodb"
-import dotenv from "dotenv"
+const app = require("./server.js")
+const mongoose = require("mongoose")
+const dotenv = require("dotenv")
+
 dotenv.config()
-const MongoClient = mongodb.MongoClient
 
-const port = process.env.PORT || 8000
-export let CLIENT
-export let hawkerCollection
-export let stallCollection
+const port = 5000
 
-MongoClient.connect(
-    process.env.HAWKERDB_URI,
+mongoose.connect(
+    process.env.SERVER_URI,
     {
       maxPoolSize: 50,
       wtimeoutMS: 2500,
@@ -24,9 +21,6 @@ MongoClient.connect(
       app.listen(port, () => {
         console.log(`Server Running`)
       })
-      CLIENT = (new MongoClient(process.env.HAWKERDB_URI)).db("hawkercentre");
-      hawkerCollection = CLIENT.collection("hawker")
-      stallCollection = CLIENT.collection("stall")
     })
 
     
