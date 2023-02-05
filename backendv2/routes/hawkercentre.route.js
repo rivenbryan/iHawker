@@ -1,6 +1,7 @@
 const express = require("express")
 const HawkercentreController = require("../controllers/hawkercentre.controller")
 
+// Functions [DO NOT DELETE]
 const hawkercentre_router = express.Router()
 hawkercentre_router.get("/", HawkercentreController.getAllHawkercentre)
 hawkercentre_router.get("/:id", HawkercentreController.getHawkercentreById)
