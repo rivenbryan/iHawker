@@ -3,10 +3,11 @@ const mongoose  = require('mongoose')
 const Schema = mongoose.Schema
 
 const hawkercentreSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
+    //Mongo will generate an ID for us already
+    // id: {
+    //     type: Number,
+    //     required: true
+    // },
     name_of_centre: {
         type: String,
         required: true
@@ -24,4 +25,6 @@ const hawkercentreSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('hawkercentre', hawkercentreSchema)
+
+HawkercentreModel = mongoose.model('hawkercentre', hawkercentreSchema)
+module.exports = HawkercentreModel
