@@ -24,13 +24,14 @@ const createHawkercentre= async (req, res) => {
     res.status(201).json(hawkercentre)
 }
 
-const getHawkercentreById= async (req, res) => {
+const getHawkercentreById = async (req, res) => {
     const {id}=req.params
     let hawkercentre
+    console.log("id is " + id)
     try {
         hawkercentre = await HawkercentreModel.findById(id)
     } catch (err) {
-        res.status(400).send("Invlaid ID not found")
+        res.status(400).send("Invalid ID not found")
         return
     }
     if(hawkercentre == null) {

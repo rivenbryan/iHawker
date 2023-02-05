@@ -10,20 +10,23 @@ import Register from "./pages/RegisterPage/RegisterPage";
 import StallPage from "./pages/StallPage/StallPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import MapPage from "./pages/MapPage/MapPage";
-
+import HawkerPage from "./pages/HawkerPage/HawkerPage";
 
 // Context
 import { HawkerContext } from "./context/HawkerContext";
 
 
 export default function App() {
-
+  // hawkerCentres state is used for getting ALL hawkercentre from the database //
   const [hawkerCentres, setHawkerCentres] = useState(null)
+
+  // oneHawkerCentre is used for getting ONE hawker centre details from the database //
+  // The fetch call is handled in ButtonHawkerCentre.js //
+  const [oneHawkerCentre, setOneHawkerCentre] = useState()
   useEffect( ()=> {
     const fetchhawkerCentres = async () => {
       const response = await fetch('http://localhost:4000/api/hawkercentre/')
       const json = await response.json()
-
       if(response.ok){
         setHawkerCentres(json)
       }
@@ -35,7 +38,7 @@ export default function App() {
 
       <ThemeProvider theme={Theme}>
         { hawkerCentres &&
-        <HawkerContext.Provider value={{hawkerCentres}}>
+        <HawkerContext.Provider value={{hawkerCentres, setOneHawkerCentre, oneHawkerCentre}}>
           <Routes>
             <Route path="/" element={<LandingPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
@@ -43,6 +46,7 @@ export default function App() {
             <Route path="/stall" element={<StallPage/>}/>
             <Route path="/map" element={<MapPage/>}/>
             <Route path="/search" element={<SearchPage/>}/>
+            <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />
           </Routes>   
         </HawkerContext.Provider>
         }

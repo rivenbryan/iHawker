@@ -5,9 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-
-export default function CardComponent({img, short_description, name_of_centre}) {
+import ButtonHawkerCentre from '../../components/ButtonHawkerCentre';
+import { Link } from 'react-router-dom';
+export default function CardComponent({id, img, short_description, name_of_centre}) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -25,8 +25,10 @@ export default function CardComponent({img, short_description, name_of_centre}) 
         </Typography>
         </CardContent>
         <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Button  variant="outlined" sx={{ paddingRight: 3, marginRight: 3}}>Share</Button>
+        <Link style={{textDecoration: 'none'}} to={"/hawkerCentre/" + id} >
+                <ButtonHawkerCentre centreID = {id}/>
+        </Link>
         </CardActions>
   </Card>
   );

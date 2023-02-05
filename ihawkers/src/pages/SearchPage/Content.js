@@ -8,7 +8,7 @@ export default function Content({ filteredList }) {
       <Grid sx={{pt: 5}}container spacing={5}>
         {filteredList && filteredList.map((item) =>
           <Grid item xs={4}>
-            <CardComponent img={item.img} short_description={item.short_description} name_of_centre={item.name_of_centre} />
+            <CardComponent id={item._id}img={item.img} short_description={item.short_description} name_of_centre={item.name_of_centre} />
           </Grid>
         )}
 
