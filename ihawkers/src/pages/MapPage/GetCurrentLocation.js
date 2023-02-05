@@ -1,27 +1,19 @@
-import React from "react";
-import { useGeolocated } from "react-geolocated";
+import {useEffect} from "react";
+
 const GetCurrentLocation = ({setCenter}) => {
-    const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-        useGeolocated({
-            positionOptions: {
-                enableHighAccuracy: false,
-            },
-            userDecisionTimeout: 5000,
+    useEffect( ()=> {
+        getLocationJs()
+
+    }, [])
+    const getLocationJs = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          console.log(position);
+          const { latitude, longitude } = position.coords;
+          setCenter({
+                        lat: latitude,
+                        lng: longitude
+                    })
         });
-    
-
-    return !isGeolocationAvailable ? (
-        <div>Your browser does not support Geolocation</div>
-    ) : !isGeolocationEnabled ? (
-        <div>Geolocation is not enabled</div>
-    ) : coords ? (
-        setCenter({
-            lat: coords.latitude,
-            lng: coords.longitude
-        })
-    ) : (
-        <div></div>
-    );
-};
-
+      };
+} 
 export default GetCurrentLocation;

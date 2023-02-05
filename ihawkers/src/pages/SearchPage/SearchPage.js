@@ -2,12 +2,11 @@ import React, {useState, useContext} from 'react'
 import Navbar from '../../components/Navbar'
 import Searchbar from '../LandingPage/Searchbar'
 import Content from './Content'
-import { Container, Box } from '@mui/material'
+import { Container, Box, Button, Stack} from '@mui/material'
 import { HawkerContext } from '../../context/HawkerContext'
 import Footer from '../../components/Footer'
 export default function SearchPage() {
   const {hawkerCentres} = useContext(HawkerContext)
-  console.log(hawkerCentres)
   const [filteredList, setFilteredList] = useState(hawkerCentres)
 
   const filterBySearch = (event) => {
@@ -28,9 +27,14 @@ export default function SearchPage() {
     <>
      <Navbar />
      <Container>
-        <Box sx={{mt: 15}}>
+        <Box sx={{mt: 15, mb: 5}}>
             <Searchbar filterBySearch={filterBySearch} size="medium"/>
         </Box>
+        <Stack direction="row" justifyContent="center" spacing={10}>
+            <Button variant="contained" onClick={{}}>HAWKER CENTRE</Button>
+            <Button variant="contained" onClick={{}} >DELICIOUS FOOD</Button>
+        </Stack>
+       
         <Content filteredList={filteredList}/>
      </Container>
      <Footer/>
