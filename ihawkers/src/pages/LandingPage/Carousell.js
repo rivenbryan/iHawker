@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button, Container, Typography } from "@mui/material";
+import { Paper, Button, Container, Typography, Box } from "@mui/material";
 import { HawkerContext } from "../../context/HawkerContext";
 export default function Carousell() {
   const {hawkerCentres} = useContext(HawkerContext)
@@ -14,7 +14,10 @@ export default function Carousell() {
              <Paper key={centre.id} elevation={5} sx={{padding: 2}}>
              <img src={centre.img} alt={centre.name_of_centre} style={{width: "100%", height: 500}}/>
              <Typography sx={{paddingBottom: 1}}variant="h5">{centre.name_of_centre}</Typography>
-             <Typography sx={{paddingBottom: 1}} variant="subtitle2">{centre.name_of_centre}</Typography>
+             <Box sx={{width: "75%", mb: 3}}>
+                <Typography sx={{paddingBottom: 1}} variant="subtitle2">{centre.short_description}</Typography>
+                <Typography variant="subtitle2">Location: {centre.location_of_centre}</Typography>
+             </Box>
              <Button variant="contained">Check it out!</Button>
            </Paper>
           ))}
