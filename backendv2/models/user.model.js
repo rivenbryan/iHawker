@@ -27,7 +27,7 @@ User.statics.login = async function(email, password) {
         throw Error("Incorrect password")
     }
 
-    return user
+    return { id: user._id }
 }
 
 // static signup method
@@ -59,8 +59,8 @@ User.statics.signup = async function(userInput){
 }
 
 //check if user is Hawker or Customer
-User.statics.checkHawker = async function(email) {
-    const user = await this.findOne({email})
+User.statics.checkHawker = async function(id) {
+    const user = await this.findById(id)
     if (!user) {
         return null
     }
