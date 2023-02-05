@@ -3,11 +3,10 @@ const mongoose  = require('mongoose')
 const Schema = mongoose.Schema
 
 const hawkercentreSchema = new Schema({
-    //Mongo will generate an ID for us already
-    // id: {
-    //     type: Number,
-    //     required: true
-    // },
+    id: {
+        type: Number,
+        required: true
+    },
     name_of_centre: {
         type: String,
         required: true
