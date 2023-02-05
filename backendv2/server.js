@@ -14,11 +14,13 @@ app.use((req, res, next)=> {
 })
 
 // ROUTES TO ADD
-const hawkercentreRoutes = require('./routes/hawkerCentre')
+const hawkercentre_router = require("./routes/hawkercentre.route")
+const user_router = require("./routes/user.route.js")
 
 
 // End Point
-app.use('/api/hawkercentre', hawkercentreRoutes)
+app.use('/api/hawkercentre', hawkercentre_router)
+app.use('/auth', user_router)
 
 
 
