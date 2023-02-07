@@ -5,6 +5,7 @@ import Content from './Content'
 import { Container, Box, Button, Stack} from '@mui/material'
 import { HawkerContext } from '../../context/HawkerContext'
 import Footer from '../../components/Footer'
+import Fade from 'react-reveal/Fade';
 export default function SearchPage() {
   const {hawkerCentres} = useContext(HawkerContext)
   const [filteredList, setFilteredList] = useState(hawkerCentres)
@@ -34,8 +35,9 @@ export default function SearchPage() {
             <Button variant="contained" onClick={{}}>HAWKER CENTRE</Button>
             <Button variant="contained" onClick={{}} >DELICIOUS FOOD</Button>
         </Stack>
-       
-        <Content filteredList={filteredList}/>
+        <Fade>
+          <Content filteredList={filteredList}/>
+        </Fade>
      </Container>
      <Footer/>
     

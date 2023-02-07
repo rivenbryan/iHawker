@@ -3,11 +3,13 @@ import { Container, Typography, Grid, Stack, Box } from "@mui/material";
 import CabinIcon from "@mui/icons-material/Cabin";
 import SecurityIcon from "@mui/icons-material/Security";
 import PublicIcon from "@mui/icons-material/Public";
+import Slide from 'react-reveal/Slide';
 export default function Content() {
   return (
     <Container sx={{ marginTop: 5 }}>
       <Grid container spacing={10}>
         <Grid item xs="6">
+        <Slide left>
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             About iHawker
           </Typography>
@@ -35,11 +37,12 @@ export default function Content() {
               <Typography>Publicize Hawker Culture</Typography>
             </Box>
           </Stack>
+        </Slide>
         </Grid>
         <Grid item xs="6">
-          <Box component="img" src="/img/info/logozxc.jpg">
-
-          </Box>
+          <Slide right>
+            <Box component="img" src="/img/info/logozxc.jpg"></Box>
+          </Slide>
         </Grid>
       </Grid>
     </Container>

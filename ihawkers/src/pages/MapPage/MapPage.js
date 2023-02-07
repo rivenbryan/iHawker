@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar'
 import GoogleMap from './GoogleMap'
 import List from './List'
 import { Grid, Container } from '@mui/material'
+import Fade from 'react-reveal/Fade';
 export default function MapPage() {
   const [hawker, setHawker] = useState("")
   return (
@@ -15,7 +16,9 @@ export default function MapPage() {
             <List hawker={hawker}/>
           </Grid>
           <Grid item md={8}>
-            <GoogleMap setHawker={setHawker}/>
+            <Fade>
+              <GoogleMap setHawker={setHawker}/>
+            </Fade>
           </Grid>
         </Grid>
       </Container>

@@ -4,16 +4,19 @@ import Search from './Search'
 import Carousell from './Carousell'
 import Footer from '../../components/Footer'
 import React from "react";
+import Fade from 'react-reveal/Fade';
 export default function LandingPage() {
   
 
   return (
     <>
         <Navbar />
-        <Hero/>
-        <Search/>
+        <Fade bottom>
+          <Hero/>
+          <Search/>
         <Carousell/>
         <Footer/>
+        </Fade>
     </>
   )
 }
