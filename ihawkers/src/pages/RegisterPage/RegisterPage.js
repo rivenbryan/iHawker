@@ -57,7 +57,7 @@ export default function Register() {
 
   const handleChange = (e) => {
 
-    if (e.target.id == 'name') {
+    if (e.target.id === 'name') {
       setName(e.target.value)
     } else if (e.target.id === 'password') {
       setPassword(e.target.value)

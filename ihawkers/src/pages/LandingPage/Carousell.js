@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button, Container, Typography, Box } from "@mui/material";
+import { Paper, Container, Typography, Box } from "@mui/material";
 import { HawkerContext } from "../../context/HawkerContext";
 import { Link } from "react-router-dom";
 import ButtonHawkerCentre from "../../components/ButtonHawkerCentre";

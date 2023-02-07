@@ -11,6 +11,7 @@ import StallPage from "./pages/StallPage/StallPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import MapPage from "./pages/MapPage/MapPage";
 import HawkerPage from "./pages/HawkerPage/HawkerPage";
+import LearnMorePage from "./pages/LearnMorePage/LearnMorePage";
 
 // Context
 import { HawkerContext } from "./context/HawkerContext";
@@ -41,6 +42,7 @@ export default function App() {
         <HawkerContext.Provider value={{hawkerCentres, setOneHawkerCentre, oneHawkerCentre}}>
           <Routes>
             <Route path="/" element={<LandingPage/>}/>
+            <Route path="/info" element={<LearnMorePage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<Register/>}/>
             <Route path="/stall" element={<StallPage/>}/>
