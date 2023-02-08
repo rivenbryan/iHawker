@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import Navbar from '../../components/Navbar'
-import Searchbar from '../LandingPage/Searchbar'
+import Searchbar from './Searchbar'
 import Content from './Content'
 import { Container, Box, Button, Stack} from '@mui/material'
 import { HawkerContext } from '../../context/HawkerContext'
@@ -29,6 +29,7 @@ export default function SearchPage() {
      <Navbar />
      <Container>
         <Box sx={{mt: 15, mb: 5}}>
+
             <Searchbar filterBySearch={filterBySearch} size="medium"/>
         </Box>
         <Stack direction="row" justifyContent="center" spacing={10}>
