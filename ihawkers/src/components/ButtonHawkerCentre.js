@@ -3,7 +3,7 @@ import {Button} from "@mui/material";
 import React, {useContext} from "react";
 import { HawkerContext } from "../context/HawkerContext";
 
-export default function ButtonHawkerCentre({centreID}) {
+export default function ButtonHawkerCentre({centreID, title, variant}) {
     const {setOneHawkerCentre} = useContext(HawkerContext)
     const handleClick = async () => {
         const response = await fetch('http://localhost:4000/api/hawkercentre/' + centreID)
@@ -13,6 +13,6 @@ export default function ButtonHawkerCentre({centreID}) {
     }
 
   return (
-    <Button variant="outlined" onClick={handleClick}>Check it out!</Button>
+    <Button variant={variant} onClick={handleClick}>{title}</Button>
   )
 }

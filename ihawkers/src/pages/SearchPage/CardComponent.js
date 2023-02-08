@@ -27,7 +27,7 @@ export default function CardComponent({id, img, short_description, name_of_centr
         <CardActions>
         <Button  variant="outlined" sx={{ paddingRight: 3, marginRight: 3}}>Share</Button>
         <Link style={{textDecoration: 'none'}} to={"/hawkerCentre/" + id} >
-                <ButtonHawkerCentre centreID = {id}/>
+                <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID = {id}/>
         </Link>
         </CardActions>
   </Card>

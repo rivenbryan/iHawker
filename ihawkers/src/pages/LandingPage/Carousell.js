@@ -21,7 +21,7 @@ export default function Carousell() {
                 <Typography variant="subtitle2">Location: {centre.location_of_centre}</Typography>
              </Box>
              <Link style={{textDecoration: 'none'}} to={"/hawkerCentre/" + centre._id} >
-                <ButtonHawkerCentre centreID = {centre._id}/>
+                <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID = {centre._id}/>
              </Link>
              
            </Paper>
