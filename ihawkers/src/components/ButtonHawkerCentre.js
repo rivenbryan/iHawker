@@ -8,7 +8,7 @@ export default function ButtonHawkerCentre({centreID}) {
     const handleClick = async () => {
         const response = await fetch('http://localhost:4000/api/hawkercentre/' + centreID)
         const json = await response.json()
-        console.log(json)
+        // console.log(json)
         setOneHawkerCentre(json)
     }
 

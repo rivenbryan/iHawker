@@ -18,7 +18,7 @@ const Footer = () => {
         color: "white",
         marginTop: "3vh",
         display: "flex",
-        width: "100%"
+        width: "101vw"
         }}>
           <Box   
             margin={"0 auto"}
