@@ -12,9 +12,7 @@ export default function HawkerDesc({ oneHawkerCentre }) {
     <>
         <Box 
         sx={{ height: "50vh",
-            width: "101vw",
-            ml: -5,
-            mr: -1,
+            width: "100%",
             objectFit: "cover",
             background: `linear-gradient(to bottom,rgba(0,0,0,0),#FFF 89%),url(${oneHawkerCentre.img})`,
             backgroundSize: "cover",
@@ -37,7 +35,13 @@ export default function HawkerDesc({ oneHawkerCentre }) {
                 </Box>
 
                 
-                <Box>
+                <Box sx={{  margin: 0,
+                    height: 450,
+                    display: "flex",
+                    flexDirection: "column", 
+                    justifyContent: "center"
+                }}>
+                    
                     <Typography variant="h2" sx={{fontWeight: 'bold'}}>{oneHawkerCentre.name_of_centre}</Typography>
                     <Grid container direction="row" marginTop={2}>
                         <LocationOnIcon color='primary'/>
@@ -48,7 +52,7 @@ export default function HawkerDesc({ oneHawkerCentre }) {
                    
                     <Typography variant="body1" sx={{ marginTop: 4, marginBottom: 4, fontWeight: 'medium'}}>{oneHawkerCentre.short_description}</Typography>
                     <Divider variant="string" width="50%" sx={{background: "#000"}}></Divider>
-                    <Button variant="contained" onClick={handleOpen} sx={{marginTop: 4}}>Read more</Button>
+                    <Button variant="contained" onClick={handleOpen} sx={{marginTop: 4, width: 180}}>Read more</Button>
                     <Modal
                     open={open}
                     onClose={handleClose}
