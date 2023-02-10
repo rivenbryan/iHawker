@@ -9,14 +9,12 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 const Footer = () => {
   return (
       <Box sx={{ 
-        ml: -5,
-        mr: -1,
-        mb: -1,
-        position: "static", 
+        position: "absolute", 
         backgroundColor: "#000000", 
-        height: "8vh", 
+        height: "auto", 
         color: "white",
         marginTop: "3vh",
+        marginLeft: "-8px",
         display: "flex",
         width: "100%"
         }}>
