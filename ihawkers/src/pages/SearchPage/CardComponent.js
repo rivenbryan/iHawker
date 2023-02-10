@@ -8,9 +8,9 @@ import Typography from '@mui/material/Typography';
 import ButtonHawkerCentre from '../../components/ButtonHawkerCentre';
 import { Link } from 'react-router-dom';
 export default function CardComponent({id, img, short_description, name_of_centre}) {
-
+// Test
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345}}>
         <CardMedia
         sx={{ height: 250 }}
         image={img}
