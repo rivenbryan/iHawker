@@ -3,6 +3,7 @@ import { Container, Typography,Box, Grid, Divider} from '@mui/material'
 import StallsCardComponent from './StallsCardComponent'
 
 export default function HawkerStalls({ oneHawkerStallList }) {
+    console.log("Hawker Centre")
     return(
         <Container sx={{marginTop: 4}}>
             <Typography variant='h4' sx={{fontWeight: 'bold'}}>

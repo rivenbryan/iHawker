@@ -13,8 +13,12 @@ export default function HawkerPage() {
   return (
    <>
    <Navbar/>
-   <HawkerDesc oneHawkerCentre={oneHawkerCentre}/>
-   <HawkerStalls/>
+   {oneHawkerCentre && 
+   <>
+      <HawkerDesc oneHawkerCentre={oneHawkerCentre}/>
+      <HawkerStalls/>
+   </>
+    }
    <Footer/>
    </>
   )
