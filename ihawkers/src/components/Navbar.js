@@ -13,7 +13,7 @@ const Navbar = () => {
   const {getUser, clearUser} = useAuth()
   const handleLogout = () => {
     clearUser()
-    window.location.reload()
+    window.location.href = "/"
   }
   const user = getUser()
   //backgroundColor: "transparent", boxShadow: 0
@@ -37,9 +37,7 @@ const Navbar = () => {
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}
             <Button component={Link} to="/search" color="inherit">Search</Button>
             <Button component={Link} to="/map" color="inherit">Map</Button>
-            {
-            user ? <Button onClick={handleLogout}  color="inherit">Log Out</Button> : <Button component={Link} to="/Login" color="inherit">Log In</Button>
-            }
+            {user ? <Button onClick={handleLogout}  color="inherit">Log Out</Button> : <Button component={Link} to="/Login" color="inherit">Log In</Button>}
           </Stack>
         </Toolbar>
       </AppBar>
