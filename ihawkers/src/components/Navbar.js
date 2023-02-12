@@ -6,10 +6,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/userAuthContext";
 
 const Navbar = () => {
 
-
+  const {getUser, clearUser} = useAuth()
+  const handleLogout = () => {
+    clearUser()
+    window.location.reload()
+  }
+  const user = getUser()
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >
@@ -24,11 +30,16 @@ const Navbar = () => {
             />
           </Box>
           <Stack direction="row" spacing={2}>
+            {/* {user ? <Box>
+              {user.user.id}
+            </Box> : null} */}
             <Button component={Link} to="/" color="inherit">Home</Button>
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}
             <Button component={Link} to="/search" color="inherit">Search</Button>
             <Button component={Link} to="/map" color="inherit">Map</Button>
-            <Button component={Link} to="/Login" color="inherit">Log In</Button>
+            {
+            user ? <Button onClick={handleLogout}  color="inherit">Log Out</Button> : <Button component={Link} to="/Login" color="inherit">Log In</Button>
+            }
           </Stack>
         </Toolbar>
       </AppBar>

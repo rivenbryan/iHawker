@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
 import Navbar from '../../components/Navbar';
+import { useAuth } from '../../context/userAuthContext';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -27,13 +28,34 @@ function Copyright(props) {
 
 
 export default function LoginPage() {
-  const handleSubmit = (event) => {
+  const {setUser} = useAuth()
+  const [error, setError] = React.useState('')
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const body = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }
+    fetch('http://localhost:4000/api/auth/login', {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(async (response) => {
+      if (response.ok) {
+        setUser(await response.json())
+        //redirect to home page
+        window.location.href = "/"
+      } 
+      else {
+        const errorMessage = await response.json().then(
+          err => err.error
+        )
+        setError(errorMessage)
+      }
+
+
+    })
   };
 
   return (
@@ -97,6 +119,7 @@ export default function LoginPage() {
                 >
                   Sign In
                 </Button>
+                {error ? <Box>{error}</Box> : null}
                 <Grid container>
                   <Grid item xs>
                     <Link href="#" variant="body2">

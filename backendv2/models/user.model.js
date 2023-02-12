@@ -1,6 +1,7 @@
 const mongoose =  require("mongoose")
 const bcrypt = require("bcrypt")
 const validator = require("validator")
+const jwt = require("jsonwebtoken")
 
 const User = new mongoose.Schema(
     {
@@ -40,9 +41,9 @@ User.statics.signup = async function(userInput){
     if (!validator.isEmail(email)) {
         throw Error("Invalid email")
     }
-    if (!validator.isStrongPassword(password)) {
-        throw Error("Password is not strong enough")
-    }
+    // if (!validator.isStrongPassword(password)) {
+    //     throw Error("Password is not strong enough")
+    // }
 
     //check if email already in use
     const exist = await this.findOne({email})
@@ -65,6 +66,11 @@ User.statics.checkHawker = async function(id) {
         return null
     }
     return user.isHawker
+}
+
+User.statics.verifyToken = async function(token) {
+    const tokenInfo = jwt.verify(token, process.env.SECRET, (err, decoded) => { console.log(decoded) })
+    console.log(tokenInfo.id)
 }
 
 const UserModel = mongoose.model('UserData', User)

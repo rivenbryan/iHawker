@@ -13,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useAuth } from '../../context/userAuthContext';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,30 +29,42 @@ function Copyright(props) {
 
 
 export default function Register() {
-
+  const {setUser} = useAuth()
   const [name, setName] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [email, setEmail] = React.useState('')
-  const [details, setDetails] = React.useState('');
-
+  const [details, setDetails] = React.useState('')
+  const [error, setError] = React.useState('');
+  
   async function registerUser(event) {
     console.log(name, password, email, details)
     event.preventDefault();
-    const response = await fetch('http://localhost:4000/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-        details
-      })
+    const body = {
+      name,
+      email,
+      password,
+      isHawker: details == "Hawker"
+    }
+    fetch('http://localhost:4000/api/auth/signup', {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(async (response) => {
+      if (response.ok) {
+        setUser(await response.json())
+        //redirect to home page
+        window.location.href = "/"
+      } 
+      else {
+        const errorMessage = await response.json().then(
+          err => err.error
+        )
+        setError(errorMessage)
+      }
     })
 
-    const data = await response.json()
-    console.log(data)
+    // const data = await response.json()
+    // console.log(data)
 
   }
 
@@ -162,6 +175,7 @@ export default function Register() {
           >
             Sign Up
           </Button>
+          {error ? <Box> {error}</Box> : null}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
