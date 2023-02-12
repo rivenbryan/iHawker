@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react"
+import { createContext, useContext, useReducer } from "react"
 
 export const AuthContext = createContext()
 
@@ -11,18 +11,25 @@ export const authReducer = (state, action) => {
         default:
             return state
     }
-    
 }
-export const AuthContextProvider = ({children}) => {
-    const [state, dispatch] = useReducer(authReducer, {
-        user: null
-    })
-
-    console.log("AuthConext state: ", state)
-
+export const AuthProvider = ({children}) => {
+    // const [state, dispatch] = useReducer(authReducer, {
+    //     user: null
+    // })
+    // console.log("AuthContext state: ", state)
+    const getUser = () => JSON.parse(window.localStorage.getItem("user"))
+    
+    const setUser = (user) => {
+        window.localStorage.setItem("user", JSON.stringify(user))
+    }
+    const clearUser = () => {
+        window.localStorage.removeItem("user")
+    }
     return (
-        <AuthContext.Provider value = {{...state, dispatch}}>
-            { children} 
+        <AuthContext.Provider value = {{getUser, setUser, clearUser}}>
+            {children} 
         </AuthContext.Provider>
     )
 }
+
+export const useAuth = () => useContext(AuthContext)

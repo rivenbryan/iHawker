@@ -20,7 +20,7 @@ const user_router = require("./routes/user.route.js")
 
 // End Point
 app.use('/api/hawkercentre', hawkercentre_router)
-app.use('/auth', user_router)
+app.use('/api/auth', user_router)
 
 
 

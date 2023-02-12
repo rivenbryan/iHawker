@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Theme from "./Theme";
 import {Route, Routes} from 'react-router-dom'
 import {ThemeProvider } from '@mui/material/styles';
+import { AuthProvider } from "./context/userAuthContext";
 
 // Pages
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -36,22 +37,24 @@ export default function App() {
   },[])
 
   return (
+      <AuthProvider>
+        <ThemeProvider theme={Theme}>
+          { hawkerCentres &&
+          <HawkerContext.Provider value={{hawkerCentres, setOneHawkerCentre, oneHawkerCentre}}>
+            <Routes>
+              <Route path="/" element={<LandingPage/>}/>
+              <Route path="/info" element={<LearnMorePage/>}/>
+              <Route path="/login" element={<LoginPage/>}/>
+              <Route path="/register" element={<Register/>}/>
+              <Route path="/stall" element={<StallPage/>}/>
+              <Route path="/map" element={<MapPage/>}/>
+              <Route path="/search" element={<SearchPage/>}/>
+              <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />
+            </Routes>   
+          </HawkerContext.Provider>
+          }
+        </ThemeProvider>
+      </AuthProvider>
 
-      <ThemeProvider theme={Theme}>
-        { hawkerCentres &&
-        <HawkerContext.Provider value={{hawkerCentres, setOneHawkerCentre, oneHawkerCentre}}>
-          <Routes>
-            <Route path="/" element={<LandingPage/>}/>
-            <Route path="/info" element={<LearnMorePage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/stall" element={<StallPage/>}/>
-            <Route path="/map" element={<MapPage/>}/>
-            <Route path="/search" element={<SearchPage/>}/>
-            <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />
-          </Routes>   
-        </HawkerContext.Provider>
-        }
-      </ThemeProvider>
   );
 }
