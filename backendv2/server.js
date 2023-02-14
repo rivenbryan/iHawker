@@ -16,13 +16,13 @@ app.use((req, res, next)=> {
 // ROUTES TO ADD
 const hawkercentre_router = require("./routes/hawkercentre.route")
 const user_router = require("./routes/user.route.js")
+const stall_router = require("./routes/stall.route.js")
 
 
 // End Point
 app.use('/api/hawkercentre', hawkercentre_router)
 app.use('/api/auth', user_router)
-
-
+app.use('/api/stall', stall_router)
 
 // CONNECTION TO DATABASE [DO NOT EDIT!!!]
 mongoose.connect(process.env.MONGO_URI)

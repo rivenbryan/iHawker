@@ -69,8 +69,8 @@ User.statics.checkHawker = async function(id) {
 }
 
 User.statics.verifyToken = async function(token) {
-    const tokenInfo = jwt.verify(token, process.env.SECRET, (err, decoded) => { console.log(decoded) })
-    console.log(tokenInfo.id)
+    const tokenInfo = await jwt.verify(token, process.env.SECRET)
+    return tokenInfo.id
 }
 
 const UserModel = mongoose.model('UserData', User)
