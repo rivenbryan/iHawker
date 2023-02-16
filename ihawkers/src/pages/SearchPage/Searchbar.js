@@ -3,11 +3,12 @@ import React from 'react'
 import { TextField, InputAdornment , IconButton } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-const Searchbar = ({filterBySearch, size }) => {
+const Searchbar = ({filterBySearch, size, value }) => {
 
     return (
         <TextField
         size=	{size}
+        value={value}
         fullWidth
         variant="outlined"
         onChange={filterBySearch}
