@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Navbar from "../../components/Navbar";
 import Searchbar from "./Searchbar";
 import Content from "./Content";
-import { Container, Box, Button, Stack } from "@mui/material";
+import { Container, Box, Button, Stack, Typography } from "@mui/material";
 import { HawkerContext } from "../../context/HawkerContext";
 import Footer from "../../components/Footer";
 export default function SearchPage() {
@@ -38,7 +38,7 @@ export default function SearchPage() {
       setStoreList(updatedList);
     }
     if (updatedList.length == 0) {
-      setErrorMessage("No entry found! Please try again!");
+      setErrorMessage("No entry found! Please try different values!");
     } else {
       setErrorMessage();
     }
@@ -82,11 +82,10 @@ export default function SearchPage() {
             DELICIOUS FOOD
           </Button>
         </Stack>
-        {errorMessage}
+        <Typography mt={5} align="center" variant="subtitle1">{errorMessage}</Typography>
         {isHawkerCentre ? (
           <Content list={hawkerList} name={"hawkerList"} />
         ) : (
-          // <h1>Hello</h1>
           <Content list={storeList} name={"storeList"} />
         )}
       </Container>
