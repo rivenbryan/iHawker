@@ -13,13 +13,13 @@ export default function SearchPage() {
   const [disabled, isDisabled] = useState(true);
   const [isHawkerCentre, setIsHawkerCentre] = useState(true);
   const [searchFilter, setSearchFilter] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
 
   const filterBySearch = (event) => {
     // Access input value
     const query = event.target.value;
     // Update searchFilter
     setSearchFilter(query);
-
     if (isHawkerCentre) {
       var updatedList = [...hawkerCentres];
       updatedList = updatedList.filter((item) => {
@@ -29,13 +29,18 @@ export default function SearchPage() {
       });
       sethawkerList(updatedList);
     } else {
-       var updatedList = [...hawkerStores];
-       updatedList = updatedList.filter((item) => {
-         return (
-           item.stall_name.toLowerCase().indexOf(query.toLowerCase()) !== -1
-         );
-       });
-       setStoreList(updatedList);
+      var updatedList = [...hawkerStores];
+      updatedList = updatedList.filter((item) => {
+        return (
+          item.stall_name.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        );
+      });
+      setStoreList(updatedList);
+    }
+    if (updatedList.length == 0) {
+      setErrorMessage("No entry found! Please try again!");
+    } else {
+      setErrorMessage();
     }
   };
 
@@ -47,6 +52,7 @@ export default function SearchPage() {
     setSearchFilter("");
     sethawkerList(hawkerCentres);
     setStoreList(hawkerStores);
+    setErrorMessage();
   };
 
   return (
@@ -76,6 +82,7 @@ export default function SearchPage() {
             DELICIOUS FOOD
           </Button>
         </Stack>
+        {errorMessage}
         {isHawkerCentre ? (
           <Content list={hawkerList} name={"hawkerList"} />
         ) : (
