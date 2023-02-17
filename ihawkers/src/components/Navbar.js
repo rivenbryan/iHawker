@@ -14,6 +14,7 @@ const Navbar = () => {
   const handleLogout = () => {
     clearUser()
     window.location.href = "/"
+
   }
   const user = getUser()
   //backgroundColor: "transparent", boxShadow: 0
@@ -31,7 +32,7 @@ const Navbar = () => {
           </Box>
           <Stack direction="row" spacing={2}>
             {/* {user ? <Box>
-              {user.user.id}
+              {"Successfully Logged In"}
             </Box> : null} */}
             <Button component={Link} to="/" color="inherit">Home</Button>
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}

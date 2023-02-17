@@ -29,7 +29,7 @@ const Stall = new Schema({
                 },
                 food_image: {
                     type: String,
-                    required: true
+                    // required: true
                 }
             }]
         },
