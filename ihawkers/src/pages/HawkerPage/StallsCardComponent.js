@@ -3,9 +3,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import ButtonHawkerCentre from '../../components/ButtonHawkerCentre';
+import ButtonHawkerStore from '../../components/ButtonHawkerStore';
 import { Link } from 'react-router-dom';
 
 export default function StallsCardComponent({id, img, description, name_of_centre}) {
@@ -15,7 +14,7 @@ export default function StallsCardComponent({id, img, description, name_of_centr
         <CardMedia
         sx={{ height: 250 }}
         image={img}
-        title="green iguana"
+        title={name_of_centre}
         />
         <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -27,7 +26,7 @@ export default function StallsCardComponent({id, img, description, name_of_centr
         </CardContent>
         <CardActions>
         <Link style={{textDecoration: 'none'}} to={"/stall/" + id} >
-                <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID = {id}/>
+                <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
         </Link>
         </CardActions>
   </Card>
