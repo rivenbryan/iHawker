@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container, Typography,Box, Grid, Divider} from '@mui/material';
+import StallMenuBox from './StallMenuBox';
 import ClaypotLaksaImg from './img/claypotlaksa.jpg'
 
-export default function StallMenu() {
+export default function StallMenu(props) {
     return(
         <Container sx={{marginTop: 4}}>
             <Typography variant='h4' sx={{fontWeight: 'bold'}}>
@@ -11,60 +12,16 @@ export default function StallMenu() {
             <Box
                 margin={"0 auto"}
                 maxWidth="50vw">
-                <Grid container spacing={0} justifyContent="center" alignItems="center" paddingY={4}>
+                <Grid container spacing={5} justifyContent="center" alignItems="center" paddingY={4}>
+                    {props.oneHawkerStore && props.oneHawkerStore.topseller.map((item) =>
                     <Grid item xs={4} >
-                    <Box margin={"0 auto"} maxWidth={"80%"}>
-                        <Box
-                            component="img"
-                            sx={{ maxWidth: "100%", boxShadow: 5, flexGrow: 1 }}
-                            alt="Claypot Laksa"
-                            src= {ClaypotLaksaImg}
-                            marginBottom = {1}
+                        <StallMenuBox 
+                            img = "https://i.imgur.com/JOf48jt.jpeg"
+                            name_of_food = {item.name_of_food}
+                            price = {item.price}
                         />
-                        <Typography variant="body1" align= "center" sx={{fontWeight: 'bold'}}>
-                            Claypot Laksa 1
-                        </Typography>
-                        <Typography variant="subtitle1" align= "center">
-                            $4.5
-                        </Typography>
-                    </Box>
                     </Grid>
-
-                    <Grid item xs={4} >
-                    <Box margin={"0 auto"} maxWidth={"80%"}>
-                        <Box
-                            component="img"
-                            sx={{ maxWidth: "100%", boxShadow: 5, flexGrow: 1 }}
-                            alt="Claypot Laksa"
-                            src= {ClaypotLaksaImg}
-                            marginBottom = {1}
-                        />
-                        <Typography variant="body1" align= "center" sx={{fontWeight: 'bold'}}>
-                            Claypot Laksa 2
-                        </Typography>
-                        <Typography variant="subtitle1" align= "center">
-                            $4.5
-                        </Typography>
-                    </Box>
-                    </Grid>
-
-                    <Grid item xs={4} >
-                    <Box margin={"0 auto"} maxWidth={"80%"}>
-                        <Box
-                            component="img"
-                            sx={{ maxWidth: "100%", boxShadow: 5, flexGrow: 1 }}
-                            alt="Claypot Laksa"
-                            src= {ClaypotLaksaImg}
-                            marginBottom = {1}
-                        />
-                        <Typography variant="body1" sx={{fontWeight: 'bold', textAlign: 'center'}}>
-                            Claypot Laksa 3
-                        </Typography>
-                        <Typography variant="subtitle1" sx={{textAlign: 'center'}}>
-                            $4.5
-                        </Typography>
-                    </Box>
-                    </Grid>
+                    )} 
                 </Grid>
 
                 <Typography variant='body1' align="center" sx={{fontWeight: 'bold'}}>Other Menu Items</Typography>
@@ -76,24 +33,14 @@ export default function StallMenu() {
                     justify="center"
                     marginTop={1}
                     >
+
+                    {props.oneHawkerStore && props.oneHawkerStore.menu_item.map((item) =>
                     <Grid item xs={4}>
-                        <Typography variant='body1' align= "center">Placeholder 1</Typography>
+                        <Typography variant='body1' align= "center">
+                            {item}
+                        </Typography>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Typography variant='body1' align= "center">Placeholder 2</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography variant='body1' align= "center">Placeholder 3</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography variant='body1' align= "center">Placeholder 4</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography variant='body1' align= "center">Placeholder 5</Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography variant='body1' align= "center">Placeholder 6</Typography>
-                    </Grid>
+                    )} 
                 </Grid>
             </Box>
         </Container>
