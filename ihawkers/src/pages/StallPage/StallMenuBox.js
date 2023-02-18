@@ -11,7 +11,7 @@ export default function StallMenuBox({img, name_of_food, price}){
             src= {img}
             marginBottom = {1}
         />
-        <Typography variant="body1" align= "center" sx={{fontWeight: 'bold'}}>
+        <Typography variant="body1" noWrap align= "center" sx={{fontWeight: 'bold'}}>
             {name_of_food}
         </Typography>
         <Typography variant="subtitle1" align= "center">
