@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 export default function StallsCardComponent({id, img, description, name_of_centre}) {
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, height: 460, display: "flex", flexDirection: "column" }}>
         <CardMedia
         sx={{ height: 250 }}
         image={img}
@@ -24,7 +24,7 @@ export default function StallsCardComponent({id, img, description, name_of_centr
             {description}
         </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{marginTop: "auto", pb: 1}}>
         <Link style={{textDecoration: 'none'}} to={"/stall/" + id} >
                 <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
         </Link>
