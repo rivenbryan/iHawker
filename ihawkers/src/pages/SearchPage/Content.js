@@ -11,6 +11,7 @@ export default function Content({ list, name }) {
             list.map((item) => (
               <Grid item xs={4}>
                 <CardComponent
+                  type={name}
                   id={item._id}
                   img={item.img}
                   short_description={item.short_description}
@@ -22,8 +23,10 @@ export default function Content({ list, name }) {
             list.map((item) => (
               <Grid item xs={4}>
                 <CardComponent
+                  type={name}
                   id={item._id}
-                  img={item.img}
+                  // img={item.img}
+                  img = "https://i.imgur.com/JOf48jt.jpeg" //placeholder
                   short_description={item.description}
                   name_of_centre={item.stall_name}
                 />
