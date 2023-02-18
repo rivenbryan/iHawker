@@ -26,6 +26,8 @@ export default function App() {
   // oneHawkerCentre is used for getting ONE hawker centre details from the database //
   // The fetch call is handled in ButtonHawkerCentre.js //
   const [oneHawkerCentre, setOneHawkerCentre] = useState();
+
+  const [oneHawkerStore, setOneHawkerStore] = useState();
   useEffect(() => {
     const fetchhawkerCentres = async () => {
       const response = await fetch("http://localhost:4000/api/hawkercentre/");
@@ -52,14 +54,14 @@ export default function App() {
       <ThemeProvider theme={Theme}>
         {hawkerCentres && hawkerStores && (
           <HawkerContext.Provider
-            value={{ hawkerCentres, setOneHawkerCentre, oneHawkerCentre, hawkerStores }}
+            value={{ hawkerCentres, setOneHawkerCentre, oneHawkerCentre, hawkerStores, setOneHawkerStore, oneHawkerStore}}
           >
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/info" element={<LearnMorePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/stall" element={<StallPage />} />
+              <Route path="/stall/:stallID" element={<StallPage />} />
               <Route path="/map" element={<MapPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />
