@@ -9,16 +9,29 @@ import { HawkerContext } from '../../context/HawkerContext'
 
 export default function StallPage() {
 
-  const { oneHawkerStall } = useContext(HawkerContext);
+  const { oneHawkerStore } = useContext(HawkerContext);
   const { hawkerStores } = useContext(HawkerContext);
+  var imgPlaceholder = "https://i.imgur.com/JOf48jt.jpeg"
 
   return (
     <>
         <Navbar/>
-        <StallDesc/>
-        <StallMenu/>
-        <ViewReviews/>
-        <AddReview/>
+        {oneHawkerStore && hawkerStores && (
+          <>
+          <StallDesc 
+            oneHawkerStore = { oneHawkerStore } 
+            imgPlaceholder = { imgPlaceholder } 
+            // oneHawkerCentre = {}
+          />
+          <StallMenu
+            oneHawkerStore = { oneHawkerStore } 
+            imgPlaceholder = { imgPlaceholder } 
+          />
+          <ViewReviews/>
+          <AddReview/>
+          </>
+        )}
+        
         <Footer/>
     </>
   )

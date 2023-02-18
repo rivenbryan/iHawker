@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ButtonHawkerCentre from '../../components/ButtonHawkerCentre';
+import ButtonHawkerStore from '../../components/ButtonHawkerStore';
 import { Link } from 'react-router-dom';
 
 
@@ -34,7 +35,7 @@ export default function CardComponent({type, id, img, short_description, name_of
           </Link>
         ) : (
           <Link style={{textDecoration: 'none'}} to={"/stall/" + id} >
-                <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID = {id}/>
+                <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
           </Link>
         )
         }
