@@ -59,7 +59,7 @@ export default function App() {
               <Route path="/info" element={<LearnMorePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/stall" element={<StallPage />} />
+              <Route path="/stall/:stallID" element={<StallPage />} />
               <Route path="/map" element={<MapPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />

@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ButtonHawkerCentre from '../../components/ButtonHawkerCentre';
 import { Link } from 'react-router-dom';
-export default function StallsCardComponent({id, img, short_description, name_of_centre}) {
+
+export default function StallsCardComponent({id, img, description, name_of_centre}) {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -21,13 +22,12 @@ export default function StallsCardComponent({id, img, short_description, name_of
             {name_of_centre}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-            {short_description}
+            {description}
         </Typography>
         </CardContent>
         <CardActions>
-        <Button  variant="outlined" sx={{ paddingRight: 3, marginRight: 3}}>Share</Button>
-        <Link style={{textDecoration: 'none'}} to={"/Stall/" + id} >
-                <ButtonHawkerCentre centreID = {id}/>
+        <Link style={{textDecoration: 'none'}} to={"/stall/" + id} >
+                <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID = {id}/>
         </Link>
         </CardActions>
   </Card>
