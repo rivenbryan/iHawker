@@ -5,7 +5,6 @@ import Carousell from './Carousell'
 import Footer from '../../components/Footer'
 import React from "react";
 import Fade from 'react-reveal/Fade';
-import ReviewCarousell from './ReviewCarousell'
 export default function LandingPage() {
   
 
@@ -15,7 +14,6 @@ export default function LandingPage() {
         <Fade bottom>
           <Hero/>
           <Search/>
-          <ReviewCarousell/>
           <Carousell/>
         </Fade>
         <Footer/>
