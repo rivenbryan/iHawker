@@ -36,7 +36,7 @@ export default function Register() {
   const [password, setPassword] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [details, setDetails] = React.useState('')
-  
+   
   async function registerUser(event) {
     console.log(name, password, email, details)
     event.preventDefault();
@@ -53,7 +53,7 @@ export default function Register() {
     }).then(async (response) => {
       if (response.ok) {
         setUser(await response.json())
-        //redirect to home page
+        //redirect to Landing Page
         window.location.href = "/"
       } 
       else {
