@@ -10,6 +10,7 @@ export default function LandingPage() {
   return (
     <>
         <Navbar />
+        <Chatbot/>
         <Fade bottom>
           <Hero/>
           <Search/>
