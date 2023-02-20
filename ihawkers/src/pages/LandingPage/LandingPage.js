@@ -5,9 +5,8 @@ import Carousell from './Carousell'
 import Footer from '../../components/Footer'
 import React from "react";
 import Fade from 'react-reveal/Fade';
+import Chatbot from './Chatbot'
 export default function LandingPage() {
-  
-
   return (
     <>
         <Navbar />
