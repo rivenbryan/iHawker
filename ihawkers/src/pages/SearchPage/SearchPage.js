@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Navbar from "../../components/Navbar";
 import Searchbar from "./Searchbar";
 import Content from "./Content";
+import ErrorComponent from "./ErrorComponent";
 import { Container, Box, Button, Stack } from "@mui/material";
 import { HawkerContext } from "../../context/HawkerContext";
 import Footer from "../../components/Footer";
@@ -82,7 +83,7 @@ export default function SearchPage() {
             DELICIOUS FOOD
           </Button>
         </Stack>
-        {errorMessage}
+        {errorMessage && <ErrorComponent/>}
         {isHawkerCentre ? (
           <Content list={hawkerList} name={"hawkerList"} />
         ) : (
