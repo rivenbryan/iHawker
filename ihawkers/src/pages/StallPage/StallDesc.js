@@ -48,9 +48,9 @@ export default function StallDesc(props) {
                     </Typography>
 
                     <Grid container direction="row" marginTop={2}>
-                        <Rating name="read-only" value={4.5} precision={0.5} readOnly />
+                        <Rating name="read-only" value={props.oneHawkerStore.avg_rating} precision={0.5} readOnly />
                         <Typography variant="h6" sx={{ marginLeft: 2, fontWeight: 'bold'}}>
-                            4.5/5 stars 
+                            {props.oneHawkerStore.avg_rating} stars 
                         </Typography>
                     </Grid>
 
