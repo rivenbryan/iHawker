@@ -5,17 +5,15 @@ import Carousell from './Carousell'
 import Footer from '../../components/Footer'
 import React from "react";
 import Fade from 'react-reveal/Fade';
-import ReviewCarousell from './ReviewCarousell'
+import Chatbot from './Chatbot'
 export default function LandingPage() {
-  
-
   return (
     <>
         <Navbar />
+        <Chatbot/>
         <Fade bottom>
           <Hero/>
           <Search/>
-          <ReviewCarousell/>
           <Carousell/>
         </Fade>
         <Footer/>
