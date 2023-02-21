@@ -1,6 +1,7 @@
 const User = require("../models/user.model")
 const jwt = require("jsonwebtoken")
 const postmark = require("postmark");
+const bcrypt = require("bcrypt");
 
 const createToken = (id) => {
     return jwt.sign({id}, process.env.SECRET, {expiresIn: "3d"} )
@@ -32,18 +33,22 @@ const signupUser = async (req,res) => {
 
         res.status(200).json({user, token})
     } catch (error) {
-         res.status(400).json({error: error.message})   
+        res.status(400).json({error: error.message})
     }
 }
 
 const resetPassword = async (req, res) => {
-    const {email, newPassword} = req.body
-
+    const {newPassword, token} = req.body
+    const {email, purpose} = jwt.verify(token, process.env.SECRET)
+    //Check purpose
+    if (purpose != "Reset Password") {
+        return res.status(400).json("Invalid Token")
+    }
     //Retrieve user
     const user = await User.findOne({email})
 
     if (user == null) {
-        res.status(400).json("User not found")
+        return res.status(400).json("User not found")
     }
     //Hash the newPassword
     const salt = await bcrypt.genSalt(10)
@@ -56,10 +61,10 @@ const resetPassword = async (req, res) => {
 const sendEmail = async (req,res) => {
     const {email} = req.body
     //Check for user
-    // const user = await User.findOne({email})
-    // if (user == null) {
-    //     return res.status(404).json("User not found, try again")
-    // }
+    const user = await User.findOne({email})
+    if (user == null) {
+        return res.status(404).json("User not found, try again")
+    }
     // Send an email:
     const client = new postmark.ServerClient(process.env.API_TOKEN)
     const token = jwt.sign({email, purpose: "Reset Password"}, process.env.SECRET, {expiresIn: "3d"} )
@@ -67,8 +72,8 @@ const sendEmail = async (req,res) => {
     "From": "atan134@e.ntu.edu.sg",
     "To": email,
     "Subject": "Password Reset",
-    "TextBody": "Hi, please click the url below to reset passwod" + " " + 
-    `/reset-password?token=${token}`,
+    "TextBody": "Hi, please click the url below to reset passwod" +
+    `http://localhost:3000/forgetPasswordEmail?token=${token}`,
     "MessageStream": "outbound"
     })
     res.status(201).json("Successfully sent email")
