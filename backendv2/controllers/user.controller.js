@@ -1,5 +1,6 @@
 const User = require("../models/user.model")
 const jwt = require("jsonwebtoken")
+const postmark = require("postmark");
 
 const createToken = (id) => {
     return jwt.sign({id}, process.env.SECRET, {expiresIn: "3d"} )
@@ -15,9 +16,8 @@ const loginUser = async (req,res) =>{
         const token = createToken(user.id)
 
         res.status(200).json({user, token})
-        console.log(User.verifyToken(token))
     } catch (error) {
-         res.status(400).json({error: error.message})   
+        res.status(400).json({error: error.message})
     }
 }
 
@@ -36,9 +36,48 @@ const signupUser = async (req,res) => {
     }
 }
 
+const resetPassword = async (req, res) => {
+    const {email, newPassword} = req.body
+
+    //Retrieve user
+    const user = await User.findOne({email})
+
+    if (user == null) {
+        res.status(400).json("User not found")
+    }
+    //Hash the newPassword
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(newPassword, salt)
+    user.password = hash
+    await user.save()
+    res.status(200).json("Successfully reset password")
+}
+
+const sendEmail = async (req,res) => {
+    const {email} = req.body
+    //Check for user
+    // const user = await User.findOne({email})
+    // if (user == null) {
+    //     return res.status(404).json("User not found, try again")
+    // }
+    // Send an email:
+    const client = new postmark.ServerClient(process.env.API_TOKEN)
+    const token = jwt.sign({email, purpose: "Reset Password"}, process.env.SECRET, {expiresIn: "3d"} )
+    client.sendEmail({
+    "From": "atan134@e.ntu.edu.sg",
+    "To": email,
+    "Subject": "Password Reset",
+    "TextBody": "Hi, please click the url below to reset passwod" + " " + 
+    `/reset-password?token=${token}`,
+    "MessageStream": "outbound"
+    })
+    res.status(201).json("Successfully sent email")
+}
 const userController = {
     loginUser,
-    signupUser
+    signupUser,
+    resetPassword,
+    sendEmail
 }
 
 module.exports = userController
