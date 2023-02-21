@@ -48,7 +48,7 @@ export default function LoginPage() {
       if (response.ok) {
         setUser(await response.json());
         //redirect to home page
-        window.location.href = "/";
+        window.location.href = "/?authState=login";
       } else {
         const errorMessage = await response.json().then((err) => err.error);
         toast.error(errorMessage);

@@ -15,9 +15,9 @@ const loginUser = async (req,res) =>{
         const token = createToken(user.id)
 
         res.status(200).json({user, token})
-        console.log(User.verifyToken(token))
+        // User.verifyToken(token)
     } catch (error) {
-         res.status(400).json({error: error.message})   
+        res.status(400).json({error: error.message})
     }
 }
 
