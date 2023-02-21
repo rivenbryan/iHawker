@@ -9,6 +9,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Navbar from '../../components/Navbar';
 export default function ForgetPasswordPage() {
+  const handleSubmit = (e) => {e.preventDefault()
+    const form = e.currentTarget
+    fetch('http://localhost:4000/api/auth/send-email', {
+      method: "POST",
+      body: JSON.stringify({"email": form.elements.name.value}),
+      headers: { 'Content-Type': 'application/json' }
+    }).then(async (response) => {
+      if (response.ok) {
+        //redirect to Page to say Check Email
+        window.location.href = "/"
+      }
+      else {
+        const errorMessage = await response.json().then(
+          err => err.error
+        )
+      }
+    })}
+
   return (
     <Container component="main">
       <Navbar />
@@ -27,19 +45,19 @@ export default function ForgetPasswordPage() {
         <Typography component="h1" variant="h5">
           Forget Password
         </Typography>
-        <Box component="form" noValidate onSubmit={{}} sx={{ mt: 3 }}>
+        <Box component="form" noValidate
+          onSubmit= {handleSubmit}
+          sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
                 autoComplete="given-name"
-
                 required
                 fullWidth
                 id="name"
                 label="Email Address"
                 autoFocus
                 // value={{}}
-                onChange={{}}
               />
             </Grid>
             
@@ -50,7 +68,7 @@ export default function ForgetPasswordPage() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Submit
           </Button>
           </Grid>
         </Box>
