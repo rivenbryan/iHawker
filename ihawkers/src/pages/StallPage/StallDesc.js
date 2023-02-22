@@ -57,7 +57,7 @@ export default function StallDesc(props) {
                     <Grid container direction="row" marginTop={-0.5}>
                         <LocationOnIcon color='primary'/>
                         <Link href="#" variant="body1" color="secondary" marginLeft={2}>
-                            Alexander Hawker Centre (#01-31)
+                            {props.hawkerLocation}
                         </Link>
                     </Grid>
                    
