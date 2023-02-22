@@ -7,7 +7,8 @@ import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/userAuthContext";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 const Navbar = () => {
 
   const {getUser, clearUser} = useAuth()
@@ -24,20 +25,22 @@ const Navbar = () => {
   let notification
   switch(authState) {
     case "login":
-      notification = "Successfully logged in"
+      notification = "Successfully logged in!"
       break
     case "logout":
-      notification = "Successfully logged out"
+      notification = "Successfully logged out!"
       break
     case "registered":
-      notification = "Successfully Registered"
+      notification = "Successfully Registered!"
       break
     }
 
+  toast.success(notification);
   const user = getUser()
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >
+      <ToastContainer position="bottom-right" newestOnTop />
       <AppBar position="static" sx={{ backgroundColor: "transparent", boxShadow: 0 }}>
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>
@@ -49,9 +52,6 @@ const Navbar = () => {
             />
           </Box>
           <Stack direction="row" spacing={2}>
-            {notification ? <Box>
-              {notification}
-            </Box> : null}
             <Button component={Link} to="/" color="inherit">Home</Button>
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}
             <Button component={Link} to="/search" color="inherit">Search</Button>
