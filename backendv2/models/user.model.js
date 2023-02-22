@@ -59,18 +59,22 @@ User.statics.signup = async function(userInput){
     return user
 }
 
-//check if user is Hawker or Customer
-User.statics.checkHawker = async function(id) {
-    const user = await this.findById(id)
-    if (!user) {
-        return null
-    }
-    return user.isHawker
+User.statics.getUser = async function(token) {
+    const tokenInfo = await jwt.verify(token, process.env.SECRET)
+    const user = await this.findById(tokenInfo.id)
+    return user
 }
 
-User.statics.verifyToken = async function(token) {
-    const tokenInfo = await jwt.verify(token, process.env.SECRET)
-    return tokenInfo.id
+//Check for JWT token + user is Hawker
+User.statics.checkUserType = async function(token, checkHawker) {
+    const user = await this.getUser(token)
+    //I want to give Haweker Privilege
+    if (checkHawker) {
+        //return True if user exist + user is Hawker
+        return user && user.isHawker
+    }
+    //return True if user exist
+    return !!user
 }
 
 const UserModel = mongoose.model('UserData', User)
