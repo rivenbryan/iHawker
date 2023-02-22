@@ -8,11 +8,11 @@ const getAllStalls= async (req, res) => {
 }
 
 const createStall= async (req, res) => {
-    const { stall_name, description, menu_item, topseller, hawker_centre_belong, token} = req.body
+    const { stall_name, description, menu_item, topseller, hawker_centre_belong} = req.body
     //Check for Hawker Privilege
-    if (!UserModel.checkUserType(token, true)) {
-        return res.status(401).send("User not authorized")
-    }
+    // if (!UserModel.checkUserType(token, true)) {
+    //     return res.status(401).send("User not authorized")
+    // }
     //Once verified
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")

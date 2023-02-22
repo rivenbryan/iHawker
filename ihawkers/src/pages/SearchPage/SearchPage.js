@@ -39,7 +39,7 @@ export default function SearchPage() {
       setStoreList(updatedList);
     }
     if (updatedList.length == 0) {
-      setErrorMessage("No entry found! Please try again!");
+      setErrorMessage("No entry found! Please try different values!");
     } else {
       setErrorMessage();
     }
@@ -87,7 +87,6 @@ export default function SearchPage() {
         {isHawkerCentre ? (
           <Content list={hawkerList} name={"hawkerList"} />
         ) : (
-          // <h1>Hello</h1>
           <Content list={storeList} name={"storeList"} />
         )}
       </Container>

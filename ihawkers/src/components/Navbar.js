@@ -5,20 +5,42 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/userAuthContext";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 const Navbar = () => {
 
   const {getUser, clearUser} = useAuth()
+  //For logging Out
   const handleLogout = () => {
     clearUser()
-    window.location.href = "/"
+    window.location.href = "/?authState=logout"
   }
+
+  //For Notifications
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const authState = queryParams.get('authState')
+  let notification
+  switch(authState) {
+    case "login":
+      notification = "Successfully logged in!"
+      break
+    case "logout":
+      notification = "Successfully logged out!"
+      break
+    case "registered":
+      notification = "Successfully Registered!"
+      break
+    }
+
+  toast.success(notification);
   const user = getUser()
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >
+      <ToastContainer position="bottom-right" newestOnTop />
       <AppBar position="static" sx={{ backgroundColor: "transparent", boxShadow: 0 }}>
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>
@@ -30,9 +52,6 @@ const Navbar = () => {
             />
           </Box>
           <Stack direction="row" spacing={2}>
-            {/* {user ? <Box>
-              {user.user.id}
-            </Box> : null} */}
             <Button component={Link} to="/" color="inherit">Home</Button>
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}
             <Button component={Link} to="/search" color="inherit">Search</Button>
