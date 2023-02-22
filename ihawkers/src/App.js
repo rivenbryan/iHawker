@@ -16,6 +16,8 @@ import LearnMorePage from "./pages/LearnMorePage/LearnMorePage";
 
 // Context
 import { HawkerContext } from "./context/HawkerContext";
+import AdminPage from "./pages/AdminPage/AdminPage";
+import AddStore from "./pages/AdminPage/AddStores/AddStore";
 
 export default function App() {
   // hawkerCentres state is used for getting ALL hawkercentre from the database //
@@ -65,6 +67,8 @@ export default function App() {
               <Route path="/map" element={<MapPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/addStore" element={<AddStore/>} />
             </Routes>
           </HawkerContext.Provider>
         )}
