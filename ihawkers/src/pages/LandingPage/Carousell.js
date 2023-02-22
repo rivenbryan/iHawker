@@ -9,7 +9,7 @@ export default function Carousell() {
 
   return (
     <>
-      <Container sx={{ paddingTop: 5 }}>
+      <Container sx={{ paddingTop: 30 }}>
         <Typography variant="h4" sx={{fontWeight: 'medium', marginBottom: 1}}>Top Hawker Centers</Typography>
         <Carousel>
           {hawkerCentres && hawkerCentres.slice(0,5).map( (centre)=> (
