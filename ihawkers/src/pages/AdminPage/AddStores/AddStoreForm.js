@@ -1,6 +1,7 @@
 import { Box, TextField, Button, Input, Divider, Typography, MenuItem} from '@mui/material';
 import FileUpload from "react-mui-fileuploader";
 import { HawkerContext } from '../../../context/HawkerContext';
+import { ToastContainer, toast } from "react-toastify";
 import React, { Fragment, useContext } from 'react';
 
 export default function AddStoreForm() {
@@ -11,7 +12,7 @@ export default function AddStoreForm() {
     const [hawker_centre_belong, setLocatedin] = React.useState('');
     const [description, setStoreDesc] = React.useState('');
     const [topseller, setTopSeller] = React.useState([
-        {name_of_food: "", price: ""}
+        {name_of_food: "", price: parseFloat("")}
     ]); 
     const [menu_item, setMenuItems] = React.useState([
         ""
@@ -36,7 +37,7 @@ export default function AddStoreForm() {
         const values = [...topseller];
         values.push({
             name_of_food: "",
-            price: "",
+            price: parseFloat(""),
         });
         setTopSeller(values);
     };
@@ -72,25 +73,27 @@ export default function AddStoreForm() {
         };
         event.preventDefault();
         console.log(body);
-        // fetch('http://localhost:4000/api/auth/signup', {
-        //     method: "POST",
-        //     body: JSON.stringify(body),
-        //     headers: { 'Content-Type': 'application/json' }
-        // }).then(async (response) => {
-        //     if (response.ok) {
-        //         setUser(await response.json())
-        //         //redirect to home page
-        //         window.location.href = "/"
-        //     } 
-        //     else {
-        //         const errorMessage = await response.json().then(
-        //         err => err.error
-        //         )
-        //         setError(errorMessage)
-        //     }
-        // })
+        fetch('http://localhost:4000/api/stall', {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(async (response) => {
+            if (response.ok) {
+                // setUser(await response.json())
+                //redirect to home page
+                window.location.href = "/admin"
+            } 
+            else {
+                const errorMessage = await response.json().then(
+                    err => err.error
+                )
+                toast.error(errorMessage);
+            }
+        })
     }
     return (
+        <>
+        <ToastContainer position="bottom-right" newestOnTop />
         <Box 
             sx={{ width: "50%",
                 display: "flex",
@@ -182,7 +185,7 @@ export default function AddStoreForm() {
 
                     <TextField
                         style={{ width: "400px", marginTop: 20, marginBottom: 20}}
-                        type="text"
+                        type="test"
                         label="Top Seller Item Price"
                         variant="outlined"
                         id="price"
@@ -235,7 +238,7 @@ export default function AddStoreForm() {
                     placeholder="Chicken Soup"
                     variant="outlined"
                     id="menuItemName"
-                    value={console.log(field)}
+                    value={field}
                     onChange={(event) => handleOtherInputChange(index, event)}
                     />
                 </Fragment>
@@ -270,6 +273,6 @@ export default function AddStoreForm() {
         </form>
         
         </Box>
-
+    </>
     )
 }
