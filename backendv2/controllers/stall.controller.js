@@ -87,16 +87,18 @@ const updateStallById = async (req,res) => {
 }
 
 const addReview = async (req, res) => {
+
     const {id} = req.params
-    const {food, date_of_visit, rating , date_of_review, comment, token} = req.body
+    const {name,food,date_of_review,date_of_visit,rating,comment} = req.body
+    // const {food, date_of_visit, rating , date_of_review, comment, token} = req.body
     // date_of_review = Date.now()
     //Check for User Privilege
-    if (!UserModel.checkUserType(token, false)) {
-        return res.status(401).send("User not authorized")
-    }
-    //Retrieve username from token
-    const user = await UserModel.getUser(token)
-    const name = user.name
+    // if (!UserModel.checkUserType(token, false)) {
+    //     return res.status(401).send("User not authorized")
+    // }
+    // //Retrieve username from token
+    // const user = await UserModel.getUser(token)
+    // const name = user.name
 
     //Retrieve stall & reviewList from id
     const stall = await StallModel.findById(id)
@@ -109,7 +111,6 @@ const addReview = async (req, res) => {
         rating,
         comment
     }
-
     stall.reviews.push(review)
     await stall.save()
     StallModel.computeAvgRating(stall._id)
