@@ -87,7 +87,7 @@ Stall.statics.computeAvgRating = async function(id) {
     }
     avgRating = avgRating / count
     stall.avgRating = avgRating
-    await this.save(stall)
+    await stall.save(stall)
 }
 
 
