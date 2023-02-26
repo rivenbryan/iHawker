@@ -11,6 +11,7 @@ export default function AddStoreForm() {
     const [stall_name, setStoreName] = React.useState('');
     const [hawker_centre_belong, setLocatedin] = React.useState('');
     const [description, setStoreDesc] = React.useState('');
+    const [stall_belong, setStallBelong] = React.useState('63e84f77230d072070623600');
     const [topseller, setTopSeller] = React.useState([
         {name_of_food: "", price: parseFloat("")}
     ]); 
@@ -44,7 +45,11 @@ export default function AddStoreForm() {
     const handleTopInputChange =(index,event)=>{
         const values = [...topseller];
         const updatedValue = event.target.id;
-        values[index][updatedValue] = event.target.value;
+        if (event.target.id === "price") {
+            values[index][updatedValue] = parseFloat(event.target.value);
+        }else {
+            values[index][updatedValue] = event.target.value;
+        }
         setTopSeller(values);
     };
    
@@ -70,9 +75,11 @@ export default function AddStoreForm() {
             description,
             topseller,
             menu_item,
+            stall_belong,
         };
         event.preventDefault();
         console.log(body);
+        console.log(typeof(body.topseller[0].price))
         fetch('http://localhost:4000/api/stall', {
             method: "POST",
             body: JSON.stringify(body),
@@ -87,6 +94,8 @@ export default function AddStoreForm() {
                 const errorMessage = await response.json().then(
                     err => err.error
                 )
+                console.log("error")
+                window.location.href = "/addStore"
                 toast.error(errorMessage);
             }
         })
@@ -156,6 +165,7 @@ export default function AddStoreForm() {
                 label="Store Description"
                 placeholder='E.g. Tian Tian sells the best chicken rice in the west. Tian Tian was founded in 1900 and has won numerous awards since then. We pride ourselves in the pack a punch chilli'
                 variant="outlined"
+                required
                 multiline
                 id = "description"
                 value = {description}
@@ -173,6 +183,7 @@ export default function AddStoreForm() {
                         Top Seller #{index + 1}:
                     </Typography>
                     <TextField
+                        required
                         style={{ width: "400px", marginTop: 20}}
                         type="text"
                         label="Top Seller Item Name"
@@ -184,14 +195,17 @@ export default function AddStoreForm() {
                     />
 
                     <TextField
+                        required
                         style={{ width: "400px", marginTop: 20, marginBottom: 20}}
-                        type="test"
+                        type="number"
                         label="Top Seller Item Price"
                         variant="outlined"
                         id="price"
-                        placeholder='$4.50'
+                        placeholder='4.50'
                         value={field.topSellerPrice}
-                        onChange={(event) => handleTopInputChange(index, event)}
+                        onChange={
+                            (event) => handleTopInputChange(index, event)
+                        }
                     />
 
                     {/* <Button
@@ -233,6 +247,7 @@ export default function AddStoreForm() {
                     </Typography>
                     <TextField
                     style={{ width: "400px", marginBottom: "20px"}}
+                    required
                     type="text"
                     label="Menu Item:"
                     placeholder="Chicken Soup"

@@ -5,14 +5,14 @@ import FoodImg from './img/claypotlaksa.jpg'
 
 export default function ReviewCard({name, food, date_of_review, date_of_visit, rating, comment}) {
     return(
-        <Paper variant="outlined" sx={{boxShadow: 4, borderRadius: 5, borderColor: "#ffc23d", borderWidth: 2}}>
+        <Paper variant="outlined" sx={{mt: 4, boxShadow: 4, borderRadius: 5, borderColor: "#ffc23d", borderWidth: 2}}>
             <Stack
                 direction="row"
                 justifyContent="space-evenly"
                 alignItems="center"
                 divider={<Divider orientation='vertical' color="#babfc4" sx={{height: "100px", alignContent: "center"}}/>}
                 spacing={2}>
-                <Box sx={{
+                <Box width={200} sx={{
                     display: "flex",
                     m: 3,
                     alignContent: "center",
@@ -20,7 +20,7 @@ export default function ReviewCard({name, food, date_of_review, date_of_visit, r
                     <Avatar alt="Face"
                         src={FaceImg} 
                         sx={{ width: 100, height: 100}}/>
-                    <Box margin={"auto 0"} marginLeft={4}>
+                    <Box margin={"auto "} marginLeft={4}>
                     <Typography variant='body1' color="black" sx={{fontWeight: "medium"}}>{name}</Typography>
                     {/* <Typography variant='subtitle1' sx={{fontWeight: "light"}}>1,337 reviews</Typography> */}
                     </Box>
@@ -43,8 +43,8 @@ export default function ReviewCard({name, food, date_of_review, date_of_visit, r
                     <Typography variant='subtitle1' sx={{fontSize: "small", fontWeight: "light"}}>Visited {date_of_visit}</Typography>
                     </Box>
                 </Box>
-                <Box maxHeight={150} maxWidth={500}>
-                    <Typography variant='body1'>
+                <Box maxHeight={150} width={500}>
+                    <Typography variant='body1' width={480}>
                     {comment}  
                     </Typography>
                 </Box>
