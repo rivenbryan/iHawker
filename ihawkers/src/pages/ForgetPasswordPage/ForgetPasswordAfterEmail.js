@@ -9,12 +9,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Navbar from '../../components/Navbar';
 import {useLocation} from "react-router-dom";
+import ErrorComponent from '../../components/ErrorComponent';
 export default function ForgetPasswordAfterEmail() {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const token = queryParams.get('token')
   const [flag, setFlag] = useState(false)
   const [error,setError] = useState("")
+
   const handleSubmit = (e) => {e.preventDefault()
     const form = e.currentTarget
     if (form.elements.password.value != form.elements.confirmPassword.value) {
@@ -67,6 +69,7 @@ export default function ForgetPasswordAfterEmail() {
                 autoComplete="given-name"
                 required
                 fullWidth
+                type="password"
                 id="password"
                 label="Password"
                 autoFocus
@@ -78,6 +81,7 @@ export default function ForgetPasswordAfterEmail() {
                 autoComplete="given-name"
                 required
                 fullWidth
+                type="password"
                 id="confirmPassword"
                 label="Confirm Password"
                 autoFocus
@@ -95,7 +99,7 @@ export default function ForgetPasswordAfterEmail() {
           </Button>
           </Grid>
         </Box>
-        {flag ? <Box>Password do not match. Try again</Box> : null}
+        {flag ? <ErrorComponent text="Password do not match! Please try again"/> : null}
         {error ? <Box>{error}</Box> : null}
       </Container>
     </Container>
