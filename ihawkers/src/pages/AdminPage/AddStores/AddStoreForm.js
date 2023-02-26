@@ -72,23 +72,25 @@ export default function AddStoreForm() {
         };
         event.preventDefault();
         console.log(body);
-        // fetch('http://localhost:4000/api/auth/signup', {
-        //     method: "POST",
-        //     body: JSON.stringify(body),
-        //     headers: { 'Content-Type': 'application/json' }
-        // }).then(async (response) => {
-        //     if (response.ok) {
-        //         setUser(await response.json())
-        //         //redirect to home page
-        //         window.location.href = "/"
-        //     } 
-        //     else {
-        //         const errorMessage = await response.json().then(
-        //         err => err.error
-        //         )
-        //         setError(errorMessage)
-        //     }
-        // })
+        fetch('http://localhost:4000/api/stall', {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "http://localhost:4000"
+            },
+            credentials: "include"
+        }).then(async (response) => {
+            if (response.ok) {
+                //redirect to home page
+                window.location.href = "/"
+            } 
+            else {
+                const errorMessage = await response.json().then(
+                err => err.error
+                )
+            }
+        })
     }
     return (
         <Box 

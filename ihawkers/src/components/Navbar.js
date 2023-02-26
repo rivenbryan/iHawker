@@ -14,8 +14,17 @@ const Navbar = () => {
   const {getUser, clearUser} = useAuth()
   //For logging Out
   const handleLogout = () => {
-    clearUser()
-    window.location.href = "/?authState=logout"
+    fetch("http://localhost:4000/api/auth/logout", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json" ,
+        "Access-Control-Allow-Origin": "http://localhost:4000"
+    },
+      credentials: "include"
+    }).then(() => {
+      clearUser()
+      window.location.href = "/?authState=logout"
+    })
   }
 
   //For Notifications
@@ -37,6 +46,7 @@ const Navbar = () => {
 
   toast.success(notification);
   const user = getUser()
+  const isHawker = user?.isHawker
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >
@@ -53,6 +63,7 @@ const Navbar = () => {
           </Box>
           <Stack direction="row" spacing={2}>
             <Button component={Link} to="/" color="inherit">Home</Button>
+            {isHawker ? <Box>Hawker</Box> : null}
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}
             <Button component={Link} to="/search" color="inherit">Search</Button>
             <Button component={Link} to="/map" color="inherit">Map</Button>
