@@ -69,7 +69,7 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
         </Typography>
         </CardContent>
         <CardActions sx={{marginTop: "auto", pb: 1}}>
-            <Link style={{textDecoration: 'none', marginRight: 15}} to={"/stall/" + id} >
+            <Link style={{textDecoration: 'none', marginRight: 8}} to={"/stall/" + id} >
                 <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
             </Link>
             <Button 

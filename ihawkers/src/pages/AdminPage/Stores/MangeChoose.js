@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import ButtonHawkerStore from '../../../components/ButtonHawkerStore';
 
 export default function viewHawkers({HawkerStores}) {
-    console.log(HawkerStores)
     return(
         <Box  sx={{margin: "0 auto", width:"90%"}}>
         <Grid sx={{ paddingTop: 5}} container spacing={5} justifyContent="center">

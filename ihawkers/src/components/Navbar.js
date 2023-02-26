@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Container } from "@mui/material";
+import { Divider, Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 const Navbar = () => {
 
-  const {getUser, clearUser} = useAuth()
+  const {getUser, clearUser, isHawker} = useAuth()
   //For logging Out
   const handleLogout = () => {
     fetch("http://localhost:4000/api/auth/logout", {
@@ -67,6 +67,9 @@ const Navbar = () => {
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}
             <Button component={Link} to="/search" color="inherit">Search</Button>
             <Button component={Link} to="/map" color="inherit">Map</Button>
+            <Divider sx={{borderLeft: 1, borderColor: "#A6A6A6"}}/>
+            {user ? <Button component={Link} to="/admin" color="inherit">Admin</Button>:<></>}
+            
             {user ? <Button onClick={handleLogout}  color="inherit">Log Out</Button> : <Button component={Link} to="/Login" color="inherit">Log In</Button>}
           </Stack>
         </Toolbar>
