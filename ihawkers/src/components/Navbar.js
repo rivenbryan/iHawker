@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 const Navbar = () => {
 
-  const {getUser, clearUser, isHawker} = useAuth()
+  const {getUser, clearUser} = useAuth()
   //For logging Out
   const handleLogout = () => {
     fetch("http://localhost:4000/api/auth/logout", {
