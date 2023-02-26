@@ -4,8 +4,11 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import AdminPageHeader from "./AdminPageHeader";
 import HawkerChoose from "./Stores/MangeChoose";
+import { useAuth } from '../../context/userAuthContext';
 
 export default function AdminPage() {
+    const { getUser } = useAuth();
+    const { user } = getUser();
     const { hawkerCentres } = useContext(HawkerContext);
     const { hawkerStores } = useContext(HawkerContext);
 
@@ -13,7 +16,7 @@ export default function AdminPage() {
     useEffect(() => {
       if (hawkerStores) {
         const filteredList = hawkerStores.filter(
-          stores => stores.stall_belong === "63e84f77230d072070623600");
+          stores => stores.stall_belong === user.id);
         setFilteredStoreList(filteredList);
       }
     }, hawkerStores);

@@ -3,15 +3,18 @@ import FileUpload from "react-mui-fileuploader";
 import { HawkerContext } from '../../../context/HawkerContext';
 import { ToastContainer, toast } from "react-toastify";
 import React, { Fragment, useContext } from 'react';
+import { useAuth } from '../../../context/userAuthContext';
 
 export default function AddStoreForm() {
+    const { getUser } = useAuth();
+    const { user } = getUser();
     const {hawkerCentres } = useContext(HawkerContext);
     const arrOfHawkerCentres = hawkerCentres.map(hawkerCentre => ({name: hawkerCentre.name_of_centre, id: hawkerCentre._id}));
     // console.log(arrOfHawkerCentres)
     const [stall_name, setStoreName] = React.useState('');
     const [hawker_centre_belong, setLocatedin] = React.useState('');
     const [description, setStoreDesc] = React.useState('');
-    const [stall_belong, setStallBelong] = React.useState('63e84f77230d072070623600');
+    const [stall_belong, setStallBelong] = React.useState(user.id);
     const [topseller, setTopSeller] = React.useState([
         {name_of_food: "", price: parseFloat("")}
     ]); 
@@ -80,7 +83,6 @@ export default function AddStoreForm() {
         event.preventDefault();
         console.log(body);
 
-        console.log(typeof(body.topseller[0].price))
         fetch('http://localhost:4000/api/stall', {
             method: "POST",
             body: JSON.stringify(body),
