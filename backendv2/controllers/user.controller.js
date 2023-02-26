@@ -39,7 +39,8 @@ const signupUser = async (req,res) => {
 }
 
 const resetPassword = async (req, res) => {
-    const {newPassword, token} = req.body
+    const {newPassword, password} = req.body
+    const token = req.cookies
     const {email, purpose} = jwt.verify(token, process.env.SECRET)
     //Check purpose
     if (purpose != "Reset Password") {
@@ -49,6 +50,12 @@ const resetPassword = async (req, res) => {
     const user = await User.findOne({email})
     if (user == null) {
         return res.status(400).json({error: "User not found"})
+    }
+    if (!validator.isStrongPassword(newPassword)) {
+        return res.status(400).json({error: "Password is not strong enough"})
+    }
+    if (!password || !newPassword) {
+        return res.status(400).json({error: "All fields must be filled"})
     }
     //Hash the newPassword
     const salt = await bcrypt.genSalt(10)
@@ -65,9 +72,9 @@ const sendEmail = async (req,res) => {
     }
     //Check for user
     const user = await User.findOne({email})
-    if (user == null) {
-        return res.status(404).json({error: "User not found, try again"})
-    }
+    // if (user == null) {
+    //     return res.status(404).json({error: "User not found, try again"})
+    // }
     // Send an email:
     const client = new postmark.ServerClient(process.env.API_TOKEN)
     const token = jwt.sign({email, purpose: "Reset Password"}, process.env.SECRET, {expiresIn: "3d"} )
@@ -79,7 +86,7 @@ const sendEmail = async (req,res) => {
     `http://localhost:3000/forgetPasswordEmail?token=${token}`,
     "MessageStream": "outbound"
     })
-    res.status(201).json("Successfully sent email")
+    res.cookie("token", token).status(201).json("Successfully sent email").send()
 }
 const userController = {
     loginUser,
