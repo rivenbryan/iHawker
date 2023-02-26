@@ -5,20 +5,47 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../context/userAuthContext";
 
 const Navbar = () => {
-
   const {getUser, clearUser} = useAuth()
+  //For logging Out
   const handleLogout = () => {
     clearUser()
-    window.location.href = "/"
+    window.location.href = "/?authState=logout"
   }
+
+  //For Notifications
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const authState = queryParams.get('authState')
+  let notification
+  switch(authState) {
+    case "login":
+      notification = "Successfully logged in!"
+      break
+    case "logout":
+      notification = "Successfully logged out!"
+      break
+    case "registered":
+      notification = "Successfully Registered!"
+      break
+    case "send-email":
+      notification = "Please Check Email to reset password"
+      break
+    case "reset-password":
+      notification = "Successfully Resetted Password"
+    }
+
+  toast.success(notification);
   const user = getUser()
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >
+      <ToastContainer position="bottom-right" newestOnTop />
       <AppBar position="static" sx={{ backgroundColor: "transparent", boxShadow: 0 }}>
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>

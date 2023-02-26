@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -9,23 +9,35 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Navbar from '../../components/Navbar';
 export default function ForgetPasswordPage() {
+  const [errorMessage, setErrorMessage] = useState(null)
   const handleSubmit = (e) => {e.preventDefault()
     const form = e.currentTarget
+    const senderEmail = form.elements.email.value;
+    const senderDomain = senderEmail.split('@')[1]; // extract sender domain
+    const authorizedDomain = 'e.ntu.edu.sg'; // replace with your authorized domain
+
+  if (senderDomain !== authorizedDomain) {
+    setErrorMessage(`Only emails from ${authorizedDomain} domain are authorized.`); // update state variable
+    return; // exit function
+  }
     fetch('http://localhost:4000/api/auth/send-email', {
       method: "POST",
-      body: JSON.stringify({"email": form.elements.name.value}),
+      body: JSON.stringify({"email": form.elements.email.value}),
       headers: { 'Content-Type': 'application/json' }
     }).then(async (response) => {
       if (response.ok) {
         //redirect to Page to say Check Email
-        window.location.href = "/"
+        window.location.href = "/?authState=send-email"
+      } else {
+        // handle error response
+        const errorResponse = await response.json()
+        const errorMessage = errorResponse.error
+        setErrorMessage(errorMessage)
       }
-      else {
-        const errorMessage = await response.json().then(
-          err => err.error
-        )
-      }
-    })}
+    }).catch((error) => {
+      console.error(error)
+    })
+}
 
   return (
     <Container component="main">
@@ -54,14 +66,14 @@ export default function ForgetPasswordPage() {
                 autoComplete="given-name"
                 required
                 fullWidth
-                id="name"
+                id="email"
                 label="Email Address"
                 autoFocus
                 // value={{}}
               />
             </Grid>
             
-    
+          {errorMessage ? <Box>{errorMessage}</Box> : null}
           <Button
             type="submit"
             fullWidth
