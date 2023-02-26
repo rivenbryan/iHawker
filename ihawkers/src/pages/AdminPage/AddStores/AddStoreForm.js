@@ -79,6 +79,7 @@ export default function AddStoreForm() {
         };
         event.preventDefault();
         console.log(body);
+
         console.log(typeof(body.topseller[0].price))
         fetch('http://localhost:4000/api/stall', {
             method: "POST",

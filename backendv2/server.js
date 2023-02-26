@@ -4,9 +4,14 @@ const express = require('express')
 const mongoose = require('mongoose')
 var cors = require('cors')
 const app = express()
+const cookieParser = require("cookie-parser")
 
 // middleware [DO NOT EDIT!!!!]
-app.use(cors())
+app.use(cors({
+    origin : "http://localhost:3000",
+    credentials: true
+}))
+app.use(cookieParser())
 app.use(express.json())
 app.use((req, res, next)=> {
     console.log(req.path, req.method)
@@ -17,7 +22,6 @@ app.use((req, res, next)=> {
 const hawkercentre_router = require("./routes/hawkercentre.route")
 const user_router = require("./routes/user.route.js")
 const stall_router = require("./routes/stall.route.js")
-
 
 // End Point
 app.use('/api/hawkercentre', hawkercentre_router)
