@@ -67,6 +67,11 @@ const Stall = new Schema({
         },
         avg_rating: {
             type: Number
+        },
+        stall_belong: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user-data',
+            required: true
         }
     },
     { collection: 'HawkerStall'}
@@ -87,7 +92,7 @@ Stall.statics.computeAvgRating = async function(id) {
     }
     avgRating = avgRating / count
     stall.avgRating = avgRating
-    await this.save(stall)
+    await stall.save(stall)
 }
 
 

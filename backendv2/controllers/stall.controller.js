@@ -8,8 +8,9 @@ const getAllStalls= async (req, res) => {
 }
 
 const createStall= async (req, res) => {
-    const { stall_name, description, menu_item, topseller, hawker_centre_belong} = req.body
+    const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong} = req.body
     const {token} = req.cookies
+    
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, true)
     if (!userType) {
@@ -19,7 +20,7 @@ const createStall= async (req, res) => {
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
     }
-    const stall = await StallModel.create({stall_name, description, menu_item, topseller, hawker_centre_belong})
+    const stall = await StallModel.create({stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong})
     res.status(201).json(stall)
 }
 
@@ -92,6 +93,7 @@ const updateStallById = async (req,res) => {
 }
 
 const addReview = async (req, res) => {
+
     const {id} = req.params
     const {food, date_of_visit, rating , date_of_review, comment} = req.body
     // date_of_review = Date.now()
@@ -116,7 +118,6 @@ const addReview = async (req, res) => {
         rating,
         comment
     }
-
     stall.reviews.push(review)
     await stall.save()
     StallModel.computeAvgRating(stall._id)
