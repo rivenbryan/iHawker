@@ -33,7 +33,7 @@ export default function ForgetPasswordAfterEmail() {
     }).then(async (response) => {
       if (response.ok) {
         //redirect to Landing Page
-        window.location.href = "/"
+        window.location.href = "/?authState=reset-password"
       }
       else {
         const errorMessage = await response.json()

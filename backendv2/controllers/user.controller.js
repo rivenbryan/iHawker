@@ -43,12 +43,12 @@ const resetPassword = async (req, res) => {
     const {email, purpose} = jwt.verify(token, process.env.SECRET)
     //Check purpose
     if (purpose != "Reset Password") {
-        return res.status(400).json("Invalid Token")
+        return res.status(400).json({error: "Invalid Token"})
     }
     //Retrieve user
     const user = await User.findOne({email})
     if (user == null) {
-        return res.status(400).json("User not found")
+        return res.status(400).json({error: "User not found"})
     }
     //Hash the newPassword
     const salt = await bcrypt.genSalt(10)
@@ -61,12 +61,12 @@ const resetPassword = async (req, res) => {
 const sendEmail = async (req,res) => {
     const {email} = req.body
     if (!validator.isEmail(email)) {
-        return res.status(400).json("Invalid email format")
+        return res.status(400).json({error: "Invalid email format"})
     }
     //Check for user
     const user = await User.findOne({email})
     if (user == null) {
-        return res.status(404).json("User not found, try again")
+        return res.status(404).json({error: "User not found, try again"})
     }
     // Send an email:
     const client = new postmark.ServerClient(process.env.API_TOKEN)
