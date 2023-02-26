@@ -54,7 +54,7 @@ export default function viewHawkers({HawkerStores}) {
             ))
           : (
             <Typography variant='body1'>
-                No hawker centres under your management
+                No hawker centres under your management.
             </Typography>
             )
         }

@@ -49,9 +49,16 @@ export default function StallDesc(props) {
 
                     <Grid container direction="row" marginTop={2}>
                         <Rating name="read-only" value={props.oneHawkerStore.avg_rating} precision={0.5} readOnly />
-                        <Typography variant="h6" sx={{ marginLeft: 2, fontWeight: 'bold'}}>
-                            {props.oneHawkerStore.avg_rating} stars 
-                        </Typography>
+                        { props.oneHawkerStore.reviews.length > 0 ? (
+                            <Typography variant="h6" sx={{ marginLeft: 2, fontWeight: 'bold'}}>
+                                {props.oneHawkerStore.avg_rating} stars 
+                            </Typography>
+                        ) : (
+                            <Typography variant="body1" sx={{ ml: 2, mb: 1, fontWeight: 'normal'}}>
+                                No Reviews
+                            </Typography>                            
+                        )} {console.log(props.oneHawkerStore.Rating)}
+                        
                     </Grid>
 
                     <Grid container direction="row" marginTop={-0.5}>

@@ -4,7 +4,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, ButtonBase } from '@mui/material';
+import { Link } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ButtonHawkerStore from '../../../components/ButtonHawkerStore';
 import { ToastContainer, toast } from 'react-toastify';
@@ -51,8 +52,9 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
             maxWidth: 420, 
             height: 460, 
             display: "flex", 
-            flexDirection: "column"}}>
-        
+            flexDirection: "column"}}
+        >
+       
         <CardMedia
         sx={{ height: 250 }}
         image={img}
@@ -67,6 +69,9 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
         </Typography>
         </CardContent>
         <CardActions sx={{marginTop: "auto", pb: 1}}>
+            <Link style={{textDecoration: 'none', marginRight: 15}} to={"/stall/" + id} >
+                <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
+            </Link>
             <Button 
                 color="error" 
                 startIcon={<DeleteIcon />}
