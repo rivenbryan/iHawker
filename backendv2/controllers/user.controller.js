@@ -12,7 +12,7 @@ const loginUser = async (req,res) =>{
         const user = await User.login(email, password)
 
         //create token
-        const token = createToken(user.id)
+        const token = createToken(user._id)
 
         res.cookie("token",token).status(200).json(user).send()
         // User.verifyToken(token)
@@ -53,10 +53,15 @@ const resetPassword = async (req, res) => {
     res.status(200).json("Successfully reset password")
 }
 
+const logoutUser = async (req,res) => {
+    res.clearCookie("token").status(201).send()
+}
+
 const userController = {
     loginUser,
     signupUser,
-    resetPassword
+    resetPassword,
+    logoutUser
 }
 
 module.exports = userController
