@@ -67,6 +67,11 @@ const Stall = new Schema({
         },
         avg_rating: {
             type: Number
+        },
+        stall_belong: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user-data',
+            required: true
         }
     },
     { collection: 'HawkerStall'}
