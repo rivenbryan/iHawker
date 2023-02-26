@@ -2,6 +2,7 @@ const User = require("../models/user.model")
 const jwt = require("jsonwebtoken")
 const postmark = require("postmark");
 const bcrypt = require("bcrypt");
+const validator = require("validator")
 
 const createToken = (id) => {
     return jwt.sign({id}, process.env.SECRET, {expiresIn: "3d"} )
@@ -46,7 +47,6 @@ const resetPassword = async (req, res) => {
     }
     //Retrieve user
     const user = await User.findOne({email})
-
     if (user == null) {
         return res.status(400).json("User not found")
     }
@@ -60,6 +60,9 @@ const resetPassword = async (req, res) => {
 
 const sendEmail = async (req,res) => {
     const {email} = req.body
+    if (!validator.isEmail(email)) {
+        return res.status(400).json("Invalid email format")
+    }
     //Check for user
     const user = await User.findOne({email})
     if (user == null) {
