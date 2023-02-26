@@ -16,10 +16,10 @@ export default function ForgetPasswordPage() {
     const senderDomain = senderEmail.split('@')[1]; // extract sender domain
     const authorizedDomain = 'e.ntu.edu.sg'; // replace with your authorized domain
 
-  if (senderDomain !== authorizedDomain) {
-    setErrorMessage(`Only emails from ${authorizedDomain} domain are authorized.`); // update state variable
-    return; // exit function
-  }
+  // if (senderDomain !== authorizedDomain) {
+  //   setErrorMessage(`Only emails from ${authorizedDomain} domain are authorized.`); // update state variable
+  //   return; // exit function
+  // }
     fetch('http://localhost:4000/api/auth/send-email', {
       method: "POST",
       body: JSON.stringify({"email": form.elements.email.value}),
