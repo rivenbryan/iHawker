@@ -40,8 +40,8 @@ export default function StallPage() {
             oneHawkerStore = { oneHawkerStore } 
             imgPlaceholder = { imgPlaceholder } 
           />
-          <ViewReviews/>
-          <AddReview/>
+          <ViewReviews reviews = {oneHawkerStore.reviews}/>
+          <AddReview storeID = {oneHawkerStore._id}/>
           </>
         )}
         

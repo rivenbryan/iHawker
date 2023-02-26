@@ -8,7 +8,7 @@ const getAllStalls= async (req, res) => {
 }
 
 const createStall= async (req, res) => {
-    const { stall_name, description, menu_item, topseller, hawker_centre_belong} = req.body
+    const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong} = req.body
     //Check for Hawker Privilege
     // if (!UserModel.checkUserType(token, true)) {
     //     return res.status(401).send("User not authorized")
@@ -17,7 +17,7 @@ const createStall= async (req, res) => {
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
     }
-    const stall = await StallModel.create({stall_name, description, menu_item, topseller, hawker_centre_belong})
+    const stall = await StallModel.create({stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong})
     res.status(201).json(stall)
 }
 
@@ -87,16 +87,18 @@ const updateStallById = async (req,res) => {
 }
 
 const addReview = async (req, res) => {
+
     const {id} = req.params
-    const {food, date_of_visit, rating , date_of_review, comment, token} = req.body
+    const {name,food,date_of_review,date_of_visit,rating,comment} = req.body
+    // const {food, date_of_visit, rating , date_of_review, comment, token} = req.body
     // date_of_review = Date.now()
     //Check for User Privilege
-    if (!UserModel.checkUserType(token, false)) {
-        return res.status(401).send("User not authorized")
-    }
-    //Retrieve username from token
-    const user = await UserModel.getUser(token)
-    const name = user.name
+    // if (!UserModel.checkUserType(token, false)) {
+    //     return res.status(401).send("User not authorized")
+    // }
+    // //Retrieve username from token
+    // const user = await UserModel.getUser(token)
+    // const name = user.name
 
     //Retrieve stall & reviewList from id
     const stall = await StallModel.findById(id)
@@ -109,7 +111,6 @@ const addReview = async (req, res) => {
         rating,
         comment
     }
-
     stall.reviews.push(review)
     await stall.save()
     StallModel.computeAvgRating(stall._id)

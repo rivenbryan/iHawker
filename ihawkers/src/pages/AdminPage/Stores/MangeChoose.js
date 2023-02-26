@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Box, Grid, Typography, CardActionArea, CardContent } from '@mui/material';
-import HawkersCard from './ManageCard';
+import ManageCard from './ManageCard';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import ButtonHawkerStore from '../../../components/ButtonHawkerStore';
@@ -9,9 +9,9 @@ export default function viewHawkers({HawkerStores}) {
     console.log(HawkerStores)
     return(
         <Box  sx={{margin: "0 auto", width:"90%"}}>
-        <Grid sx={{ pt: 5}} container spacing={5} justifyContent="center">
+        <Grid sx={{ paddingTop: 5}} container spacing={5} justifyContent="center">
             <Grid item xs = {4}>
-                <Card sx={{maxWidth: 338, 
+                <Card sx={{maxWidth: 420, 
                     border: "dashed", 
                     borderWidth: 4,
                     borderColor: "#515057",
@@ -43,7 +43,7 @@ export default function viewHawkers({HawkerStores}) {
           ? HawkerStores &&
             HawkerStores.map((item) => (
               <Grid item xs={4}>
-                <HawkersCard
+                <ManageCard
                   type="test"
                   id={item._id}
                   img={"https://i.imgur.com/JOf48jt.jpeg"}
@@ -54,7 +54,7 @@ export default function viewHawkers({HawkerStores}) {
             ))
           : (
             <Typography variant='body1'>
-                No hawker centres under your management
+                No hawker centres under your management.
             </Typography>
             )
         }

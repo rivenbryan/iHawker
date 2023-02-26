@@ -1,72 +1,140 @@
 import * as React from 'react';
-import {useState} from 'react';
-import { Button, Container, Typography, FormControl, InputLabel, FormHelperText, Input, Rating, TextField} from '@mui/material';
+import { Button, Container, Typography, Rating, TextField} from '@mui/material';
+
 import { Box } from '@mui/system';
 
 
-export default function AddReview() {
-    const [value, setValue] = React.useState(5);
+export default function AddReview({storeID}) {
+    
     const [filename, setFilename] = React.useState("max. 25mb");
+    const [name, setName] = React.useState("");
+    const [food, setFood] = React.useState("");
+    const [date_of_review, setDateOfReview] = React.useState("");
+    const [date_of_visit, setDateOfVisit] = React.useState("");
+    const [rating, setRating] = React.useState(5);
+    const [comment, setComment] = React.useState("");
+
+    const handleChange = (event) => {
+        if (event.target.id === "food"){
+            setFood(event.target.value)
+        }else if (event.target.id === "date_of_visit"){
+            setDateOfVisit(event.target.value)
+        }else if (event.target.id === "comment"){
+            setComment(event.target.value)
+        }
+    };
+
+    async function addReview(event){
+        let currentDate = new Date().toJSON().slice(0, 10);
+        setDateOfReview(currentDate);
+        setName("bob321");
+        const body = {
+            name,
+            food,
+            date_of_review,
+            date_of_visit,
+            rating,
+            comment
+        };
+        event.preventDefault();
+        console.log(body);
+        fetch('http://localhost:4000/api/stall/'+storeID+'/review', {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(async (response) => {
+            if (response.ok) {
+                // setUser(await response.json())
+                //redirect to home page
+                window.location.href = "/search"
+                // setName("");
+                // setFood("");
+                // setDateOfReview("");
+                // setDateOfVisit("");
+                // setRating(5);
+                // setComment("");
+            } 
+            else {
+                const errorMessage = await response.json().then(
+                    err => err.error
+                )
+                //toast.error(errorMessage);
+            }
+        })
+    }
 
     return(
         <Container sx={{marginY: 4}}>
             <Typography variant='h4' sx={{fontWeight: 'bold'}}>Leave a review</Typography>
             
-            <Box textAlign="center" maxWidth={600} margin="0 auto">
+            <Box sx= {{textAlign:"center" ,width: 600, margin:"0 auto"}}>
+            <form onSubmit={addReview}>
+                <TextField
+                    sx={{ width: "100%", mb: 2, mt: 2}}
+                    id="food"
+                    type="text"
+                    label="Dish bought"
+                    helperText="What did you purchase from the stall?"
+                    placeholder='Signature Lor Mee'
+                    variant="outlined"
+                    autoComplete='false'
+                    required
+                    value={food}
+                    onChange={handleChange}
+                />
+                
+                <TextField
+                    sx={{ width: "100%", mb: 2, mt: 2}}
+                    id="date_of_visit"
+                    type="date"
+                    label="Date of visit"
+                    helperText="When did you visit the store?"
+                    placeholder='02-02-2022'
+                    variant="outlined"
+                    InputLabelProps={{
+                        shrink: true,
+                      }}
+                    autoComplete='false'
+                    required
+                    value={date_of_visit}
+                    onChange={handleChange}
+                />
 
-            <FormControl sx={{minWidth: 600, m: 2}}>
-                <InputLabel htmlFor="my-input">Dish bought</InputLabel>
-                <Input id="my-input" aria-describedby="my-helper-text" />
-                <FormHelperText id="my-helper-text">What did you purchase from the stall?</FormHelperText>
-            </FormControl>
+                <Box textAlign="left" marginBottom={2}>
+                    <Typography variant='body1' color="#919191" textAlign="left" marginBottom={1}>
+                        Rating:
+                    </Typography>
+                    <Rating name="simple-controlled"
+                        size="large"
+                        value={rating}
+                        onChange={(event, newValue) => {
+                            setRating(newValue);
+                        }}/>
+                </Box>
+                
+                <TextField
+                    sx={{ width: "100%", mb: 2}}
+                    type="text"
+                    id="comment"
+                    label="Comment"
+                    placeholder='Food was great! Service was even better, I loved the youthful spirit of the owner!!'
+                    helperText="How did you feel about it? (max. 255 characters)"
+                    multiline
+                    autoComplete='false'
+                    maxRows={4}
+                    required
+                    variant="outlined"
+                    onChange={handleChange}
+                />
 
-            <FormControl sx={{minWidth: 600, m: 2}}>
-                <InputLabel htmlFor="my-input">Date visited</InputLabel>
-                <Input id="my-input" aria-describedby="my-helper-text" />
-                <FormHelperText id="my-helper-text">When did you visit the stall?</FormHelperText>
-            </FormControl>
-            
-            <FormControl sx={{minWidth: 600, m: 2}}>
-            <Typography variant='body1' color="#919191" textAlign="center" >Rating</Typography>
-            <Box textAlign="center">
-            <Rating name="simple-controlled"
-                size="large"
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}/>
-            </Box>
-            </FormControl>
+                <Button 
+                    sx={{width: 330}}
+                    type='submit'
+                    variant="contained" >
+                        Submit Review
+                </Button>
 
-            <FormControl sx={{minWidth: 600, m: 2}}>
-            <TextField
-                id="filled-read-only-input"
-                label="Photo Upload"
-                defaultValue={filename}
-                InputProps={{
-                readOnly: true,
-                }}
-                variant="filled"
-            />
-            <Button variant="contained" component="label">
-            Upload File
-            <input type="file" accept=".jpg" hidden onChange/>
-            </Button>
-            </FormControl>
-            
-            <FormControl sx={{minWidth: 600, m: 2}}>
-            <TextField
-                id="standard-multiline-flexible"
-                label="Review Message (max. 255 characters)"
-                multiline
-                maxRows={4}
-                variant="standard"
-            />
-            </FormControl>
-            
-            <Box sx={{minWidth: 600, m: 2}}>
-                <Button variant="contained" sx={{width: 330}} >Submit Review</Button>
-            </Box>
+            </form>
 
             </Box>
         </Container>
