@@ -16,10 +16,12 @@ const getAllStalls = async (req, res) => {
 }
 
 const createHawkercentre= async (req, res) => {
-    const { name_of_centre, location_of_centre, no_of_stalls, token } = req.body
+    const { name_of_centre, location_of_centre, no_of_stalls} = req.body
 
+    const {token} = req.cookies
     //Check for Hawker Privilege
-    if (!UserModel.checkUserType(token, true)) {
+    const userType = await UserModel.checkUserType(token, true)
+    if (!userType) {
         return res.status(401).send("User not authorized")
     }
     //Once verified Hawker
@@ -50,8 +52,10 @@ const getHawkercentreById = async (req, res) => {
 const deleteHawkercentreById= async (req, res) => {
     const {id}=req.params
     let hawkercentre
+    const {token} = req.cookies
     //Check for Hawker Privilege
-    if (!UserModel.checkUserType(token, true)) {
+    const userType = await UserModel.checkUserType(token, true)
+    if (!userType) {
         return res.status(401).send("User not authorized")
     }
     try {
@@ -72,9 +76,11 @@ const deleteHawkercentreById= async (req, res) => {
 const updateHawkercentre = async (req,res) => {
     const {id} = req.params
     const {name_of_centre, location_of_centre, no_of_stalls , img} = req.body
-
+    const {token} = req.cookies
+    
     //Check for Hawker Privilege
-    if (!UserModel.checkUserType(token, true)) {
+    const userType = await UserModel.checkUserType(token, true)
+    if (!userType) {
         return res.status(401).send("User not authorized")
     }
     const hawkercentre = await HawkercentreModel.findById(id)
