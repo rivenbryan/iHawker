@@ -68,13 +68,14 @@ const deleteStallById= async (req, res) => {
 const updateStallById = async (req,res) => {
     const {id} = req.params
     const {name_of_centre, location_of_centre, no_of_stalls , img} = req.body
-
     const {token} = req.cookies
+
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, true)
     if (!userType) {
         return res.status(401).send("User not authorized")
     }
+    
     const stall = await StallModel.findById(id)
     if (name_of_centre != undefined) {
         hawkercentre.name_of_centre = name_of_centre
@@ -99,9 +100,9 @@ const addReview = async (req, res) => {
     // date_of_review = Date.now()
     const {token} = req.cookies
     //Check for Hawker Privilege
-    const userType = await UserModel.checkUserType(token, true)
+    const userType = await UserModel.checkUserType(token, false)
     if (!userType) {
-        return res.status(401).send("User not authorized")
+        return res.status(401).send("Please login before you make a review")
     }
     //Retrieve username from token
     const user = await UserModel.getUser(token)
