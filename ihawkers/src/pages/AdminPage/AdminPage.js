@@ -8,7 +8,7 @@ import { useAuth } from '../../context/userAuthContext';
 
 export default function AdminPage() {
     const { getUser } = useAuth();
-    const { user } = getUser();
+    const user  = getUser();
     const { hawkerCentres } = useContext(HawkerContext);
     const { hawkerStores } = useContext(HawkerContext);
 
@@ -16,11 +16,11 @@ export default function AdminPage() {
     useEffect(() => {
       if (hawkerStores) {
         const filteredList = hawkerStores.filter(
-          stores => stores.stall_belong === user.id);
+          stores => stores.stall_belong === user._id);
         setFilteredStoreList(filteredList);
       }
     }, hawkerStores);
-    // console.log( hawkerCentres );
+    // console.log( user );
     return(
         <>
         <Navbar />
