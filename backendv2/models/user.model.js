@@ -67,6 +67,7 @@ User.statics.getUser = async function(token) {
 }
 
 //Check for JWT token + user is Hawker
+//checkHawker = True when checking for Hawker Privilege Otherwise is False
 User.statics.checkUserType = async function(token, checkHawker) {
     const user = await this.getUser(token)
     //I want to give Hawker Privilege
