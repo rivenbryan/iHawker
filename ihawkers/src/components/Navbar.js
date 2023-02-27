@@ -33,11 +33,9 @@ const Navbar = () => {
     case "registered":
       notification = "Successfully Registered!"
       break
-    case "send-email":
-      notification = "Please Check Email to reset password"
-      break
     case "reset-password":
       notification = "Successfully Resetted Password"
+      break
     }
 
   toast.success(notification);
