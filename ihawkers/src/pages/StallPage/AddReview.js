@@ -44,7 +44,11 @@ export default function AddReview({storeID}) {
         fetch('http://localhost:4000/api/stall/'+storeID+'/review', {
             method: "POST",
             body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'Content-Type': 'application/json' ,
+                'Access-Control-Allow-Origin': "http://localhost:4000"
+            },
+            credentials: "include"
         }).then(async (response) => {
             if (response.ok) {
                 

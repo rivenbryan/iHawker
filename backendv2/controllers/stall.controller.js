@@ -101,6 +101,7 @@ const addReview = async (req, res) => {
     const {token} = req.cookies
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, false)
+    console.log(userType)
     if (!userType) {
         return res.status(401).json("Please login before you make a review")
     }
