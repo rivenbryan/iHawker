@@ -60,6 +60,7 @@ User.statics.signup = async function(userInput){
 }
 
 User.statics.getUser = async function(token) {
+    console.log(token)
     if (!token) return null
     const tokenInfo = await jwt.verify(token, process.env.SECRET)
     const user = await this.findById(tokenInfo.id)
@@ -70,6 +71,7 @@ User.statics.getUser = async function(token) {
 //checkHawker = True when checking for Hawker Privilege Otherwise is False
 User.statics.checkUserType = async function(token, checkHawker) {
     const user = await this.getUser(token)
+    console.log(user)
     //I want to give Hawker Privilege
     if (checkHawker) {
         //return True if user exist + user is Hawker
