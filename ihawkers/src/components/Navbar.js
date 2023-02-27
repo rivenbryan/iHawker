@@ -67,7 +67,7 @@ const Navbar = () => {
             <Button component={Link} to="/search" color="inherit">Search</Button>
             <Button component={Link} to="/map" color="inherit">Map</Button>
             <Divider sx={{borderLeft: 1, borderColor: "#A6A6A6"}}/>
-            {user.isHawker ? <Button component={Link} to="/admin" color="inherit">Admin</Button>:<></>}
+            {user && user.isHawker ? <Button component={Link} to="/admin" color="inherit">Admin</Button>:<></>}
             {user ? <Button onClick={handleLogout}  color="inherit">Log Out</Button> : <Button component={Link} to="/Login" color="inherit">Log In</Button>}
           </Stack>
         </Toolbar>
