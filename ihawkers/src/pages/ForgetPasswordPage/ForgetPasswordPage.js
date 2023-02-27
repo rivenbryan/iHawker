@@ -8,8 +8,22 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Navbar from '../../components/Navbar';
+import {useLocation } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 export default function ForgetPasswordPage() {
   const [errorMessage, setErrorMessage] = useState(null)
+
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const state = queryParams.get('state')
+  let notification
+  switch(state) {
+    case "true":
+      notification = "Email has been sent. Please check your email to reset password"
+      break
+  }
+  toast.success(notification);
   const handleSubmit = (e) => {e.preventDefault()
     const form = e.currentTarget
     const senderEmail = form.elements.email.value;
@@ -27,7 +41,7 @@ export default function ForgetPasswordPage() {
     }).then(async (response) => {
       if (response.ok) {
         //redirect to Page to say Check Email
-        window.location.href = "/?authState=send-email"
+        window.location.href = "/forgetPassword/?state=true"
       } else {
         // handle error response
         const errorResponse = await response.json()
