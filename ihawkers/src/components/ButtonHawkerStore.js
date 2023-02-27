@@ -6,7 +6,12 @@ import { HawkerContext } from "../context/HawkerContext";
 export default function ButtonHawkerStore({centreID, title, variant}) {
     const {setOneHawkerStore} = useContext(HawkerContext)
     const handleClick = async () => {
-        const response = await fetch('http://localhost:4000/api/stall/' + centreID)
+        const response = await fetch('http://localhost:4000/api/stall/' + centreID, {
+          headers: { 
+            'Access-Control-Allow-Origin': "http://localhost:4000"
+        },
+        credentials: "include"
+        })
         const json = await response.json()
         console.log("buttonStore: ")
         console.log(json)
