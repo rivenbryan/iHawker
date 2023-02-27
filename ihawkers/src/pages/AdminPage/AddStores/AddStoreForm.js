@@ -7,14 +7,14 @@ import { useAuth } from '../../../context/userAuthContext';
 
 export default function AddStoreForm() {
     const { getUser } = useAuth();
-    const { user } = getUser();
+    const user  = getUser();
     const {hawkerCentres } = useContext(HawkerContext);
     const arrOfHawkerCentres = hawkerCentres.map(hawkerCentre => ({name: hawkerCentre.name_of_centre, id: hawkerCentre._id}));
     // console.log(arrOfHawkerCentres)
     const [stall_name, setStoreName] = React.useState('');
     const [hawker_centre_belong, setLocatedin] = React.useState('');
     const [description, setStoreDesc] = React.useState('');
-    const [stall_belong, setStallBelong] = React.useState(user.id);
+    const [stall_belong, setStallBelong] = React.useState(user._id);
     const [topseller, setTopSeller] = React.useState([
         {name_of_food: "", price: parseFloat("")}
     ]); 
