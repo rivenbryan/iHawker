@@ -34,7 +34,7 @@ const Navbar = () => {
       notification = "Successfully Registered!"
       break
     case "reset-password":
-      notification = "Successfully Resetted Password"
+      notification = "Successfully Resetted Password!"
       break
     }
 
