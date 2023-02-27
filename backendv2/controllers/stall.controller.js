@@ -102,7 +102,7 @@ const addReview = async (req, res) => {
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, false)
     if (!userType) {
-        return res.status(401).send("Please login before you make a review")
+        return res.status(401).json("Please login before you make a review")
     }
     //Retrieve username from token
     const user = await UserModel.getUser(token)
