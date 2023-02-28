@@ -11,9 +11,10 @@ import Navbar from '../../components/Navbar';
 import {useLocation } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
+import ErrorComponent from '../../components/ErrorComponent';
 export default function ForgetPasswordPage() {
   const [errorMessage, setErrorMessage] = useState(null)
-
+  const [flag, setFlag] = useState(false)
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const state = queryParams.get('state')
@@ -32,7 +33,8 @@ export default function ForgetPasswordPage() {
     const authorizedDomain = 'e.ntu.edu.sg'; // replace with your authorized domain
 
     if (senderDomain !== authorizedDomain) {
-      setErrorMessage(`Only emails from ${authorizedDomain} domain are authorized.`); // update state variable
+      setFlag(true)
+      setErrorMessage("Invalid Email. Please type in an email format."); // update state variable
       return; // exit function
     }
     fetch('http://localhost:4000/api/auth/send-email', {
@@ -51,6 +53,7 @@ export default function ForgetPasswordPage() {
         // handle error response
         const errorResponse = await response.json()
         const errorMessage = errorResponse.error
+        setFlag(true)
         setErrorMessage(errorMessage)
       }
     }).catch((error) => {
@@ -88,11 +91,9 @@ export default function ForgetPasswordPage() {
                 id="email"
                 label="Email Address"
                 autoFocus
-                // value={{}}
               />
             </Grid>
             
-          {errorMessage ? <Box>{errorMessage}</Box> : null}
           <Button
             type="submit"
             fullWidth
@@ -102,6 +103,7 @@ export default function ForgetPasswordPage() {
             Submit
           </Button>
           </Grid>
+          {flag ? <ErrorComponent text={errorMessage}/> : null}
         </Box>
       </Container>
     </Container>
