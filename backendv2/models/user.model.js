@@ -60,7 +60,6 @@ User.statics.signup = async function(userInput){
 }
 
 User.statics.getUser = async function(token) {
-User.statics.getUser = async function(token) {
     console.log(token)
     if (!token) return null
     const tokenInfo = await jwt.verify(token, process.env.SECRET)
