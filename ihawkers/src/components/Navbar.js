@@ -6,14 +6,22 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
+<<<<<<< HEAD
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+=======
+>>>>>>> main
 import { useAuth } from "../context/userAuthContext";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 const Navbar = () => {
-
   const {getUser, clearUser} = useAuth()
   //For logging Out
   const handleLogout = () => {
+<<<<<<< HEAD
+    clearUser()
+    window.location.href = "/?authState=logout"
+=======
     fetch("http://localhost:4000/api/auth/logout", {
       method: "POST",
       headers: { 
@@ -25,6 +33,7 @@ const Navbar = () => {
       clearUser()
       window.location.href = "/?authState=logout"
     })
+>>>>>>> main
   }
 
   //For Notifications
@@ -42,11 +51,21 @@ const Navbar = () => {
     case "registered":
       notification = "Successfully Registered!"
       break
+<<<<<<< HEAD
+    case "reset-password":
+      notification = "Successfully Resetted Password!"
+      break
+    }
+
+  toast.success(notification);
+  const user = getUser()
+=======
     }
 
   toast.success(notification);
   const user = getUser();
 
+>>>>>>> main
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >

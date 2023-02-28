@@ -13,7 +13,8 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import MapPage from "./pages/MapPage/MapPage";
 import HawkerPage from "./pages/HawkerPage/HawkerPage";
 import LearnMorePage from "./pages/LearnMorePage/LearnMorePage";
-
+import ForgetPasswordPage from "./pages/ForgetPasswordPage/ForgetPasswordPage";
+import ForgetPasswordAfterEmail from "./pages/ForgetPasswordPage/ForgetPasswordAfterEmail";
 // Context
 import { HawkerContext } from "./context/HawkerContext";
 import AdminPage from "./pages/AdminPage/AdminPage";
@@ -67,6 +68,8 @@ export default function App() {
               <Route path="/map" element={<MapPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />
+              <Route path="/forgetPassword" element={<ForgetPasswordPage />} />
+              <Route path="/forgetPasswordEmail" element={<ForgetPasswordAfterEmail/>} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/addStore" element={<AddStore/>} />
             </Routes>
