@@ -2,10 +2,13 @@ import * as React from 'react';
 import { Button, Container, Typography, Rating, TextField} from '@mui/material';
 
 import { Box } from '@mui/system';
+import { useAuth } from '../../context/userAuthContext';
 
 
 export default function AddReview({storeID}) {
     
+    const { getUser } = useAuth();
+    const user = getUser();
     const [filename, setFilename] = React.useState("max. 25mb");
     const [name, setName] = React.useState("");
     const [food, setFood] = React.useState("");
@@ -23,11 +26,11 @@ export default function AddReview({storeID}) {
             setComment(event.target.value)
         }
     };
-
+    
     async function addReview(event){
         let currentDate = new Date().toJSON().slice(0, 10);
         setDateOfReview(currentDate);
-        setName("bob321");
+        setName(user.name);
         const body = {
             name,
             food,
@@ -41,18 +44,22 @@ export default function AddReview({storeID}) {
         fetch('http://localhost:4000/api/stall/'+storeID+'/review', {
             method: "POST",
             body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'Content-Type': 'application/json' ,
+                'Access-Control-Allow-Origin': "http://localhost:4000"
+            },
+            credentials: "include"
         }).then(async (response) => {
             if (response.ok) {
-                // setUser(await response.json())
+                
                 //redirect to home page
-                window.location.href = "/search"
-                // setName("");
-                // setFood("");
-                // setDateOfReview("");
-                // setDateOfVisit("");
-                // setRating(5);
-                // setComment("");
+                // window.location.href = "/search"
+                setName("");
+                setFood("");
+                setDateOfReview("");
+                setDateOfVisit("");
+                setRating(5);
+                setComment("");
             } 
             else {
                 const errorMessage = await response.json().then(
@@ -66,7 +73,7 @@ export default function AddReview({storeID}) {
     return(
         <Container sx={{marginY: 4}}>
             <Typography variant='h4' sx={{fontWeight: 'bold'}}>Leave a review</Typography>
-            
+            {user && user.isHawker === false ? (
             <Box sx= {{textAlign:"center" ,width: 600, margin:"0 auto"}}>
             <form onSubmit={addReview}>
                 <TextField
@@ -137,6 +144,11 @@ export default function AddReview({storeID}) {
             </form>
 
             </Box>
+            ) : (
+                <Typography variant='body1' color="gray" align='left' sx={{marginTop: 2, fontWeight: 'medium'}}>
+                Only logged in customers may leave reviews.
+                </Typography> 
+            )}
         </Container>
     )
 }

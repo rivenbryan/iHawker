@@ -49,7 +49,11 @@ export default function Register() {
     fetch('http://localhost:4000/api/auth/signup', {
       method: "POST",
       body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json' ,
+        'Access-Control-Allow-Origin': "http://localhost:4000"
+    },
+    credentials: "include"
     }).then(async (response) => {
       if (response.ok) {
         setUser(await response.json())
