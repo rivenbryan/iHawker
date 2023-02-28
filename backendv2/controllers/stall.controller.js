@@ -96,7 +96,7 @@ const updateStallById = async (req,res) => {
 const addReview = async (req, res) => {
 
     const {id} = req.params
-    const {food, date_of_visit, rating , date_of_review, comment} = req.body
+    const {food, date_of_visit, rating , comment} = req.body
     // date_of_review = Date.now()
     const {token} = req.cookies
     //Check for Hawker Privilege
@@ -108,7 +108,7 @@ const addReview = async (req, res) => {
     //Retrieve username from token
     const user = await UserModel.getUser(token)
     const name = user.name
-
+    const date_of_review = new Date().toJSON().slice(0, 10);
     //Retrieve stall & reviewList from id
     const stall = await StallModel.findById(id)
 
