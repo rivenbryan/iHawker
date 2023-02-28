@@ -15,9 +15,10 @@ const loginUser = async (req,res) =>{
         const user = await User.login(email, password)
 
         //create token
-        const token = createToken(user.id)
+        const token = createToken(user._id)
 
-        res.status(200).json({user, token})
+        res.cookie("token",token).status(200).json(user).send()
+        // User.verifyToken(token)
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -30,12 +31,33 @@ const signupUser = async (req,res) => {
         const user = await User.signup({name, email, password, isHawker})
         
         //create token
-        const token = createToken(user.id)
+        const token = createToken(user._id)
 
         res.status(200).json({user, token})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
+}
+
+const resetPassword = async (req, res) => {
+    const {email, newPassword} = req.body
+
+    //Retrieve user
+    const user = await User.findOne({email})
+
+    if (user == null) {
+        res.status(400).json("User not found")
+    }
+    //Hash the newPassword
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(newPassword, salt)
+    user.password = hash
+    await user.save()
+    res.status(200).json("Successfully reset password")
+}
+
+const logoutUser = async (req,res) => {
+    res.clearCookie("token").status(201).send()
 }
 
 const resetPassword = async (req, res) => {
@@ -91,6 +113,8 @@ const sendEmail = async (req,res) => {
 const userController = {
     loginUser,
     signupUser,
+    resetPassword,
+    logoutUser,
     resetPassword,
     sendEmail
 }

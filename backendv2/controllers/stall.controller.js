@@ -8,16 +8,19 @@ const getAllStalls= async (req, res) => {
 }
 
 const createStall= async (req, res) => {
-    const { stall_name, description, menu_item, topseller, hawker_centre_belong, token} = req.body
+    const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong} = req.body
+    const {token} = req.cookies
+    
     //Check for Hawker Privilege
-    if (!UserModel.checkUserType(token, true)) {
+    const userType = await UserModel.checkUserType(token, true)
+    if (!userType) {
         return res.status(401).send("User not authorized")
     }
     //Once verified
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
     }
-    const stall = await StallModel.create({stall_name, description, menu_item, topseller, hawker_centre_belong})
+    const stall = await StallModel.create({stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong})
     res.status(201).json(stall)
 }
 
@@ -40,12 +43,13 @@ const getStallById = async (req, res) => {
 
 const deleteStallById= async (req, res) => {
     const {id}=req.params
-    // const {token} = req.body
+    const {token} = req.cookies
     let stall
-    //Check for Hawker Privilege
-    // if (!UserModel.checkUserType(token, true)) {
-    //     return res.status(401).send("User not authorized")
-    // }
+    // Check for Hawker Privilege
+    const userType = await UserModel.checkUserType(token, true)
+    if (!userType) {
+        return res.status(401).send("User not authorized")
+    }
     try {
         stall = await StallModel.findById(id)
     }
@@ -64,11 +68,14 @@ const deleteStallById= async (req, res) => {
 const updateStallById = async (req,res) => {
     const {id} = req.params
     const {name_of_centre, location_of_centre, no_of_stalls , img} = req.body
+    const {token} = req.cookies
 
-    // //Check for Hawker Privilege
-    // if (!UserModel.checkUserType(token, true)) {
-    //     return res.status(401).send("User not authorized")
-    // }
+    //Check for Hawker Privilege
+    const userType = await UserModel.checkUserType(token, true)
+    if (!userType) {
+        return res.status(401).send("User not authorized")
+    }
+    
     const stall = await StallModel.findById(id)
     if (name_of_centre != undefined) {
         hawkercentre.name_of_centre = name_of_centre
@@ -87,12 +94,16 @@ const updateStallById = async (req,res) => {
 }
 
 const addReview = async (req, res) => {
+
     const {id} = req.params
-    const {food, date_of_visit, rating , date_of_review, comment, token} = req.body
+    const {food, date_of_visit, rating , date_of_review, comment} = req.body
     // date_of_review = Date.now()
-    //Check for User Privilege
-    if (!UserModel.checkUserType(token, false)) {
-        return res.status(401).send("User not authorized")
+    const {token} = req.cookies
+    //Check for Hawker Privilege
+    const userType = await UserModel.checkUserType(token, false)
+    console.log(userType)
+    if (!userType) {
+        return res.status(401).json("Please login before you make a review")
     }
     //Retrieve username from token
     const user = await UserModel.getUser(token)
@@ -109,7 +120,6 @@ const addReview = async (req, res) => {
         rating,
         comment
     }
-
     stall.reviews.push(review)
     await stall.save()
     StallModel.computeAvgRating(stall._id)

@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useAuth } from '../../context/userAuthContext';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -34,8 +36,7 @@ export default function Register() {
   const [password, setPassword] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [details, setDetails] = React.useState('')
-  const [error, setError] = React.useState('');
-  
+   
   async function registerUser(event) {
     console.log(name, password, email, details)
     event.preventDefault();
@@ -48,23 +49,24 @@ export default function Register() {
     fetch('http://localhost:4000/api/auth/signup', {
       method: "POST",
       body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json' ,
+        'Access-Control-Allow-Origin': "http://localhost:4000"
+    },
+    credentials: "include"
     }).then(async (response) => {
       if (response.ok) {
         setUser(await response.json())
-        //redirect to home page
-        window.location.href = "/"
+        //redirect to Landing Page
+        window.location.href = "/?authState=registered"
       } 
       else {
         const errorMessage = await response.json().then(
           err => err.error
         )
-        setError(errorMessage)
+        toast.error(errorMessage);
       }
     })
-
-    // const data = await response.json()
-    // console.log(data)
 
   }
 
@@ -87,6 +89,7 @@ export default function Register() {
   return (
     <Container component="main">
       <Navbar />
+      <ToastContainer position="bottom-right" newestOnTop />
       <Container
         maxWidth="xs"
         sx={{
@@ -175,7 +178,6 @@ export default function Register() {
           >
             Sign Up
           </Button>
-          {error ? <Box> {error}</Box> : null}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
