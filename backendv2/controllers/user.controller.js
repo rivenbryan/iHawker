@@ -39,22 +39,6 @@ const signupUser = async (req,res) => {
     }
 }
 
-const resetPassword = async (req, res) => {
-    const {email, newPassword} = req.body
-
-    //Retrieve user
-    const user = await User.findOne({email})
-
-    if (user == null) {
-        res.status(400).json("User not found")
-    }
-    //Hash the newPassword
-    const salt = await bcrypt.genSalt(10)
-    const hash = await bcrypt.hash(newPassword, salt)
-    user.password = hash
-    await user.save()
-    res.status(200).json("Successfully reset password")
-}
 
 const logoutUser = async (req,res) => {
     res.clearCookie("token").status(201).send()
