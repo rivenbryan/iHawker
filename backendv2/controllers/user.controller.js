@@ -39,24 +39,20 @@ const signupUser = async (req,res) => {
 }
 
 const resetPassword = async (req, res) => {
-    const {newPassword, password} = req.body
-    const token = req.cookies
+    const {newPassword} = req.body
+    const {token} = req.cookies
     const {email, purpose} = jwt.verify(token, process.env.SECRET)
+
     //Check purpose
     if (purpose != "Reset Password") {
-        return res.status(400).json({error: "Invalid Token"})
+        return res.status(400).json("Invalid Token")
     }
     //Retrieve user
     const user = await User.findOne({email})
-    if (user == null) {
-        return res.status(400).json({error: "User not found"})
-    }
     if (!validator.isStrongPassword(newPassword)) {
-        return res.status(400).json({error: "Password is not strong enough"})
+        return res.status(400).json("Password is not strong enough")
     }
-    if (!password || !newPassword) {
-        return res.status(400).json({error: "All fields must be filled"})
-    }
+
     //Hash the newPassword
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(newPassword, salt)
@@ -72,9 +68,9 @@ const sendEmail = async (req,res) => {
     }
     //Check for user
     const user = await User.findOne({email})
-    // if (user == null) {
-    //     return res.status(404).json({error: "User not found, try again"})
-    // }
+    if (user == null) {
+        return res.status(404).json({error: "User not found, try again"})
+    }
     // Send an email:
     const client = new postmark.ServerClient(process.env.API_TOKEN)
     const token = jwt.sign({email, purpose: "Reset Password"}, process.env.SECRET, {expiresIn: "3d"} )
