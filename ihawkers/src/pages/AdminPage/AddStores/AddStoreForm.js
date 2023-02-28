@@ -1,5 +1,4 @@
 import { Box, TextField, Button, Input, Divider, Typography, MenuItem} from '@mui/material';
-import FileUpload from "react-mui-fileuploader";
 import { HawkerContext } from '../../../context/HawkerContext';
 import { ToastContainer, toast } from "react-toastify";
 import React, { Fragment, useContext } from 'react';
@@ -23,7 +22,7 @@ export default function AddStoreForm() {
     ]);
 
 
-    const [files, setFiles] = React.useState([]);
+    const [image, setImage] = React.useState([]);
 
     const handleChange = (event) => {
         
@@ -79,6 +78,7 @@ export default function AddStoreForm() {
             topseller,
             menu_item,
             stall_belong,
+            image
         };
         event.preventDefault();
         console.log(body);
@@ -149,22 +149,6 @@ export default function AddStoreForm() {
                     </MenuItem>
                 ))}
             </TextField>    
-
-            {/* <FileUpload
-                value={files}
-                onChange={setFiles}
-                multiFile={false}
-                title = "Upload photo of Store"
-                leftLabel="or"
-                rightLabel="to select files"
-                buttonLabel="click here"
-                buttonRemoveLabel="Remove all"
-                maxFileSize={10}
-                maxUploadFiles={0}
-                bannerProps={{ elevation: 0, variant: "outlined" }}
-                containerProps={{ elevation: 0, variant: "outlined"}}
-                accept="image/*"
-            /> */}
            
            <TextField
                 style={{ width: "400px", marginBottom: 20}}
