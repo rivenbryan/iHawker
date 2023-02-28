@@ -52,9 +52,11 @@ export default function viewHawkers({HawkerStores}) {
               </Grid>
             ))
           : (
-            <Typography variant='body1'>
-                No hawker centres under your management.
+            <Grid item xs={4} display="flex" justifyItems ="center" alignItems={"center"}>
+            <Typography variant='body1' sx={{margin: "auto 0"}}>
+                No hawker stores under your management.
             </Typography>
+            </Grid>
             )
         }
       </Grid>
