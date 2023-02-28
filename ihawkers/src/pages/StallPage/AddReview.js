@@ -26,21 +26,26 @@ export default function AddReview({storeID}) {
             setComment(event.target.value)
         }
     };
+
+    const handleAddReview = (event) => {
+        event.preventDefault();
+      
+        setName(user.name);
+        setDateOfReview(new Date().toJSON().slice(0, 10));
+        console.log(date_of_review)
+        console.log(name)
+    };
     
     async function addReview(event){
-        let currentDate = new Date().toJSON().slice(0, 10);
-        setDateOfReview(currentDate);
-        setName(user.name);
+        event.preventDefault();
         const body = {
-            name,
             food,
-            date_of_review,
             date_of_visit,
             rating,
             comment
-        };
-        event.preventDefault();
-        console.log(body);
+          }
+        console.log(body)
+        
         fetch('http://localhost:4000/api/stall/'+storeID+'/review', {
             method: "POST",
             body: JSON.stringify(body),
@@ -51,15 +56,14 @@ export default function AddReview({storeID}) {
             credentials: "include"
         }).then(async (response) => {
             if (response.ok) {
-                
-                //redirect to home page
-                // window.location.href = "/search"
-                setName("");
                 setFood("");
-                setDateOfReview("");
                 setDateOfVisit("");
                 setRating(5);
                 setComment("");
+                window.location.reload(false);
+                //redirect to home page
+                // window.location.href = "/search"
+                
             } 
             else {
                 const errorMessage = await response.json().then(

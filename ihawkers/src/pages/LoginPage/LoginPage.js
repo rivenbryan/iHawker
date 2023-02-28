@@ -133,7 +133,7 @@ export default function LoginPage() {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2">
+                    <Link href="/forgetPassword" variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>

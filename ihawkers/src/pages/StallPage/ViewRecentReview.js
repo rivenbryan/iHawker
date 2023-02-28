@@ -1,11 +1,8 @@
 import React from 'react';
-import { Container, Typography,Box, Divider, Paper, Stack, Avatar, Button} from '@mui/material';
-import FaceImg from './img/face.jpg'
-import FoodImg from './img/claypotlaksa.jpg'
+import { Container, Typography,Box, Stack, Button} from '@mui/material';
 import ReviewCard from './ReviewCard';
 
 export default function ViewReviews({reviews}) {
-    console.log(reviews)
     return(
         <Container sx={{marginTop: 4}}>
             <Typography variant='h4' sx={{fontWeight: 'bold'}}>View Recent Comments</Typography>

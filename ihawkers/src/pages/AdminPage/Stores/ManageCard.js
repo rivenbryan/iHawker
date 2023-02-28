@@ -26,7 +26,10 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
         console.log(e.target.id)
         fetch('http://localhost:4000/api/stall/'+e.target.id, {
             method: "delete",
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "http://localhost:4000"
+            }, credentials: "include"
         }).then(async (response) => {
         if (response.ok) {
             // setUser(await response.json())
