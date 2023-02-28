@@ -1,5 +1,4 @@
 import { Box, TextField, Button, Input, Divider, Typography, MenuItem} from '@mui/material';
-import FileUpload from "react-mui-fileuploader";
 import { HawkerContext } from '../../../context/HawkerContext';
 import { ToastContainer, toast } from "react-toastify";
 import React, { Fragment, useContext } from 'react';
