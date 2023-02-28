@@ -77,9 +77,13 @@ const sendEmail = async (req,res) => {
     client.sendEmail({
     "From": "atan134@e.ntu.edu.sg",
     "To": email,
-    "Subject": "Password Reset",
-    "TextBody": "Hi, please click the url below to reset passwod" +
-    `http://localhost:3000/forgetPasswordEmail?token=${token}`,
+    "Subject": "[RESET] iHawker Password Reset",
+    "TextBody": "Hi User," +
+    "\n\nWe have received a request to reset the password for your account. If you did not make this request, please ignore this email. To reset your password, please click on the following link:" +
+    `\n\nhttp://localhost:3000/forgetPasswordEmail?token=${token}` +
+    "\n\nIf you have any questions or concerns, please reply to this email." +
+    "\n\nBest regards," +
+    "\niHawker",
     "MessageStream": "outbound"
     })
     res.cookie("token", token).status(201).json("Successfully sent email").send()
