@@ -22,7 +22,7 @@ export default function StallPage() {
       )
       sethawkerLocation(oneCentre.location_of_centre);
     }
-  });
+  }, [hawkerCentres, oneHawkerStore]);
 
   
   return (
@@ -33,8 +33,6 @@ export default function StallPage() {
           <StallDesc 
             oneHawkerStore = { oneHawkerStore } 
             hawkerLocation = { hawkerLocation }
-            imgPlaceholder = { imgPlaceholder } 
-            // oneHawkerCentre = {}
           />
           <StallMenu
             oneHawkerStore = { oneHawkerStore } 
