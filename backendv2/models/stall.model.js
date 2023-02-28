@@ -72,6 +72,17 @@ const Stall = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'user-data',
             required: true
+        },
+
+        image: {
+            public_id: {
+                type: String,
+                required: true
+            },
+            url: {
+                type: String,
+                required: true
+            }
         }
     },
     { collection: 'HawkerStall'}
