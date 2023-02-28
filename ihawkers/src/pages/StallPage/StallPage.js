@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import StallDesc from './StallDesc'
@@ -11,8 +11,20 @@ export default function StallPage() {
 
   const { oneHawkerStore } = useContext(HawkerContext);
   const { hawkerStores } = useContext(HawkerContext);
+  const { hawkerCentres } = useContext(HawkerContext);
+  const [hawkerLocation, sethawkerLocation] = useState("");
   var imgPlaceholder = "https://i.imgur.com/JOf48jt.jpeg"
 
+  useEffect(() => {
+    if (hawkerCentres && oneHawkerStore) {
+      const oneCentre = hawkerCentres.find(
+        centre => centre._id === oneHawkerStore.hawker_centre_belong
+      )
+      sethawkerLocation(oneCentre.location_of_centre);
+    }
+  });
+
+  
   return (
     <>
         <Navbar/>
@@ -20,6 +32,7 @@ export default function StallPage() {
           <>
           <StallDesc 
             oneHawkerStore = { oneHawkerStore } 
+            hawkerLocation = { hawkerLocation }
             imgPlaceholder = { imgPlaceholder } 
             // oneHawkerCentre = {}
           />
@@ -27,8 +40,8 @@ export default function StallPage() {
             oneHawkerStore = { oneHawkerStore } 
             imgPlaceholder = { imgPlaceholder } 
           />
-          <ViewReviews/>
-          <AddReview/>
+          <ViewReviews reviews = {oneHawkerStore.reviews}/>
+          <AddReview storeID = {oneHawkerStore._id}/>
           </>
         )}
         

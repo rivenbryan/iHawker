@@ -17,6 +17,8 @@ import ForgetPasswordPage from "./pages/ForgetPasswordPage/ForgetPasswordPage";
 import ForgetPasswordAfterEmail from "./pages/ForgetPasswordPage/ForgetPasswordAfterEmail";
 // Context
 import { HawkerContext } from "./context/HawkerContext";
+import AdminPage from "./pages/AdminPage/AdminPage";
+import AddStore from "./pages/AdminPage/AddStores/AddStore";
 
 export default function App() {
   // hawkerCentres state is used for getting ALL hawkercentre from the database //
@@ -68,6 +70,8 @@ export default function App() {
               <Route path="/hawkerCentre/:hawkerID" element={<HawkerPage />} />
               <Route path="/forgetPassword" element={<ForgetPasswordPage />} />
               <Route path="/forgetPasswordEmail" element={<ForgetPasswordAfterEmail/>} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/addStore" element={<AddStore/>} />
             </Routes>
           </HawkerContext.Provider>
         )}

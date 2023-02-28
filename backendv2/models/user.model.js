@@ -28,7 +28,7 @@ User.statics.login = async function(email, password) {
         throw Error("Incorrect password")
     }
 
-    return { id: user._id }
+    return user
 }
 
 // static signup method
@@ -60,15 +60,20 @@ User.statics.signup = async function(userInput){
 }
 
 User.statics.getUser = async function(token) {
+User.statics.getUser = async function(token) {
+    console.log(token)
+    if (!token) return null
     const tokenInfo = await jwt.verify(token, process.env.SECRET)
     const user = await this.findById(tokenInfo.id)
     return user
 }
 
 //Check for JWT token + user is Hawker
+//checkHawker = True when checking for Hawker Privilege Otherwise is False
 User.statics.checkUserType = async function(token, checkHawker) {
     const user = await this.getUser(token)
-    //I want to give Haweker Privilege
+    console.log(user)
+    //I want to give Hawker Privilege
     if (checkHawker) {
         //return True if user exist + user is Hawker
         return user && user.isHawker

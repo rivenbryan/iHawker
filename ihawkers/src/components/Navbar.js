@@ -1,21 +1,39 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Container } from "@mui/material";
+import { Divider, Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
+<<<<<<< HEAD
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
+=======
+>>>>>>> main
 import { useAuth } from "../context/userAuthContext";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 const Navbar = () => {
   const {getUser, clearUser} = useAuth()
   //For logging Out
   const handleLogout = () => {
+<<<<<<< HEAD
     clearUser()
     window.location.href = "/?authState=logout"
+=======
+    fetch("http://localhost:4000/api/auth/logout", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json" ,
+        "Access-Control-Allow-Origin": "http://localhost:4000"
+    },
+      credentials: "include"
+    }).then(() => {
+      clearUser()
+      window.location.href = "/?authState=logout"
+    })
+>>>>>>> main
   }
 
   //For Notifications
@@ -33,6 +51,7 @@ const Navbar = () => {
     case "registered":
       notification = "Successfully Registered!"
       break
+<<<<<<< HEAD
     case "reset-password":
       notification = "Successfully Resetted Password!"
       break
@@ -40,6 +59,13 @@ const Navbar = () => {
 
   toast.success(notification);
   const user = getUser()
+=======
+    }
+
+  toast.success(notification);
+  const user = getUser();
+
+>>>>>>> main
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >
@@ -55,13 +81,12 @@ const Navbar = () => {
             />
           </Box>
           <Stack direction="row" spacing={2}>
-            {/* {user ? <Box>
-              {user.user.id}
-            </Box> : null} */}
             <Button component={Link} to="/" color="inherit">Home</Button>
             {/* <Button component={Link} to="/Stall" color="inherit">Profile</Button> */}
             <Button component={Link} to="/search" color="inherit">Search</Button>
             <Button component={Link} to="/map" color="inherit">Map</Button>
+            <Divider sx={{borderLeft: 1, borderColor: "#A6A6A6"}}/>
+            {user && user.isHawker ? <Button component={Link} to="/admin" color="inherit">Admin</Button>:<></>}
             {user ? <Button onClick={handleLogout}  color="inherit">Log Out</Button> : <Button component={Link} to="/Login" color="inherit">Log In</Button>}
           </Stack>
         </Toolbar>
