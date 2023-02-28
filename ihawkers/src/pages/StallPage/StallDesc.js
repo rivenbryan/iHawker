@@ -3,10 +3,8 @@ import { Container,Stack, Typography,Box, Button, Rating ,Link, Grid} from '@mui
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Divider from '@mui/material/Divider';
 
-export default function StallDesc(props) {
-    console.log("stalldesc")
-    console.log(props)
-  return (
+export default function StallDesc({oneHawkerStore, hawkerLocation}) {
+    return (
     <Box sx={{ width: "100%", margin: "0 auto" }}>
     <Box 
         sx={{ height: "50vh",
@@ -18,7 +16,7 @@ export default function StallDesc(props) {
                 rgba(0,0,0,0),
                 #FFF 89%
                 ),
-                url(${props.imgPlaceholder})`,
+                url(${oneHawkerStore.image.url})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
         }}></Box>
@@ -32,7 +30,7 @@ export default function StallDesc(props) {
                 
                 <Box component="img" 
                 alt="Store front img"
-                src={props.imgPlaceholder}
+                src={oneHawkerStore.image.url}
                 sx={{ height: "500px",
                     width: "400px",
                     objectFit: "cover",
@@ -44,32 +42,32 @@ export default function StallDesc(props) {
                 
                 <Box sx={{marginTop: 10, alignItems: 'center'}}>
                     <Typography variant="h2" sx={{fontWeight: 'bold'}}>
-                        { props.oneHawkerStore.stall_name }
+                        { oneHawkerStore.stall_name }
                     </Typography>
 
                     <Grid container direction="row" marginTop={2}>
-                        <Rating name="read-only" value={props.oneHawkerStore.avg_rating} precision={0.5} readOnly />
-                        { props.oneHawkerStore.reviews.length > 0 ? (
+                        <Rating name="read-only" value={oneHawkerStore.avg_rating} precision={0.5} readOnly />
+                        { oneHawkerStore.reviews.length > 0 ? (
                             <Typography variant="h6" sx={{ marginLeft: 2, fontWeight: 'bold'}}>
-                                {props.oneHawkerStore.avg_rating} stars 
+                                {oneHawkerStore.avg_rating} stars 
                             </Typography>
                         ) : (
                             <Typography variant="body1" sx={{ ml: 2, mb: 1, fontWeight: 'normal'}}>
                                 No Reviews
                             </Typography>                            
-                        )} {console.log(props.oneHawkerStore.Rating)}
+                        )} 
                         
                     </Grid>
 
                     <Grid container direction="row" marginTop={-0.5}>
                         <LocationOnIcon color='primary'/>
                         <Link href="#" variant="body1" color="secondary" marginLeft={2}>
-                            {props.hawkerLocation}
+                            {hawkerLocation}
                         </Link>
                     </Grid>
                    
                     <Typography variant="body1" sx={{ marginTop: 4, marginBottom: 4, fontWeight: 'medium'}}>
-                        { props.oneHawkerStore.description }
+                        { oneHawkerStore.description }
                     </Typography>
                     <Divider variant="string" width="50%" sx={{background: "#000"}}></Divider>
                     <Button variant="contained" sx={{marginTop: 4}}>idk button for what</Button>
