@@ -23,11 +23,13 @@ export default function ForgetPasswordAfterEmail() {
     setFlag(false)
     setError(null)
     if (!form.elements.password.value || !form.elements.confirmPassword.value) {
+      setFlag(true)
       setError("All fields must be filled")
       return
     }
     if (form.elements.password.value != form.elements.confirmPassword.value) {
       setFlag(true)
+      setError("Password do not match! Please try again")
       return
     }
     fetch('http://localhost:4000/api/auth/reset-password', {
@@ -49,6 +51,7 @@ export default function ForgetPasswordAfterEmail() {
       else {
         const errorMessage = await response.json()
         console.log(errorMessage)
+        setFlag(true)
         setError(errorMessage)
       }
     })}
@@ -110,8 +113,7 @@ export default function ForgetPasswordAfterEmail() {
           </Button>
           </Grid>
         </Box>
-        {flag ? <ErrorComponent text="Password do not match! Please try again"/> : null}
-        {error ? <Box>{error}</Box> : null}
+        {flag ? <ErrorComponent text={error}/> : null}
       </Container>
     </Container>
     </>
