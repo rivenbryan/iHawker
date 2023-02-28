@@ -6,11 +6,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../context/userAuthContext";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
-const Navbar = () => {
+import { useAuth } from "../context/userAuthContext";
 
+const Navbar = () => {
   const {getUser, clearUser} = useAuth()
   //For logging Out
   const handleLogout = () => {
@@ -42,11 +42,13 @@ const Navbar = () => {
     case "registered":
       notification = "Successfully Registered!"
       break
+    case "reset-password":
+      notification = "Successfully Resetted Password!"
+      break
     }
 
   toast.success(notification);
-  const user = getUser();
-
+  const user = getUser()
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >
