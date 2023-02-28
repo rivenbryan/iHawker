@@ -41,9 +41,9 @@ User.statics.signup = async function(userInput){
     if (!validator.isEmail(email)) {
         throw Error("Invalid email")
     }
-    // if (!validator.isStrongPassword(password)) {
-    //     throw Error("Password is not strong enough")
-    // }
+    if (!validator.isStrongPassword(password)) {
+        throw Error("Password is not strong enough")
+    }
 
     //check if email already in use
     const exist = await this.findOne({email})
@@ -59,6 +59,7 @@ User.statics.signup = async function(userInput){
     return user
 }
 
+User.statics.getUser = async function(token) {
 User.statics.getUser = async function(token) {
     console.log(token)
     if (!token) return null
