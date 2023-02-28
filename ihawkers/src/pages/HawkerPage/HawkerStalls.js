@@ -17,7 +17,7 @@ export default function HawkerStalls({ hawkerStores }) {
                     <Grid item xs={4}>
                         <StallsCardComponent 
                             id={item._id} 
-                            img={"https://i.imgur.com/JOf48jt.jpeg"} 
+                            img={item.image.url} 
                             description={item.description} 
                             name_of_centre={item.stall_name} 
                         />

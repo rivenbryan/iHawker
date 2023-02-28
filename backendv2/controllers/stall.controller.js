@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const StallModel = require("../models/stall.model")
 const UserModel = require("../models/user.model")
+const cloudinary = require('../utils/cloudinary')
 
 const getAllStalls= async (req, res) => {
     const stalls = await StallModel.find().sort({no_of_stalls: -1})
@@ -8,19 +9,29 @@ const getAllStalls= async (req, res) => {
 }
 
 const createStall= async (req, res) => {
-    const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong} = req.body
+    const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong, image} = req.body
     const {token} = req.cookies
-    
-    //Check for Hawker Privilege
-    const userType = await UserModel.checkUserType(token, true)
-    if (!userType) {
-        return res.status(401).send("User not authorized")
-    }
+    console.log("this is image" + image)
+    const result = await cloudinary.uploader.upload(image, {
+        folder: "hawkerStores",
+        // width: 500,
+        // crop: "scale"
+    })
     //Once verified
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
     }
-    const stall = await StallModel.create({stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong})
+    const stall = await StallModel.create({
+        stall_name, 
+        description, 
+        menu_item, 
+        topseller, 
+        hawker_centre_belong, 
+        stall_belong, 
+        image: {
+            public_id: result.public_id,
+            url: result.secure_url
+        }})
     res.status(201).json(stall)
 }
 

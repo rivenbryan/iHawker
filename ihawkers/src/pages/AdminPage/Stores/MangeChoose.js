@@ -45,7 +45,7 @@ export default function viewHawkers({HawkerStores}) {
                 <ManageCard
                   type="test"
                   id={item._id}
-                  img={"https://i.imgur.com/JOf48jt.jpeg"}
+                  img={item.image.url}
                   short_description={item.description}
                   name_of_centre={item.stall_name}
                 />
