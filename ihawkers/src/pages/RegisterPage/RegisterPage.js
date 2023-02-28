@@ -16,6 +16,7 @@ import Select from '@mui/material/Select';
 import { useAuth } from '../../context/userAuthContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
+import ErrorComponent from '../../components/ErrorComponent';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -36,9 +37,16 @@ export default function Register() {
   const [password, setPassword] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [details, setDetails] = React.useState('')
-   
+  const [errorMessage, setErrorMessage] = React.useState(null)
+  const [flag, setFlag] = React.useState(false)
+
   async function registerUser(event) {
     console.log(name, password, email, details)
+    if (!name || !email || !password || (details == "")) {
+      setFlag(true)
+      setErrorMessage("All Fields must be filled")
+      return
+    }
     event.preventDefault();
     const body = {
       name,
@@ -58,7 +66,7 @@ export default function Register() {
       if (response.ok) {
         setUser(await response.json())
         //redirect to Landing Page
-        window.location.href = "/?authState=registered"
+        window.location.href = "/?authState=login"
       } 
       else {
         const errorMessage = await response.json().then(
@@ -178,6 +186,7 @@ export default function Register() {
           >
             Sign Up
           </Button>
+          {flag ? <ErrorComponent text={errorMessage}/> : null}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
