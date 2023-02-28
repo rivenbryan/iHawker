@@ -25,8 +25,7 @@ export default function Content({ list, name }) {
                 <CardComponent
                   type={name}
                   id={item._id}
-                  // img={item.img}
-                  img = "https://i.imgur.com/JOf48jt.jpeg" //placeholder
+                  img={item.image.url}
                   short_description={item.description}
                   name_of_centre={item.stall_name}
                 />
