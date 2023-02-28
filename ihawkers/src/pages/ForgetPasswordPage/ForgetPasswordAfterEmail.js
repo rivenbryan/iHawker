@@ -15,10 +15,17 @@ export default function ForgetPasswordAfterEmail() {
   const queryParams = new URLSearchParams(location.search)
   const token = queryParams.get('token')
   const [flag, setFlag] = useState(false)
-  const [error,setError] = useState("")
+  const [error,setError] = useState(null)
 
-  const handleSubmit = (e) => {e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
     const form = e.currentTarget
+    setFlag(false)
+    setError(null)
+    if (!form.elements.password.value || !form.elements.confirmPassword.value) {
+      setError("All fields must be filled")
+      return
+    }
     if (form.elements.password.value != form.elements.confirmPassword.value) {
       setFlag(true)
       return
@@ -29,7 +36,11 @@ export default function ForgetPasswordAfterEmail() {
         "newPassword": form.elements.confirmPassword.value,
         token
       }),
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        "Content-Type": "application/json" ,
+        "Access-Control-Allow-Origin": "http://localhost:4000"
+      },
+      credentials: "include"
     }).then(async (response) => {
       if (response.ok) {
         //redirect to Landing Page
