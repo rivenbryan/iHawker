@@ -11,12 +11,29 @@ const getAllStalls= async (req, res) => {
 const createStall= async (req, res) => {
     const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong, image} = req.body
     const {token} = req.cookies
-    console.log("this is image" + image)
+
+    // Upload StoreFront photo
     const result = await cloudinary.uploader.upload(image, {
         folder: "hawkerStores",
         // width: 500,
         // crop: "scale"
     })
+
+    // Upload TopSeller Photo for each topseller
+    // Overwrite topseller.tsImg with the URL of uploaded image
+    async function getTsImgURL() {
+        for (const element of topseller){
+            const tsResult = await cloudinary.uploader.upload(element.tsImg, {
+                folder: "topSellers",
+                // width: 500,
+                // crop: "scale"
+            })
+            element.tsImg = tsResult.secure_url;
+        }
+    }
+   
+    await getTsImgURL();
+
     //Once verified
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
@@ -25,13 +42,14 @@ const createStall= async (req, res) => {
         stall_name, 
         description, 
         menu_item, 
-        topseller, 
+        topseller,
         hawker_centre_belong, 
-        stall_belong, 
+        stall_belong: stall_belong[0], 
         image: {
             public_id: result.public_id,
             url: result.secure_url
         }})
+    
     res.status(201).json(stall)
 }
 
@@ -114,7 +132,7 @@ const addReview = async (req, res) => {
         // width: 500,
         // crop: "scale"
     })
-    
+
     const {token} = req.cookies
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, false)
