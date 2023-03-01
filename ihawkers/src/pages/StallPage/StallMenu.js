@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Typography,Box, Grid, Divider} from '@mui/material';
 import StallMenuBox from './StallMenuBox';
-import ClaypotLaksaImg from './img/claypotlaksa.jpg'
 
 export default function StallMenu(props) {
     return(

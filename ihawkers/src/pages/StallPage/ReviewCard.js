@@ -1,9 +1,8 @@
 import React from 'react';
 import { Rating, Paper, Stack, Divider, Avatar, Box, Typography } from '@mui/material';
 import FaceImg from './img/face.jpg'
-import FoodImg from './img/claypotlaksa.jpg'
 
-export default function ReviewCard({name, food, date_of_review, date_of_visit, rating, comment}) {
+export default function ReviewCard({name, food, date_of_review, date_of_visit, rating, comment, reviewImg}) {
     return(
         <Paper variant="outlined" sx={{mt: 4, boxShadow: 4, borderRadius: 5, borderColor: "#ffc23d", borderWidth: 2}}>
             <Stack
@@ -34,7 +33,7 @@ export default function ReviewCard({name, food, date_of_review, date_of_visit, r
                         component="img"
                         sx={{ width: 120, height: 120, objectFit: "cover"}}
                         alt="Claypot Laksa"
-                        src={FoodImg}
+                        src={reviewImg}
                     />
                     <Box margin={"auto 0"} marginLeft={4}>
                     <Typography variant='subtitle1' sx={{fontWeight: "light"}}>Bought:</Typography>
