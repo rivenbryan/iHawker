@@ -34,15 +34,17 @@ User.statics.login = async function(email, password) {
 // static signup method
 User.statics.signup = async function(userInput){
     //validation
-    const {name, email, password, isHawker} = userInput
-    if (!name || !email || !password || (isHawker == undefined)) {
-        throw Error("All fields must be filled")
-    }
+    const {email, password} = userInput
     if (!validator.isEmail(email)) {
         throw Error("Invalid email")
     }
     if (!validator.isStrongPassword(password)) {
         throw Error("Password is not strong enough")
+    }
+    const authorizedDomain = 'e.ntu.edu.sg'; // replace with your authorized domain
+    const senderDomain = email.split('@')[1]; // extract sender domain
+    if (senderDomain !== authorizedDomain) {
+      throw Error("Invalid Email. Please type in an email format.") // update state variable
     }
 
     //check if email already in use
