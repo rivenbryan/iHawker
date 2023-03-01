@@ -21,6 +21,7 @@ const createStall= async (req, res) => {
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
     }
+    console.log(stall_belong)
     const avg_rating = 0
     const stall = await StallModel.create({
         stall_name, 
