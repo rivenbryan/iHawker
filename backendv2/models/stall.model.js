@@ -66,7 +66,8 @@ const Stall = new Schema({
             }]
         },
         avg_rating: {
-            type: Number
+            type: Number,
+            required: true
         },
         stall_belong: {
             type: mongoose.Schema.Types.ObjectId,

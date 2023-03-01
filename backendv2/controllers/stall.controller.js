@@ -21,6 +21,7 @@ const createStall= async (req, res) => {
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
     }
+    const avg_rating = 0
     const stall = await StallModel.create({
         stall_name, 
         description, 
@@ -28,11 +29,12 @@ const createStall= async (req, res) => {
         topseller, 
         hawker_centre_belong, 
         stall_belong, 
+        avg_rating,
         image: {
             public_id: result.public_id,
             url: result.secure_url
         }})
-    res.status(201).json(stall)
+    res.cookie("token", token).status(201).json(stall).send()
 }
 
 const getStallById = async (req, res) => {
@@ -42,12 +44,10 @@ const getStallById = async (req, res) => {
     try {
         stall = await StallModel.findById(id)
     } catch (err) {
-        res.status(400).send("Invalid ID not found")
-        return
+        return res.status(400).send("Invalid ID not found")
     }
     if(stall == null) {
-        res.status(404).send("Stall not found")
-        return
+        return res.status(404).send("Stall not found")
     }
     res.status(200).json(stall)
 }
@@ -59,21 +59,19 @@ const deleteStallById= async (req, res) => {
     // Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, true)
     if (!userType) {
-        return res.status(401).send("User not authorized")
+        return res.cookie("token", token).status(401).send("User not authorized")
     }
     try {
         stall = await StallModel.findById(id)
     }
     catch (err) {
-        res.status(400).send("Invlaid ID not found")
-        return
+        return res.cookie("token", token).status(400).send("Invlaid ID not found")
     }
     if(stall == null) {
-        res.status(404).send("Stall not found")
-        return
+        return res.cookie("token", token).status(404).send("Stall not found")
     }
     await StallModel.deleteOne({_id: id})
-    res.status(200).send()
+    res.cookie("token", token).status(200).send()
 }
 
 const updateStallById = async (req,res) => {
@@ -84,7 +82,7 @@ const updateStallById = async (req,res) => {
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, true)
     if (!userType) {
-        return res.status(401).send("User not authorized")
+        return res.cookie("token", token).status(401).send("User not authorized")
     }
     
     const stall = await StallModel.findById(id)
@@ -101,14 +99,13 @@ const updateStallById = async (req,res) => {
         hawkercentre.img = img
     }
     await stall.save()
-    res.status(200).send(stall)
+    res.cookie("token", token).status(200).send(stall)
 }
 
 const addReview = async (req, res) => {
 
     const {id} = req.params
     const {food, date_of_visit, rating , comment} = req.body
-    // date_of_review = Date.now()
     const {token} = req.cookies
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, false)
@@ -135,7 +132,7 @@ const addReview = async (req, res) => {
     await stall.save()
     StallModel.computeAvgRating(stall._id)
     const updatedStall = await StallModel.findById(id)
-    res.status(201).send(updatedStall)
+    res.cookie("token", token).status(201).send(updatedStall)
 }
 
 const StallController = {
