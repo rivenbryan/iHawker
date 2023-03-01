@@ -66,7 +66,7 @@ export default function Register() {
       if (response.ok) {
         setUser(await response.json())
         //redirect to Landing Page
-        window.location.href = "/?authState=login"
+        window.location.href = "/?authState=registered"
       } 
       else {
         const errorMessage = await response.json().then(
