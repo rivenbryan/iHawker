@@ -14,8 +14,8 @@ export default function StallMenu(props) {
                 <Grid container spacing={5} justifyContent="center" alignItems="center" paddingY={4}>
                     {props.oneHawkerStore && props.oneHawkerStore.topseller.map((item) =>
                     <Grid item xs={4} >
-                        <StallMenuBox 
-                            img = "https://i.imgur.com/JOf48jt.jpeg"
+                        <StallMenuBox
+                            img = {item.tsImg}
                             name_of_food = {item.name_of_food}
                             price = {item.price}
                         />

@@ -27,9 +27,9 @@ const Stall = new Schema({
                     type: Number,
                     required: true
                 },
-                food_image: {
+                tsImg: {
                     type: String,
-                    // required: true
+                    required: true
                 }
             }]
         },

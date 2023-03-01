@@ -16,14 +16,14 @@ export default function AddStoreForm() {
     const [description, setStoreDesc] = React.useState('');
     const stall_belong = React.useState(user._id);
     const [topseller, setTopSeller] = React.useState([
-        { name_of_food: "", price: parseFloat("") }
+        { name_of_food: "", price: parseFloat(""), tsImg: [] }
     ]);
     const [menu_item, setMenuItems] = React.useState([
         ""
     ]);
 
-
     const [image, setImage] = React.useState([]);
+    const [tsImg, setTsImg] = React.useState([]);
 
     const handleChange = (event) => {
 
@@ -40,7 +40,7 @@ export default function AddStoreForm() {
     const handleImage = (e) => {
         const file = e.target.files[0];
         setFileToBase(file);
-        console.log(file);
+        // console.log(file);
     }
 
     const setFileToBase = (file) => {
@@ -57,15 +57,24 @@ export default function AddStoreForm() {
         values.push({
             name_of_food: "",
             price: parseFloat(""),
+            tsImg: []
         });
         setTopSeller(values);
     };
+
     const handleTopInputChange = (index, event) => {
         const values = [...topseller];
         const updatedValue = event.target.id;
-        if (event.target.id === "price") {
+        if (updatedValue === "price") {
             values[index][updatedValue] = parseFloat(event.target.value);
-        } else {
+        }else if (updatedValue === "tsImg"){
+            const reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
+            reader.onloadend = () => {
+                values[index][updatedValue] = reader.result;
+            }
+            
+        }else {
             values[index][updatedValue] = event.target.value;
         }
         setTopSeller(values);
@@ -136,6 +145,7 @@ export default function AddStoreForm() {
                 }}
             >
                 <form style={{ width: "400px" }} onSubmit={addStore}>
+                    {/* Input for Store Name */}
                     <TextField
                         style={{ width: "400px", marginBottom: 20 }}
                         type="text"
@@ -150,6 +160,7 @@ export default function AddStoreForm() {
                         onChange={handleChange}
                     />
 
+                    {/* Input for Store Location */}
                     <TextField
                         style={{ width: "400px", marginBottom: 20 }}
                         select
@@ -167,6 +178,7 @@ export default function AddStoreForm() {
                         ))}
                     </TextField>
 
+                    {/* Input for Store Description */}
                     <TextField
                         style={{ width: "400px", marginBottom: 20 }}
                         type="text"
@@ -184,6 +196,7 @@ export default function AddStoreForm() {
                         <input onChange={handleImage} type="file" id="formupload" name="image" className="form-control" />
                         <label className="form-label" htmlFor="form4Example2">Image</label>
                     </div> */}
+                    {/* Store Image Upload */}
                     <Box sx={{ width: "400px"}}>
                         <img style={{width:"inherit", marginBottom: 20}} className="img-fluid" src={image} alt="" />
                         <Button variant='contained' component="label" sx={{mb:2}}>
@@ -199,13 +212,10 @@ export default function AddStoreForm() {
                         </Button>
                     </Box>
                     
-
-                    
-
+                    {/* Top Seller Section */}
                     <Divider variant='' sx={{ '&::before': { borderColor: "#757575" }, '&::after': { borderColor: "#757575" } }}>
                         <Typography variant="body1"> Add Top Seller(s)</Typography>
                     </Divider>
-
 
                     {topseller.map((field, index) => (
                         <Fragment>
@@ -237,6 +247,20 @@ export default function AddStoreForm() {
                                     (event) => handleTopInputChange(index, event)
                                 }
                             />
+                            <Box sx={{ width: "400px"}}>
+                                <img style={{width:"inherit", marginBottom: 20}} src={field.tsImg} alt="" />
+                                <Button variant='contained' component="label" sx={{mb:2}}>
+                                    Upload Image
+                                    <input 
+                                        hidden
+                                        accept="image/*"
+                                        onChange={(event) => handleTopInputChange(index, event)} 
+                                        type="file" 
+                                        id="tsImg" 
+                                        name="image" 
+                                    />
+                                </Button>
+                            </Box>
                         </Fragment>
                     ))}
                     <br />
@@ -255,6 +279,7 @@ export default function AddStoreForm() {
                     )
                     }
 
+                    {/* Other Menu Items Section */}
                     <Divider variant='' sx={{ mt: "20px", '&::before': { borderColor: "#757575" }, '&::after': { borderColor: "#757575" } }}>
                         <Typography variant="body1"> Other Menu Items</Typography>
                     </Divider>
