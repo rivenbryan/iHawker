@@ -17,6 +17,7 @@ export default function ViewReviews({reviews}) {
                         date_of_visit = {item.date_of_visit}
                         rating = {item.rating}
                         comment = {item.comment}
+                        reviewImg = {item.reviewImg.url}
                     />
                     )}
 

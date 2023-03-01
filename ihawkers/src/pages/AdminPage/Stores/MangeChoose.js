@@ -3,7 +3,6 @@ import { Card, Box, Grid, Typography, CardActionArea, CardContent } from '@mui/m
 import ManageCard from './ManageCard';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import ButtonHawkerStore from '../../../components/ButtonHawkerStore';
 
 export default function viewHawkers({HawkerStores}) {
     return(

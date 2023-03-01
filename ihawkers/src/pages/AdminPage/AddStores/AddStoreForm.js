@@ -1,4 +1,4 @@
-import { Box, TextField, Button, Input, Divider, Typography, MenuItem} from '@mui/material';
+import { Box, TextField, Button, Divider, Typography, MenuItem} from '@mui/material';
 
 import { HawkerContext } from '../../../context/HawkerContext';
 import { ToastContainer, toast } from "react-toastify";
@@ -14,7 +14,7 @@ export default function AddStoreForm() {
     const [stall_name, setStoreName] = React.useState('');
     const [hawker_centre_belong, setLocatedin] = React.useState('');
     const [description, setStoreDesc] = React.useState('');
-    const [stall_belong, setStallBelong] = React.useState(user._id);
+    const stall_belong = React.useState(user._id);
     const [topseller, setTopSeller] = React.useState([
         { name_of_food: "", price: parseFloat("") }
     ]);
@@ -180,11 +180,27 @@ export default function AddStoreForm() {
                         onChange={handleChange}
                     />
 
-                    <div className="form-outline mb-4">
+                    {/* <div className="form-outline mb-4">
                         <input onChange={handleImage} type="file" id="formupload" name="image" className="form-control" />
                         <label className="form-label" htmlFor="form4Example2">Image</label>
-                    </div>
-                    <img className="img-fluid" src={image} alt="" />
+                    </div> */}
+                    <Box sx={{ width: "400px"}}>
+                        <img style={{width:"inherit", marginBottom: 20}} className="img-fluid" src={image} alt="" />
+                        <Button variant='contained' component="label" sx={{mb:2}}>
+                            Upload Image
+                            <input 
+                                hidden
+                                accept="image/*"
+                                onChange={handleImage} 
+                                type="file" 
+                                id="formupload" 
+                                name="image" 
+                                className="form-control" />
+                        </Button>
+                    </Box>
+                    
+
+                    
 
                     <Divider variant='' sx={{ '&::before': { borderColor: "#757575" }, '&::after': { borderColor: "#757575" } }}>
                         <Typography variant="body1"> Add Top Seller(s)</Typography>

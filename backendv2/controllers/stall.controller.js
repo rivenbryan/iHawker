@@ -107,12 +107,18 @@ const updateStallById = async (req,res) => {
 const addReview = async (req, res) => {
 
     const {id} = req.params
-    const {food, date_of_visit, rating , comment} = req.body
-    // date_of_review = Date.now()
+    const {food, date_of_visit, rating , comment, reviewImg} = req.body
+ 
+    const result = await cloudinary.uploader.upload(reviewImg, {
+        folder: "ReviewImages",
+        // width: 500,
+        // crop: "scale"
+    })
+    
     const {token} = req.cookies
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, false)
-    console.log(userType)
+  
     if (!userType) {
         return res.status(401).json("Please login before you make a review")
     }
@@ -129,7 +135,11 @@ const addReview = async (req, res) => {
         date_of_review,
         date_of_visit,
         rating,
-        comment
+        comment,
+        reviewImg: {
+            public_id: result.public_id,
+            url: result.secure_url
+        }
     }
     stall.reviews.push(review)
     await stall.save()
