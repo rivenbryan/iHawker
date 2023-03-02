@@ -33,7 +33,7 @@ const signupUser = async (req,res) => {
         //create token
         const token = createToken(user._id)
 
-        res.status(200).json({user, token})
+        res.cookie("token",token).status(200).json(user).send()
     } catch (error) {
         res.status(400).json({error: error.message})
     }

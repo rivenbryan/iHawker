@@ -38,7 +38,6 @@ export default function AddReview({storeID}) {
         reader.onloadend = () => {
             setImage(reader.result);
         }
-
     }
     
     async function addReview(event){
