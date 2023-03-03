@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Container, Typography, Box, Rating} from "@mui/material";
+import { Paper, Container, Typography, Box, Rating, Stack} from "@mui/material";
 
 import { Link } from "react-router-dom";
 import ButtonHawkerCentre from "../../components/ButtonHawkerCentre";
@@ -33,8 +33,11 @@ export default function Carousell({ title, data, idName }) {
                 <Typography sx={{ paddingBottom: 1 }} variant="h5">{review.stall_name}</Typography>
                 <Box sx={{ width: "75%", mb: 3 }}>
                   <Typography sx={{ paddingBottom: 1 }} variant="subtitle2">{review.description}</Typography>
-               
-                  <Rating name="read-only" value={review.avg_rating} precision={0.5} readOnly />
+                  <Stack direction="row" spacing={1}>
+                  <Typography variant="subtitle2" sx={{fontWeight: 'bold'}}> {review.avg_rating} stars </Typography>
+                    <Rating name="read-only" value={review.avg_rating} precision={0.5} readOnly />
+                  </Stack>
+                 
                 </Box>
                 <Link style={{ textDecoration: 'none' }} to={"/stall/" + review.stall_belong} >
                   <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID={review.stall_belong} />
