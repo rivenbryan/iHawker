@@ -238,6 +238,7 @@ export default function AddStoreForm() {
                                 required
                                 style={{ width: "400px", marginTop: 20, marginBottom: 20 }}
                                 type="number"
+                                inputProps={{step: "0.01"}}
                                 label="Top Seller Item Price"
                                 variant="outlined"
                                 id="price"
