@@ -14,7 +14,7 @@ export default function AddStoreForm() {
     const [stall_name, setStoreName] = React.useState('');
     const [hawker_centre_belong, setLocatedin] = React.useState('');
     const [description, setStoreDesc] = React.useState('');
-    const stall_belong = React.useState(user._id);
+    const stall_belong = user._id;
     const [topseller, setTopSeller] = React.useState([
         { name_of_food: "", price: parseFloat(""), tsImg: [] }
     ]);
