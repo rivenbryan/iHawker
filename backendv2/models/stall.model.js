@@ -27,9 +27,9 @@ const Stall = new Schema({
                     type: Number,
                     required: true
                 },
-                food_image: {
+                tsImg: {
                     type: String,
-                    // required: true
+                    required: true
                 }
             }]
         },
@@ -62,11 +62,23 @@ const Stall = new Schema({
                 },
                 comment: {
                     type: String
+                },
+                reviewImg: {
+                    public_id: {
+                        type: String,
+                        required: true
+                    },
+                    url: {
+                        type: String,
+                        required: true
+                    }
                 }
             }]
         },
         avg_rating: {
             type: Number,
+            double: true,
+
             required: true
         },
         stall_belong: {
@@ -96,14 +108,21 @@ Stall.statics.computeAvgRating = async function(id) {
     if (stall == null) {
         return
     }
-    let avgRating, count
+    console.log(stall.avg_rating)
+    let avgRating = 0, count = 0
     const reviewList = stall.reviews
     for (const x of reviewList) {
         avgRating += x.rating
         count += 1
     }
-    avgRating = avgRating / count
-    stall.avgRating = avgRating
+    console.log("total is " + avgRating)
+    console.log("count is " + count)
+    if (count > 0) {
+        avgRating = avgRating / count
+    }    
+    console.log("average is " + avgRating)
+    stall.avg_rating = avgRating
+    console.log(stall.avg_rating)
     await stall.save(stall)
 }
 

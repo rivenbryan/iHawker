@@ -10,7 +10,7 @@ export default function MapPage() {
   return (
     <>
       <Navbar />
-      <Container sx={{paddingTop: 5}}>
+      <Container sx={{paddingTop: 5, height: "81vh"}}>
         <Grid container spacing={2}>
           <Grid item md={4}>
             <List hawker={hawker}/>

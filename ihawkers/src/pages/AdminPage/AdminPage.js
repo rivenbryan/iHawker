@@ -9,7 +9,6 @@ import { useAuth } from '../../context/userAuthContext';
 export default function AdminPage() {
     const { getUser } = useAuth();
     const user  = getUser();
-    const { hawkerCentres } = useContext(HawkerContext);
     const { hawkerStores } = useContext(HawkerContext);
 
     const [ filteredStoreList, setFilteredStoreList ] = useState([]);

@@ -9,13 +9,11 @@ export default function AddReview({storeID}) {
     
     const { getUser } = useAuth();
     const user = getUser();
-    const [filename, setFilename] = React.useState("max. 25mb");
-    const [name, setName] = React.useState("");
     const [food, setFood] = React.useState("");
-    const [date_of_review, setDateOfReview] = React.useState("");
     const [date_of_visit, setDateOfVisit] = React.useState("");
     const [rating, setRating] = React.useState(5);
     const [comment, setComment] = React.useState("");
+    const [reviewImg, setImage] = React.useState([]);
 
     const handleChange = (event) => {
         if (event.target.id === "food"){
@@ -27,14 +25,20 @@ export default function AddReview({storeID}) {
         }
     };
 
-    const handleAddReview = (event) => {
-        event.preventDefault();
-      
-        setName(user.name);
-        setDateOfReview(new Date().toJSON().slice(0, 10));
-        console.log(date_of_review)
-        console.log(name)
-    };
+    //handle and convert it in base 64
+    const handleImage = (e) => {
+        const file = e.target.files[0];
+        setFileToBase(file);
+        console.log(file);
+    }
+
+    const setFileToBase = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setImage(reader.result);
+        }
+    }
     
     async function addReview(event){
         event.preventDefault();
@@ -42,7 +46,8 @@ export default function AddReview({storeID}) {
             food,
             date_of_visit,
             rating,
-            comment
+            comment,
+            reviewImg
           }
         console.log(body)
         
@@ -60,9 +65,9 @@ export default function AddReview({storeID}) {
                 setDateOfVisit("");
                 setRating(5);
                 setComment("");
-                window.location.reload(false);
-                //redirect to home page
-                // window.location.href = "/search"
+                setImage([]);
+                //redirect to search page
+                window.location.href = "/search"
                 
             } 
             else {
@@ -93,6 +98,24 @@ export default function AddReview({storeID}) {
                     value={food}
                     onChange={handleChange}
                 />
+
+                <Box sx={{ width: "100%", justifyContent: "left"}}>
+                    <img 
+                        style={{width:"inherit", marginBottom: 20}} 
+                        src={reviewImg} 
+                        alt="" />
+                    <Button variant='contained' component="label" sx={{mb:2}}>
+                        Upload Image
+                        <input 
+                            hidden
+                            accept="image/*"
+                            onChange={handleImage} 
+                            type="file" 
+                            id="formupload" 
+                            name="image" 
+                            className="form-control" />
+                    </Button>
+                </Box>
                 
                 <TextField
                     sx={{ width: "100%", mb: 2, mt: 2}}
@@ -132,7 +155,7 @@ export default function AddReview({storeID}) {
                     helperText="How did you feel about it? (max. 255 characters)"
                     multiline
                     autoComplete='false'
-                    maxRows={4}
+                    inputProps={{maxLength: 255}}
                     required
                     variant="outlined"
                     onChange={handleChange}
