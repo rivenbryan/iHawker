@@ -20,7 +20,7 @@ const loginUser = async (req,res) =>{
         res.cookie("token",token).status(200).json(user).send()
         // User.verifyToken(token)
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.cookie("token", token).status(400).json({error: error.message})
     }
 }
 
@@ -32,10 +32,10 @@ const signupUser = async (req,res) => {
         
         //create token
         const token = createToken(user._id)
+        res.cookie("token", token).status(200).json(user).send()
 
-        res.cookie("token",token).status(200).json(user).send()
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.cookie("token", token).status(400).json({error: error.message})
     }
 }
 
@@ -51,12 +51,12 @@ const resetPassword = async (req, res) => {
 
     //Check purpose
     if (purpose != "Reset Password") {
-        return res.status(400).json("Invalid Token")
+        return res.cookie("token", token).status(400).json("Invalid Token")
     }
     //Retrieve user
     const user = await User.findOne({email})
     if (!validator.isStrongPassword(newPassword)) {
-        return res.status(400).json("Password is not strong enough")
+        return res.cookie("token", token).status(400).json("Password is not strong enough")
     }
 
     //Hash the newPassword
@@ -64,7 +64,7 @@ const resetPassword = async (req, res) => {
     const hash = await bcrypt.hash(newPassword, salt)
     user.password = hash
     await user.save()
-    res.status(200).json("Successfully reset password")
+    res.cookie("token", token).status(200).json("Successfully reset password")
 }
 
 const sendEmail = async (req,res) => {
