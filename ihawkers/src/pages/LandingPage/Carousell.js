@@ -4,6 +4,7 @@ import { Paper, Container, Typography, Box, Rating, Stack} from "@mui/material";
 
 import { Link } from "react-router-dom";
 import ButtonHawkerCentre from "../../components/ButtonHawkerCentre";
+import ButtonHawkerStore from "../../components/ButtonHawkerStore";
 export default function Carousell({ title, data, idName }) {
   return (
     <>
@@ -39,8 +40,8 @@ export default function Carousell({ title, data, idName }) {
                   </Stack>
                  
                 </Box>
-                <Link style={{ textDecoration: 'none' }} to={"/stall/" + review.stall_belong} >
-                  <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID={review.stall_belong} />
+                <Link style={{ textDecoration: 'none' }} to={"/stall/" + review._id} >
+                  <ButtonHawkerStore variant="outlined" title="Check it out!" centreID={review._id} />
                 </Link>
               </Paper>
             ))}
