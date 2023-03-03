@@ -11,12 +11,30 @@ const getAllStalls= async (req, res) => {
 const createStall= async (req, res) => {
     const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong, image} = req.body
     const {token} = req.cookies
-    console.log("this is image" + image)
+    const avg_rating = Number(0)
+    console.log(stall_belong)
+    // Upload StoreFront photo
     const result = await cloudinary.uploader.upload(image, {
         folder: "hawkerStores",
         // width: 500,
         // crop: "scale"
     })
+
+    // Upload TopSeller Photo for each topseller
+    // Overwrite topseller.tsImg with the URL of uploaded image
+    async function getTsImgURL() {
+        for (const element of topseller){
+            const tsResult = await cloudinary.uploader.upload(element.tsImg, {
+                folder: "topSellers",
+                // width: 500,
+                // crop: "scale"
+            })
+            element.tsImg = tsResult.secure_url;
+        }
+    }
+   
+    await getTsImgURL();
+
     //Once verified
     if (!stall_name || !description || !menu_item || !topseller) {
         return res.status(404).send("All fields must be filled")
@@ -27,8 +45,9 @@ const createStall= async (req, res) => {
         stall_name, 
         description, 
         menu_item, 
-        topseller, 
-        hawker_centre_belong, 
+        topseller,
+        hawker_centre_belong,
+        avg_rating, 
         stall_belong, 
         avg_rating,
         image: {
@@ -106,11 +125,18 @@ const updateStallById = async (req,res) => {
 const addReview = async (req, res) => {
 
     const {id} = req.params
-    const {food, date_of_visit, rating , comment} = req.body
+    const {food, date_of_visit, rating , comment, reviewImg} = req.body
+ 
+    const result = await cloudinary.uploader.upload(reviewImg, {
+        folder: "ReviewImages",
+        // width: 500,
+        // crop: "scale"
+    })
+
     const {token} = req.cookies
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, false)
-    console.log(userType)
+  
     if (!userType) {
         return res.status(401).json("Please login before you make a review")
     }
@@ -126,8 +152,12 @@ const addReview = async (req, res) => {
         food,
         date_of_review,
         date_of_visit,
-        rating,
-        comment
+        rating: rating,
+        comment,
+        reviewImg: {
+            public_id: result.public_id,
+            url: result.secure_url
+        }
     }
     stall.reviews.push(review)
     await stall.save()
