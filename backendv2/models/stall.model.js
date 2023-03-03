@@ -78,6 +78,7 @@ const Stall = new Schema({
         avg_rating: {
             type: Number,
             double: true,
+
             required: true
         },
         stall_belong: {

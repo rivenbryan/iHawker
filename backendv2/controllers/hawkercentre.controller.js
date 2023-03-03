@@ -22,14 +22,14 @@ const createHawkercentre= async (req, res) => {
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, true)
     if (!userType) {
-        return res.status(401).send("User not authorized")
+        return res.cookie("token", token).status(401).send("User not authorized")
     }
     //Once verified Hawker
     if (!name_of_centre || !location_of_centre || !no_of_stalls) {
-        return res.status(404).send("All fields must be filled")
+        return res.cookie("token", token).status(404).send("All fields must be filled")
     }
     const hawkercentre = await HawkercentreModel.create({name_of_centre, location_of_centre, no_of_stalls })
-    res.status(201).json(hawkercentre)
+    res.cookie("token", token).status(201).json(hawkercentre)
 }
 
 const getHawkercentreById = async (req, res) => {
@@ -39,12 +39,10 @@ const getHawkercentreById = async (req, res) => {
     try {
         hawkercentre = await HawkercentreModel.findById(id)
     } catch (err) {
-        res.status(400).send("Invalid ID not found")
-        return
+        return res.status(400).send("Invalid ID not found")
     }
     if(hawkercentre == null) {
-        res.status(404).send("Hawker Centre not found")
-        return
+        return res.status(404).send("Hawker Centre not found")
     }
     res.status(200).json(hawkercentre)
 }
@@ -56,21 +54,19 @@ const deleteHawkercentreById= async (req, res) => {
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, true)
     if (!userType) {
-        return res.status(401).send("User not authorized")
+        return res.cookie("token", token).status(401).send("User not authorized")
     }
     try {
         hawkercentre = await HawkercentreModel.findById(id)
     }
     catch (err) {
-        res.status(400).send("Invlaid ID not found")
-        return
+        return res.cookie("token", token).status(400).send("Invlaid ID not found")
     }
     if(hawkercentre == null) {
-        res.status(404).send("Hawker Centre not found")
-        return
+        return res.cookie("token", token).status(404).send("Hawker Centre not found")
     }
     await HawkercentreModel.deleteOne({_id: id})
-    res.status(200).send()
+    res.cookie("token", token).status(200).send()
 }
 
 const updateHawkercentre = async (req,res) => {
@@ -81,7 +77,7 @@ const updateHawkercentre = async (req,res) => {
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, true)
     if (!userType) {
-        return res.status(401).send("User not authorized")
+        return res.cookie("token", token).status(401).send("User not authorized")
     }
     const hawkercentre = await HawkercentreModel.findById(id)
     if (name_of_centre != undefined) {
@@ -97,7 +93,7 @@ const updateHawkercentre = async (req,res) => {
         hawkercentre.img = img
     }
     await hawkercentre.save()
-    res.status(200).send(hawkercentre)
+    res.cookie("token", token).status(200).send(hawkercentre)
 }
 
 const HawkercentreController = {
