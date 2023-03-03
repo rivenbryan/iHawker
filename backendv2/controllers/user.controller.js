@@ -20,7 +20,7 @@ const loginUser = async (req,res) =>{
         res.cookie("token",token).status(200).json(user).send()
         // User.verifyToken(token)
     } catch (error) {
-        res.cookie("token", token).status(400).json({error: error.message})
+        res.status(400).json({error: error.message})
     }
 }
 
@@ -35,7 +35,7 @@ const signupUser = async (req,res) => {
         res.cookie("token", token).status(200).json(user).send()
 
     } catch (error) {
-        res.cookie("token", token).status(400).json({error: error.message})
+        res.status(400).json({error: error.message}) // .cookie("token", token)
     }
 }
 

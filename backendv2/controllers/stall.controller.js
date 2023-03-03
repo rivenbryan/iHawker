@@ -11,7 +11,7 @@ const getAllStalls= async (req, res) => {
 const createStall= async (req, res) => {
     const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong, image} = req.body
     const {token} = req.cookies
-    const avg_rating = Number(0)
+    // const avg_rating = Number(0)
     console.log(stall_belong)
     // Upload StoreFront photo
     const result = await cloudinary.uploader.upload(image, {
