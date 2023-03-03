@@ -14,4 +14,7 @@ stall_router.put("/:id", StallController.updateStallById)
 //User Exclusive Routes
 stall_router.post("/:id/review", StallController.addReview)
 
+// Get All Reviews
+stall_router.get("/review/getreviews", StallController.getALLReview)
+
 module.exports = stall_router
