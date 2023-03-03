@@ -118,7 +118,7 @@ Stall.statics.computeAvgRating = async function(id) {
     console.log("total is " + avgRating)
     console.log("count is " + count)
     if (count > 0) {
-        avgRating = avgRating / count
+        avgRating = (avgRating / count).toFixed(2)
     }    
     console.log("average is " + avgRating)
     stall.avg_rating = avgRating
