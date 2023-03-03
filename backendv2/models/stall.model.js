@@ -76,7 +76,9 @@ const Stall = new Schema({
             }]
         },
         avg_rating: {
-            type: Number
+            type: Number,
+            double: true,
+            required: true
         },
         stall_belong: {
             type: mongoose.Schema.Types.ObjectId,
@@ -105,14 +107,21 @@ Stall.statics.computeAvgRating = async function(id) {
     if (stall == null) {
         return
     }
-    let avgRating, count
+    console.log(stall.avg_rating)
+    let avgRating = 0, count = 0
     const reviewList = stall.reviews
     for (const x of reviewList) {
         avgRating += x.rating
         count += 1
     }
-    avgRating = avgRating / count
-    stall.avgRating = avgRating
+    console.log("total is " + avgRating)
+    console.log("count is " + count)
+    if (count > 0) {
+        avgRating = avgRating / count
+    }    
+    console.log("average is " + avgRating)
+    stall.avg_rating = avgRating
+    console.log(stall.avg_rating)
     await stall.save(stall)
 }
 
