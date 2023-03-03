@@ -49,6 +49,7 @@ const Navbar = () => {
 
   toast.success(notification);
   const user = getUser()
+  console.log(user)
   //backgroundColor: "transparent", boxShadow: 0
   return (
     <Container >

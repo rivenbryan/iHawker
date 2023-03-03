@@ -166,13 +166,21 @@ const addReview = async (req, res) => {
     res.cookie("token", token).status(201).send(updatedStall)
 }
 
+const getALLReview = async (req, res) =>{
+    const reviews = await StallModel.find().select('avg_rating image stall_name description stall_belong').sort({ avg_rating: -1 }).limit(5)
+    console.log(reviews)
+    // Get all reviews and get the top 5 reviews 
+    res.status(200).json(reviews)
+}
+
 const StallController = {
     getAllStalls,
     createStall,
     getStallById,
     deleteStallById,
     updateStallById,
-    addReview
+    addReview,
+    getALLReview,
 }
 
 module.exports = StallController
