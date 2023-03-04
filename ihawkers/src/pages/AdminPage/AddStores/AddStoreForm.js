@@ -120,7 +120,7 @@ export default function AddStoreForm() {
             if (response.ok) {
                 // setUser(await response.json())
                 //redirect to home page
-                window.location.href = "/admin"
+                window.location.href = "/admin?state=success"
             }
             else {
                 const errorMessage = await response.json().then(
