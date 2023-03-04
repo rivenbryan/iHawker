@@ -13,7 +13,8 @@ export default function StallPage() {
   const { hawkerStores } = useContext(HawkerContext);
   const { hawkerCentres } = useContext(HawkerContext);
   const [hawkerLocation, sethawkerLocation] = useState("");
-  var imgPlaceholder = "https://i.imgur.com/JOf48jt.jpeg"
+  const [hawkerLat, setHawkerLat] = useState("");
+  const [hawkerLong, setHawkerLong] = useState("");
 
   useEffect(() => {
     if (hawkerCentres && oneHawkerStore) {
@@ -21,6 +22,8 @@ export default function StallPage() {
         centre => centre._id === oneHawkerStore.hawker_centre_belong
       )
       sethawkerLocation(oneCentre.location_of_centre);
+      setHawkerLat(oneCentre.lat);
+      setHawkerLong(oneCentre.long);
     }
   }, [hawkerCentres, oneHawkerStore]);
 
@@ -33,10 +36,11 @@ export default function StallPage() {
           <StallDesc 
             oneHawkerStore = { oneHawkerStore } 
             hawkerLocation = { hawkerLocation }
+            hawkerLat = { hawkerLat }
+            hawkerLong = { hawkerLong }
           />
           <StallMenu
             oneHawkerStore = { oneHawkerStore } 
-            imgPlaceholder = { imgPlaceholder } 
           />
           <ViewReviews reviews = {oneHawkerStore.reviews}/>
           <AddReview storeID = {oneHawkerStore._id}/>
