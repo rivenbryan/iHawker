@@ -29,9 +29,9 @@ export default function ViewReviews({reviews}) {
                 </Typography> 
             )}
 
-            <Box textAlign="center" sx={{marginTop: 4}}>
+            {/* <Box textAlign="center" sx={{marginTop: 4}}>
                 <Button variant="contained" sx={{width: 330}} >View More</Button>
-            </Box>
+            </Box> */}
         </Container>
     )
 }

@@ -3,7 +3,7 @@ import { Container,Stack, Typography,Box, Button, Rating ,Link, Grid} from '@mui
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Divider from '@mui/material/Divider';
 
-export default function StallDesc({oneHawkerStore, hawkerLocation}) {
+export default function StallDesc({oneHawkerStore, hawkerLocation, hawkerLat, hawkerLong}) {
     return (
     <Box sx={{ width: "100%", margin: "0 auto" }}>
     <Box 
@@ -61,7 +61,7 @@ export default function StallDesc({oneHawkerStore, hawkerLocation}) {
 
                     <Grid container direction="row" marginTop={-0.5}>
                         <LocationOnIcon color='primary'/>
-                        <Link href="#" variant="body1" color="secondary" marginLeft={2}>
+                        <Link href={"https://maps.google.com/?q="+hawkerLat+","+hawkerLong} variant="body1" color="secondary" marginLeft={2}>
                             {hawkerLocation}
                         </Link>
                     </Grid>
@@ -70,7 +70,6 @@ export default function StallDesc({oneHawkerStore, hawkerLocation}) {
                         { oneHawkerStore.description }
                     </Typography>
                     <Divider variant="string" width="50%" sx={{background: "#000"}}></Divider>
-                    <Button variant="contained" sx={{marginTop: 4}}>idk button for what</Button>
                 </Box>
                 
             </Stack>
