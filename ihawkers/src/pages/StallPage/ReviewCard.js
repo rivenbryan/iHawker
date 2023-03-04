@@ -1,6 +1,5 @@
 import React from 'react';
 import { Rating, Paper, Stack, Divider, Avatar, Box, Typography } from '@mui/material';
-import FaceImg from './img/face.jpg'
 
 export default function ReviewCard({name, food, date_of_review, date_of_visit, rating, comment, reviewImg}) {
     return(
@@ -17,7 +16,7 @@ export default function ReviewCard({name, food, date_of_review, date_of_visit, r
                     alignContent: "center",
                     flexDirection: "row"}}>
                     <Avatar alt="Face"
-                        src={FaceImg} 
+                        src= "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
                         sx={{ width: 100, height: 100}}/>
                     <Box margin={"auto "} marginLeft={4}>
                     <Typography variant='body1' color="black" sx={{fontWeight: "medium"}}>{name}</Typography>
