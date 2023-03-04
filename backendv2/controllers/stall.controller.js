@@ -126,6 +126,11 @@ const addReview = async (req, res) => {
 
     const {id} = req.params
     const {food, date_of_visit, rating , comment, reviewImg} = req.body
+    if (!rating) {
+        final_rating = 0;
+    }else {
+        final_rating = rating
+    }
  
     const result = await cloudinary.uploader.upload(reviewImg, {
         folder: "ReviewImages",
@@ -146,13 +151,13 @@ const addReview = async (req, res) => {
     const date_of_review = new Date().toJSON().slice(0, 10);
     //Retrieve stall & reviewList from id
     const stall = await StallModel.findById(id)
-
+    console.log(final_rating)
     let review = {
         name,
         food,
         date_of_review,
         date_of_visit,
-        rating: rating,
+        rating: final_rating,
         comment,
         reviewImg: {
             public_id: result.public_id,
