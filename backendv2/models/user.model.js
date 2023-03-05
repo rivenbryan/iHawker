@@ -35,9 +35,6 @@ User.statics.login = async function(email, password) {
 User.statics.signup = async function(userInput){
     //validation
     const {email, password} = userInput
-    if (!validator.isEmail(email)) {
-        throw Error("Invalid email")
-    }
     if (!validator.isStrongPassword(password)) {
         throw Error("Password is not strong enough")
     }
