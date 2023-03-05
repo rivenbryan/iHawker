@@ -41,13 +41,13 @@ export default function Register() {
   const [flag, setFlag] = React.useState(false)
 
   async function registerUser(event) {
+    event.preventDefault();
     console.log(name, password, email, details)
     if (!name || !email || !password || (details == "")) {
       setFlag(true)
       setErrorMessage("All Fields must be filled")
       return
     }
-    event.preventDefault();
     const body = {
       name,
       email,
