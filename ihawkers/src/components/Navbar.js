@@ -31,7 +31,19 @@ const Navbar = () => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const authState = queryParams.get('authState')
+  const state = queryParams.get('state')
   let notification
+  switch(state){
+    case "storeDelete":
+      notification = "Store deleted successfully!"
+      break
+    case "reviewSuccess":
+      notification = "Reviewed successfully!"
+      break
+    case "storeSuccess":
+      notification = "Store added successfully!"
+      break
+  }
   switch(authState) {
     case "login":
       notification = "Successfully logged in!"
@@ -46,8 +58,11 @@ const Navbar = () => {
       notification = "Successfully Resetted Password!"
       break
     }
-
-  toast.success(notification);
+  if (notification && !toast.notificationDisplayed) {
+    toast.success(notification)
+    toast.notificationDisplayed = true
+  }
+  
   const user = getUser()
   console.log(user)
   //backgroundColor: "transparent", boxShadow: 0

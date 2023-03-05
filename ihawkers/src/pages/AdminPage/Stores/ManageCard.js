@@ -34,7 +34,7 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
         if (response.ok) {
             // setUser(await response.json())
             //redirect to Landing Page
-            window.location.href = "/admin"
+            window.location.href = "/admin?state=storeDelete"
             console.log("ok")
         } 
         else {
@@ -49,8 +49,6 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
     };
     
     return(
-        <>
-        <ToastContainer position="bottom-right" newestOnTop />
         <Card sx={{ 
             maxWidth: 420, 
             height: 460, 
@@ -111,6 +109,6 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
                 </DialogActions>
             </Dialog>
         </CardActions>
-        </Card></>
+        </Card>
     )
 }

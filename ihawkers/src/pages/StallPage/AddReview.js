@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Container, Typography, Rating, TextField} from '@mui/material';
-
+import { ToastContainer, toast } from "react-toastify";
 import { Box } from '@mui/system';
 import { useAuth } from '../../context/userAuthContext';
 
@@ -41,45 +41,54 @@ export default function AddReview({storeID}) {
     }
     
     async function addReview(event){
-        event.preventDefault();
-        const body = {
-            food,
-            date_of_visit,
-            rating,
-            comment,
-            reviewImg
-          }
-        console.log(body)
+          event.preventDefault();
+        if (reviewImg.length === 0){
+            console.log("here")
+            toast.error("Please upload an image.");
+        }else {
+            const body = {
+                food,
+                date_of_visit,
+                rating,
+                comment,
+                reviewImg
+              }
+            console.log(body)
+            
+            fetch('http://localhost:4000/api/stall/'+storeID+'/review', {
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: { 
+                    'Content-Type': 'application/json' ,
+                    'Access-Control-Allow-Origin': "http://localhost:4000"
+                },
+                credentials: "include"
+            }).then(async (response) => {
+                if (response.ok) {
+                    setFood("");
+                    setDateOfVisit("");
+                    setRating(5);
+                    setComment("");
+                    setImage([]);
+                    //redirect to search page
+                    window.location.href = "/search?state=reviewSuccess"
+                    
+                } 
+                else {
+                    const errorMessage = await response.json().then(
+                        err => err.error
+                    )
+                    //toast.error(errorMessage);
+                }
+            })
+        }
+      
         
-        fetch('http://localhost:4000/api/stall/'+storeID+'/review', {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: { 
-                'Content-Type': 'application/json' ,
-                'Access-Control-Allow-Origin': "http://localhost:4000"
-            },
-            credentials: "include"
-        }).then(async (response) => {
-            if (response.ok) {
-                setFood("");
-                setDateOfVisit("");
-                setRating(5);
-                setComment("");
-                setImage([]);
-                //redirect to search page
-                window.location.href = "/search"
-                
-            } 
-            else {
-                const errorMessage = await response.json().then(
-                    err => err.error
-                )
-                //toast.error(errorMessage);
-            }
-        })
     }
 
     return(
+        <>
+        <ToastContainer position="bottom-right" newestOnTop />
         <Container sx={{marginY: 4}}>
             <Typography variant='h4' sx={{fontWeight: 'bold'}}>Leave a review</Typography>
             {user && user.isHawker === false ? (
@@ -177,5 +186,6 @@ export default function AddReview({storeID}) {
                 </Typography> 
             )}
         </Container>
+        </>
     )
 }
