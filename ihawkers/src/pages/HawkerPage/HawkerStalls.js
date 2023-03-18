@@ -20,6 +20,7 @@ export default function HawkerStalls({ hawkerStores }) {
                             img={item.image.url} 
                             description={item.description} 
                             name_of_centre={item.stall_name} 
+                            avg_rating={item.avg_rating}
                         />
                     </Grid>
                     )}
@@ -28,7 +29,7 @@ export default function HawkerStalls({ hawkerStores }) {
                 </Box>
             ) : (
                 <Typography variant='body1' color="gray" align='left' sx={{marginTop: 2, fontWeight: 'medium'}}>
-                No hawker stores here currently leh...
+                No hawker stalls here currently leh...
                 </Typography> 
             )}
             

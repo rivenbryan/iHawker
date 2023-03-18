@@ -77,10 +77,10 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
                 color="error" 
                 startIcon={<DeleteIcon />}
                 variant="outlined" 
-                title="Delete Store" 
+                title="Delete Stall" 
                 centreID = {id}
                 onClick={handleClickOpen}>
-                Delete Store
+                Delete Stall
             </Button>
             <Dialog
                 open={open}
@@ -89,11 +89,11 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Confirm delete Store?"}
+                    {"Confirm delete Stall?"}
                 </DialogTitle>
                 <DialogContent>
                 <DialogContentText id="alert-dialog-description" width={400}>
-                    You are trying to delete the store:<br/><br/>
+                    You are trying to delete the stall:<br/><br/>
                     <b>{name_of_centre}</b>
                 </DialogContentText>
                 </DialogContent>

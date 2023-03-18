@@ -25,7 +25,7 @@ export default function ViewReviews({reviews}) {
 
             ) : (
                 <Typography variant='body1' color="gray" align='left' sx={{marginTop: 2, fontWeight: 'medium'}}>
-                No reviews for this store yet...
+                No reviews for this stall yet...
                 </Typography> 
             )}
 

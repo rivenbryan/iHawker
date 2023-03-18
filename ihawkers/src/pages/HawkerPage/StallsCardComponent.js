@@ -6,8 +6,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ButtonHawkerStore from '../../components/ButtonHawkerStore';
 import { Link } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
-export default function StallsCardComponent({id, img, description, name_of_centre}) {
+export default function StallsCardComponent({id, img, description, name_of_centre, avg_rating}) {
 
   return (
     <Card sx={{ maxWidth: 345, height: 460, display: "flex", flexDirection: "column" }}>
@@ -25,9 +26,23 @@ export default function StallsCardComponent({id, img, description, name_of_centr
         </Typography>
         </CardContent>
         <CardActions sx={{marginTop: "auto", pb: 1}}>
-        <Link style={{textDecoration: 'none'}} to={"/stall/" + id} >
-                <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
-        </Link>
+          <Grid container justifyContent="space-between" alignItems="flex-end">
+            <Link style={{textDecoration: 'none'}} to={"/stall/" + id} >
+              <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
+            </Link>
+            { avg_rating > 0 ? (
+              <Typography variant='h6' align="right" color="text.secondary" paddingRight={1} fontSize={18}>
+              <Typography variant='p' color="text.primary" fontSize={25}>{avg_rating}</Typography>
+              /5 stars
+              </Typography>
+            ) : (
+              <Typography variant='h6' align="right" color="text.secondary" paddingRight={1} fontSize={18}>
+              -/5 stars
+              </Typography>
+            )}
+            
+          </Grid>
+    
         </CardActions>
   </Card>
   );
