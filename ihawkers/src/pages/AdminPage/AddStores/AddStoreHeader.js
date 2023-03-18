@@ -19,7 +19,7 @@ export default function AddStoreHeader() {
                 #FFA96A`,
         }}>
         <Typography variant="h3" align="center">
-            Add Store</Typography>
+            Add Stall</Typography>
 
         </Box>
         

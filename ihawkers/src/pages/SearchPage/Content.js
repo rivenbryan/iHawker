@@ -1,6 +1,7 @@
 import React from "react";
 import CardComponent from "./CardComponent";
 import { Grid } from "@mui/material";
+import StallsCardComponent from "../HawkerPage/StallsCardComponent";
 export default function Content({ list, name }) {
   console.log(name);
   return (
@@ -22,12 +23,13 @@ export default function Content({ list, name }) {
           : list &&
             list.map((item) => (
               <Grid item xs={4}>
-                <CardComponent
+                <StallsCardComponent
                   type={name}
                   id={item._id}
                   img={item.image.url}
-                  short_description={item.description}
+                  description={item.description}
                   name_of_centre={item.stall_name}
+                  avg_rating = {item.avg_rating}
                 />
               </Grid>
             ))}
