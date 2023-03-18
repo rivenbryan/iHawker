@@ -149,7 +149,7 @@ export default function AddStoreForm() {
                     <TextField
                         style={{ width: "400px", marginBottom: 20 }}
                         type="text"
-                        label="Store Name"
+                        label="Stall Name"
                         placeholder='E.g. Tian Tian Chicken Rice'
                         variant="outlined"
                         autoFocus
@@ -165,7 +165,7 @@ export default function AddStoreForm() {
                         style={{ width: "400px", marginBottom: 20 }}
                         select
                         label="Located in:"
-                        helperText="Select which Hawker Centre is the store located in."
+                        helperText="Select which Hawker Centre is the stall located in."
                         required
                         name="locatedin"
                         value={hawker_centre_belong}
@@ -182,7 +182,7 @@ export default function AddStoreForm() {
                     <TextField
                         style={{ width: "400px", marginBottom: 20 }}
                         type="text"
-                        label="Store Description"
+                        label="Stall Description"
                         placeholder='E.g. Tian Tian sells the best chicken rice in the west. Tian Tian was founded in 1900 and has won numerous awards since then. We pride ourselves in the pack a punch chilli'
                         variant="outlined"
                         required

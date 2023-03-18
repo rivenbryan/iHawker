@@ -7,11 +7,11 @@ import Typography from '@mui/material/Typography';
 import ButtonHawkerCentre from '../../components/ButtonHawkerCentre';
 import ButtonHawkerStore from '../../components/ButtonHawkerStore';
 import { Link } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 
 
-export default function CardComponent({type, id, img, short_description, name_of_centre}) {
-
+export default function CardComponent({type, id, img, short_description, name_of_centre, avg_rating}) {
   return (
     <Card sx={{ maxWidth: 345, height: 460, display: "flex", flexDirection: "column"}}>
         <CardMedia
@@ -28,16 +28,9 @@ export default function CardComponent({type, id, img, short_description, name_of
         </Typography>
         </CardContent>
         <CardActions sx={{marginTop: "auto", pb: 1}}>
-        {type === "hawkerList" ? (
           <Link style={{textDecoration: 'none'}} to={"/hawkerCentre/" + id} >
                   <ButtonHawkerCentre variant="outlined" title="Check it out!" centreID = {id}/>
           </Link>
-        ) : (
-          <Link style={{textDecoration: 'none'}} to={"/stall/" + id} >
-                <ButtonHawkerStore variant="outlined" title="Check it out!" centreID = {id}/>
-          </Link>
-        )
-        }
         </CardActions>
   </Card>
   );

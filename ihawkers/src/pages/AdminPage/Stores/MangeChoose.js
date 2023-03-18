@@ -30,7 +30,7 @@ export default function viewHawkers({HawkerStores}) {
                                     color:"#515057",
                                 }}
                             >
-                                Add new store
+                                Add new stall
                             </Typography>
 
                         </CardContent>
@@ -53,7 +53,7 @@ export default function viewHawkers({HawkerStores}) {
           : (
             <Grid item xs={4} display="flex" justifyItems ="center" alignItems={"center"}>
             <Typography variant='body1' sx={{margin: "auto 0"}}>
-                No hawker stores under your management.
+                No hawker stalls under your management.
             </Typography>
             </Grid>
             )
