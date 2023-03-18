@@ -131,7 +131,7 @@ export default function AddReview({storeID}) {
                     id="date_of_visit"
                     type="date"
                     label="Date of visit"
-                    helperText="When did you visit the store?"
+                    helperText="When did you visit the stall?"
                     placeholder='02-02-2022'
                     variant="outlined"
                     InputLabelProps={{

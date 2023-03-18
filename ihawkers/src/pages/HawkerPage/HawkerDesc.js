@@ -24,7 +24,7 @@ export default function HawkerDesc({ oneHawkerCentre }) {
             <Stack direction="row" spacing={15}>
                 
                 <Box component="img" 
-                alt="Store front img"
+                alt="Stall front img"
                 src= {oneHawkerCentre.img}
                 sx={{ height: "450px",
                     width: "400px",

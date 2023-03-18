@@ -19,7 +19,7 @@ export default function AdminPageHeader() {
                 #FFA96A`,
         }}>
         <Typography variant="h3" align="center">
-            Manage Stores</Typography>
+            Manage Stalls</Typography>
 
         </Box>
         
