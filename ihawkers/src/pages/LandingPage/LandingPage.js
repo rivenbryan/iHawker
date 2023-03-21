@@ -16,7 +16,7 @@ export default function LandingPage() {
       <Chatbot />
       <Hero />
       <Search />
-      <Carousell title="Top Hawker Stores" data={reviews} idName="reviews" />
+      <Carousell title="Top Hawker Stalls" data={reviews} idName="reviews" />
       <Carousell title="Top Hawker Centers" data={hawkerCentres} idName="hawkerCentre" />
       <Footer />
     </>
