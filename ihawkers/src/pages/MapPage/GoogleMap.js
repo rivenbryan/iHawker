@@ -28,7 +28,7 @@ export default function GoogleMap({setHawker}) {
     <Container style={{ height: '60vh', width: '100%' }}>
       <GetCurrentLocation setCenter={setCenter}/>
       <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyDwUWvu7V2Bxvh2ilexzV13XXpLstfIRow" }}
+          bootstrapURLKeys={{ key: "AIzaSyBGOVtZHM9WFeAe19bk18zWsFxGRRpRkQI" }}
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
           center={center}
