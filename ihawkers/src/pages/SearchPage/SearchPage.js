@@ -80,7 +80,7 @@ export default function SearchPage() {
             disabled={!disabled}
             onClick={switchButtonState}
           >
-            DELICIOUS FOOD
+            HAWKER STORE
           </Button>
         </Stack>
         {errorMessage && <ErrorComponent text="No options available. Try another option!"/>}

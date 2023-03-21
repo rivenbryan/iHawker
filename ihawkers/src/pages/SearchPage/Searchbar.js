@@ -12,7 +12,7 @@ const Searchbar = ({filterBySearch, size, value }) => {
         fullWidth
         variant="outlined"
         onChange={filterBySearch}
-        placeholder="Search food or hawker centres..."
+        placeholder="Search Stall or hawker centres..."
         InputProps={{
             startAdornment: (
               <InputAdornment position="start">
