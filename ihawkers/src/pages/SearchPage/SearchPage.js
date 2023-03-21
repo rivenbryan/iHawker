@@ -80,7 +80,7 @@ export default function SearchPage() {
             disabled={!disabled}
             onClick={switchButtonState}
           >
-            HAWKER STORE
+            HAWKER STALL
           </Button>
         </Stack>
         {errorMessage && <ErrorComponent text="No options available. Try another option!"/>}
