@@ -1,20 +1,42 @@
+/**
+ * This module contains the Mongoose model for User data
+ * @module models/user.model
+ */
+
 const mongoose =  require("mongoose")
 const bcrypt = require("bcrypt")
 const validator = require("validator")
 const jwt = require("jsonwebtoken")
+
+/**
+ * The Mongoose schema for User data
+ * @typedef {Object} UserSchema
+ * @property {string} name - The name of the user.
+ * @property {string} email - The email address of the user.
+ * @property {string} password - The hashed password of the user.
+ * @property {boolean} isHawker - Whether the user is a hawker or not.
+ */
 
 const User = new mongoose.Schema(
     {
         name: { type: String, required: true},
         email: { type: String, required: true, unique: true},
         password: { type: String, required: true},
-        // Remove quote 
-        isHawker: { type: Boolean, required: true} 
+        isHawker: { type: Boolean, required: true}
     },
     { collection: 'user-data'}
 )
 
-//static login method
+/**
+ * A static method for logging in a user.
+ * @function
+ * @async
+ * @param {string} email - The email address of the user.
+ * @param {string} password - The password of the user.
+ * @returns {Promise<UserSchema>} - The user object if the login is successful.
+ * @throws Will throw an error if the email or password is incorrect or 1 of the fields is not filled.
+ */
+
 User.statics.login = async function(email, password) {
     if (!email || !password) {
         throw Error("All fields must be filled")
@@ -31,7 +53,16 @@ User.statics.login = async function(email, password) {
     return user
 }
 
-// static signup method
+/**
+ * A static method for signing up a user.
+ * @function
+ * @async
+ * @param {UserSchema} userInput - The user input containing the email and password.
+ * @returns {Promise<UserSchema>} - The user object if the sign up is successful.
+ * @throws Will throw an error if the password is not strong enough,
+ * the email is already in use, or the email is not from an authorized domain.
+ */
+
 User.statics.signup = async function(userInput){
     //validation
     const {email, password} = userInput
@@ -58,6 +89,14 @@ User.statics.signup = async function(userInput){
     return user
 }
 
+/**
+ * Retrieves a user based on their JWT token.
+ * @function
+ * @async
+ * @param {string} token - The JWT token containing user information.
+ * @returns {Promise<User>} The User object associated with the token.
+ */
+
 User.statics.getUser = async function(token) {
     console.log(token)
     if (!token) return null
@@ -66,8 +105,15 @@ User.statics.getUser = async function(token) {
     return user
 }
 
-//Check for JWT token + user is Hawker
-//checkHawker = True when checking for Hawker Privilege Otherwise is False
+/**
+ * Checks if a user is of a certain type based on their JWT token.
+ * @function
+ * @async
+ * @param {string} token - The JWT token containing user information.
+ * @param {boolean} checkHawker - Whether or not to check if the user is a hawker.
+ * @returns {Promise<boolean>} A boolean indicating if the user is of the specified type.
+ */
+
 User.statics.checkUserType = async function(token, checkHawker) {
     const user = await this.getUser(token)
     console.log(user)
