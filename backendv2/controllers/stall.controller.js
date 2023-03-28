@@ -3,15 +3,30 @@ const StallModel = require("../models/stall.model")
 const UserModel = require("../models/user.model")
 const cloudinary = require('../utils/cloudinary')
 
+/**
+ * Get all stalls sorted by number of stalls
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<Array<Stall>>} Array of stall objects
+ */
+
 const getAllStalls= async (req, res) => {
     const stalls = await StallModel.find().sort({no_of_stalls: -1})
     res.status(200).json(stalls)
 }
 
+/**
+ * Create a new stall
+ * @param {Object} req - The HTTP request object
+ * @param {Object} res - The HTTP response object
+ * @param {string} req.body.name - The name of the new stall
+ * @param {string} req.body.description - The description of the new stall
+ * @param {string} req.body.image - The URL of the image for the new stall
+ * @returns {Promise<Object>} The created stall object
+ */
+
 const createStall= async (req, res) => {
     const { stall_name, description, menu_item, topseller, hawker_centre_belong, stall_belong, image} = req.body
-    const {token} = req.cookies
-    // const avg_rating = Number(0)
     console.log(stall_belong)
     // Upload StoreFront photo
     const result = await cloudinary.uploader.upload(image, {
@@ -19,7 +34,6 @@ const createStall= async (req, res) => {
         // width: 500,
         // crop: "scale"
     })
-
     // Upload TopSeller Photo for each topseller
     // Overwrite topseller.tsImg with the URL of uploaded image
     async function getTsImgURL() {
@@ -32,7 +46,7 @@ const createStall= async (req, res) => {
             element.tsImg = tsResult.secure_url;
         }
     }
-   
+
     await getTsImgURL();
 
     //Once verified
@@ -42,13 +56,13 @@ const createStall= async (req, res) => {
     console.log(stall_belong)
     const avg_rating = 0
     const stall = await StallModel.create({
-        stall_name, 
-        description, 
-        menu_item, 
+        stall_name,
+        description,
+        menu_item,
         topseller,
         hawker_centre_belong,
-        avg_rating, 
-        stall_belong, 
+        avg_rating,
+        stall_belong,
         avg_rating,
         image: {
             public_id: result.public_id,
@@ -56,6 +70,14 @@ const createStall= async (req, res) => {
         }})
     res.cookie("token", token).status(201).json(stall).send()
 }
+
+/**
+ * Get a stall by its ID
+ * @param {Object} req - The HTTP request object
+ * @param {Object} res - The HTTP response object
+ * @param {string} req.params.id - The ID of the stall to retrieve
+ * @returns {Promise<Object>} The requested stall object
+ */
 
 const getStallById = async (req, res) => {
     const {id}=req.params
@@ -71,6 +93,14 @@ const getStallById = async (req, res) => {
     }
     res.status(200).json(stall)
 }
+
+/**
+ * Delete a stall by its ID
+ * @param {Object} req - The HTTP request object
+ * @param {Object} res - The HTTP response object
+ * @param {string} req.params.id - The ID of the stall to delete
+ * @returns {Promise<Object>} The deleted stall object
+ */
 
 const deleteStallById= async (req, res) => {
     const {id}=req.params
@@ -94,6 +124,17 @@ const deleteStallById= async (req, res) => {
     res.cookie("token", token).status(200).send()
 }
 
+/**
+ * Update a stall by its ID
+ * @param {Object} req - The HTTP request object
+ * @param {Object} res - The HTTP response object
+ * @param {string} req.params.id - The ID of the stall to update
+ * @param {string} [req.body.name] - The updated name of the stall
+ * @param {string} [req.body.description] - The updated description of the stall
+ * @param {string} [req.body.image] - The updated URL of the image for the stall
+ * @returns {Promise<Object>} The updated stall object
+ */
+
 const updateStallById = async (req,res) => {
     const {id} = req.params
     const {name_of_centre, location_of_centre, no_of_stalls , img} = req.body
@@ -104,7 +145,7 @@ const updateStallById = async (req,res) => {
     if (!userType) {
         return res.cookie("token", token).status(401).send("User not authorized")
     }
-    
+
     const stall = await StallModel.findById(id)
     if (name_of_centre != undefined) {
         hawkercentre.name_of_centre = name_of_centre
@@ -122,6 +163,19 @@ const updateStallById = async (req,res) => {
     res.cookie("token", token).status(200).send(stall)
 }
 
+/**
+ * Adds a new review for a specific stall
+ * @async
+ * @function addReview
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {string} req.params.stallId - The ID of the stall to add the review for
+ * @param {string} req.body.user - The name of the user adding the review
+ * @param {number} req.body.rating - The rating given for the stall (1-5)
+ * @param {string} req.body.comment - The comment left for the stall
+ * @returns {Object} - The updated stall object with the new review added
+ */
+
 const addReview = async (req, res) => {
 
     const {id} = req.params
@@ -131,7 +185,7 @@ const addReview = async (req, res) => {
     }else {
         final_rating = rating
     }
- 
+
     const result = await cloudinary.uploader.upload(reviewImg, {
         folder: "ReviewImages",
         // width: 500,
@@ -141,7 +195,7 @@ const addReview = async (req, res) => {
     const {token} = req.cookies
     //Check for Hawker Privilege
     const userType = await UserModel.checkUserType(token, false)
-  
+
     if (!userType) {
         return res.status(401).json("Please login before you make a review")
     }
@@ -171,12 +225,34 @@ const addReview = async (req, res) => {
     res.cookie("token", token).status(201).send(updatedStall)
 }
 
+/**
+ * Get all reviews and retrieve the top 5 reviews.
+ *
+ * @function
+ * @async
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ * @returns {Promise<void>} Returns a promise that resolves when the response is sent.
+ */
+
 const getALLReview = async (req, res) =>{
     const reviews = await StallModel.find().select('avg_rating image stall_name description stall_belong').sort({ avg_rating: -1 }).limit(5)
     console.log(reviews)
     // Get all reviews and get the top 5 reviews 
     res.status(200).json(reviews)
 }
+
+/**
+ * An object containing functions that handle HTTP requests related to stalls.
+ * @typedef {Object} StallController
+ * @property {function} getAllStalls - A function that retrieves all stalls.
+ * @property {function} createStall - A function that creates a new stall.
+ * @property {function} getStallById - A function that retrieves a single stall by its ID.
+ * @property {function} deleteStallById - A function that deletes a single stall by its ID.
+ * @property {function} updateStallById - A function that updates a single stall by its ID.
+ * @property {function} addReview - A function that adds a review to a stall.
+ * @property {function} getALLReview - A function that retrieves the top 5 stalls by their average rating.
+ */
 
 const StallController = {
     getAllStalls,

@@ -4,9 +4,22 @@ const postmark = require("postmark");
 const bcrypt = require("bcrypt");
 const validator = require("validator")
 
+/**
+ * Function to create a JWT token using user ID and SECRET
+ * @param {string} id - user ID
+ * @returns {string} - JWT token
+ */
+
 const createToken = (id) => {
     return jwt.sign({id}, process.env.SECRET, {expiresIn: "3d"} )
 }
+
+/**
+ * Function to handle login requests for users
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - response object containing logged in user details and JWT token
+ */
 
 const loginUser = async (req,res) =>{
     const {email, password} = req.body
@@ -24,12 +37,18 @@ const loginUser = async (req,res) =>{
     }
 }
 
+/**
+ * Function to handle signup requests for users
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - response object containing newly signed up user details and JWT token
+ */
+
 const signupUser = async (req,res) => {
     const {name, email, password, isHawker} = req.body
 
     try {
         const user = await User.signup({name, email, password, isHawker})
-        
         //create token
         const token = createToken(user._id)
         res.cookie("token", token).status(200).json(user).send()
@@ -40,9 +59,23 @@ const signupUser = async (req,res) => {
 }
 
 
+/**
+ * Function to handle logout requests for users
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - response object indicating successful logout
+ */
+
 const logoutUser = async (req,res) => {
     res.clearCookie("token").status(201).send()
 }
+
+/**
+ * Function to reset user password
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - response object indicating success or error in password reset
+ */
 
 const resetPassword = async (req, res) => {
     const {newPassword} = req.body
@@ -66,6 +99,13 @@ const resetPassword = async (req, res) => {
     await user.save()
     res.cookie("token", token).status(200).json("Successfully reset password")
 }
+
+/**
+ * Function to send reset password email to user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} - response object indicating success or error in sending reset password email
+ */
 
 const sendEmail = async (req,res) => {
     const {email} = req.body
@@ -94,6 +134,19 @@ const sendEmail = async (req,res) => {
     })
     res.cookie("token", token).status(201).json("Successfully sent email").send()
 }
+
+/**
+ * Controller object for user-related actions.
+ * @typedef {Object} userController
+ * @property {function} createUser - Creates a new user.
+ * @property {function} updateUser - Updates an existing user.
+ * @property {function} deleteUser - Deletes a user.
+ * @property {function} getUserById - Retrieves a user by ID.
+ * @property {function} getAllUsers - Retrieves all users.
+ * @property {function} authenticateUser - Authenticates a user.
+ * @property {function} authorizeUser - Authorizes a user.
+ */
+
 const userController = {
     loginUser,
     signupUser,
