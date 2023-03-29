@@ -1,4 +1,4 @@
-const HawkercentreModel = require("../models/hawkercentreModel")
+const HawkercentreModel = require("../models/hawkercentre.model")
 const jwt = require("jsonwebtoken")
 const UserModel = require("../models/user.model")
 const StallModel = require("../models/stall.model")
