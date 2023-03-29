@@ -8,7 +8,7 @@ export default function StallDesc({oneHawkerStore, hawkerLocation, hawkerLat, ha
     <Box sx={{ width: "100%", margin: "0 auto" }}>
     <Box 
         sx={{ height: "50vh",
-            width: "99vw",
+            width: "98.93vw",
             ml: -1,
             objectFit: "cover",
             background: `linear-gradient(

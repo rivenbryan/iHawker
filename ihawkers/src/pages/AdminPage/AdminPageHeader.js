@@ -5,7 +5,7 @@ export default function AdminPageHeader() {
     return(
         <>
         <Box sx={{
-            width: "99vw",
+            width: "98.93vw",
             height: 150,
             ml: -1,
             display: "flex",
