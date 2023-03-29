@@ -1,3 +1,12 @@
+/**
+ * @typedef {Object} SignupBody
+ * @property {string} name - The user's first name
+ * @property {string} email - The user's email address
+ * @property {string} password - The user's password
+ * @property {boolean} isHawker - Whether the user is a hawker or not
+ */
+
+
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -30,6 +39,10 @@ function Copyright(props) {
   );
 }
 
+/**
+ * Renders a registration form for users to sign up for an account
+ * @returns {JSX.Element}
+ */
 
 export default function Register() {
   const {setUser} = useAuth()
@@ -39,6 +52,12 @@ export default function Register() {
   const [details, setDetails] = React.useState('')
   const [errorMessage, setErrorMessage] = React.useState(null)
   const [flag, setFlag] = React.useState(false)
+
+   /**
+   * Registers a new user by making a POST request to the server
+   * @param {Event} event - The form submission event
+   * @returns {Promise<void>}
+   */
 
   async function registerUser(event) {
     event.preventDefault();
@@ -77,6 +96,12 @@ export default function Register() {
     })
 
   }
+
+    /**
+   * Handles changes to the input fields
+   * @param {Event} e - The input change event
+   * @returns {void}
+   */
 
   const handleChange = (e) => {
 

@@ -1,3 +1,8 @@
+/**
+ * The main component of the app.
+ * @return {JSX.Element} The JSX element that represents the main component of the app.
+ */
+
 import React, { useEffect, useState } from "react";
 import Theme from "./Theme";
 import { Route, Routes } from "react-router-dom";
@@ -33,6 +38,11 @@ export default function App() {
 
   const [reviews, setReviews] = useState();
   useEffect(() => {
+    /**
+     * Fetches the hawker centers from the database and sets the state with the response.
+     * @returns {void} Nothing is returned.
+     */
+
     const fetchhawkerCentres = async () => {
       const response = await fetch("http://localhost:4000/api/hawkercentre/");
       const json = await response.json();
@@ -41,6 +51,10 @@ export default function App() {
       }
     };
 
+     /**
+     * Fetches the hawker stores from the database and sets the state with the response.
+     * @returns {void} Nothing is returned.
+     */
     const fetchStores = async () => {
       const response = await fetch("http://localhost:4000/api/stall/");
       const json = await response.json();
@@ -49,6 +63,10 @@ export default function App() {
       }
     };
 
+    /**
+     * Fetches the reviews from the database and sets the state with the response.
+     * @returns {void} Nothing is returned.
+     */
     const fetchReviews = async () => {
       const response = await fetch("http://localhost:4000/api/stall/review/getreviews");
       const json = await response.json();

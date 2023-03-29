@@ -1,4 +1,8 @@
-
+/**
+ * Creates a MUI theme with custom palette and typography settings.
+ *
+ * @returns {object} The MUI theme.
+ */
 import { createTheme } from '@mui/material/styles';
 
 const Theme = createTheme({
@@ -12,4 +16,4 @@ const Theme = createTheme({
     },
   });
 
-  export default Theme
+  export default Theme;

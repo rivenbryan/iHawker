@@ -1,3 +1,14 @@
+/**
+ * React component that displays a carousel of hawker centres or hawker stores.
+ *
+ * @component
+ * @param {Object} props - The props object.
+ * @param {string} props.title - The title of the carousel.
+ * @param {Array<Object>} props.data - The data to be displayed in the carousel.
+ * @param {string} props.idName - The ID of the component.
+ * @returns {JSX.Element} The React component.
+ */
+
 import React, { useContext } from "react";
 import Carousel from "react-material-ui-carousel";
 import { Paper, Container, Typography, Box, Rating, Stack} from "@mui/material";

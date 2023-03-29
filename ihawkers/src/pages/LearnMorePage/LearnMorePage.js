@@ -1,5 +1,7 @@
-
-
+/**
+* LearnMore page component that displays information about iHawker and its values
+* @return {JSX.Element} Returns the LearnMore page component
+*/
 import React from 'react'
 import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'

@@ -1,3 +1,9 @@
+/**
+ * React component that displays the search bar in the landing page.
+ *
+ * @component
+ * @returns {JSX.Element} The React component.
+ */
 import React, { useContext, useState, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -5,6 +11,7 @@ import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { HawkerContext } from '../../context/HawkerContext';
 import ButtonHawkerCentre from '../../components/ButtonHawkerCentre';
+
 const Searchbar = () => {
     const {hawkerCentres } = useContext(HawkerContext)
     const [value, setValue] = useState("");

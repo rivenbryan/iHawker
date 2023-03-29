@@ -1,5 +1,10 @@
+/**
+ * React component that displays a single image in a carousel for the "Learn More" section.
+ *
+ * @component
+ * @returns {JSX.Element} The React component.
+ */
 import React from "react";
-import Carousel from "react-material-ui-carousel";
 import { Paper, Box, Container } from "@mui/material";
 
 export default function CarousellLearnMore() {

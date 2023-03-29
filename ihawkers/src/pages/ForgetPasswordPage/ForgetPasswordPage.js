@@ -8,10 +8,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Navbar from '../../components/Navbar';
-import {useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 import ErrorComponent from '../../components/ErrorComponent';
+/**
+*A component to render a form for resetting password.
+* @returns {JSX.Element} JSX.Element representing the ForgetPasswordPage component.
+*/
+
 export default function ForgetPasswordPage() {
   const [errorMessage, setErrorMessage] = useState(null)
   const [flag, setFlag] = useState(false)
@@ -19,12 +24,17 @@ export default function ForgetPasswordPage() {
   const queryParams = new URLSearchParams(location.search)
   const state = queryParams.get('state')
   let notification
-  switch(state) {
+  switch (state) {
     case "true":
       notification = "Email has been sent. Please check your email to reset password"
       break
   }
   toast.success(notification);
+  /**
+
+  *Handles form submission for sending an email to reset password.
+  *@param {Object} e - The form submission event.
+*/
   const handleSubmit = (e) => {
     e.preventDefault()
     const form = e.currentTarget
@@ -39,9 +49,9 @@ export default function ForgetPasswordPage() {
     }
     fetch('http://localhost:4000/api/auth/send-email', {
       method: "POST",
-      body: JSON.stringify({"email": form.elements.email.value}),
-      headers: { 
-        "Content-Type": "application/json" ,
+      body: JSON.stringify({ "email": form.elements.email.value }),
+      headers: {
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "http://localhost:4000"
       },
       credentials: "include"
@@ -59,7 +69,7 @@ export default function ForgetPasswordPage() {
     }).catch((error) => {
       console.error(error)
     })
-}
+  }
 
   return (
     <Container component="main">
@@ -80,7 +90,7 @@ export default function ForgetPasswordPage() {
           Forget Password
         </Typography>
         <Box component="form" noValidate
-          onSubmit= {handleSubmit}
+          onSubmit={handleSubmit}
           sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
@@ -93,17 +103,17 @@ export default function ForgetPasswordPage() {
                 autoFocus
               />
             </Grid>
-            
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Submit
-          </Button>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Submit
+            </Button>
           </Grid>
-          {flag ? <ErrorComponent text={errorMessage}/> : null}
+          {flag ? <ErrorComponent text={errorMessage} /> : null}
         </Box>
       </Container>
     </Container>
