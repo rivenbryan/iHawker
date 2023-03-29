@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function viewHawkers({HawkerStores}) {
     return(
-        <Box  sx={{margin: "0 auto", width:"90%", paddingBottom: 20.1}}>
+        <Box  sx={{margin: "0 auto", width:"90%", paddingBottom: 6}}>
         <Grid sx={{ paddingTop: 5}} container spacing={5} justifyContent="center">
             <Grid item xs = {4}>
                 <Card sx={{maxWidth: 420, 

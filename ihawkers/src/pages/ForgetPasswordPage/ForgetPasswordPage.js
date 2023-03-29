@@ -103,15 +103,15 @@ export default function ForgetPasswordPage() {
                 autoFocus
               />
             </Grid>
-
+            <Grid item xs={12} sm={12}>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
             >
               Submit
             </Button>
+            </Grid>
           </Grid>
           {flag ? <ErrorComponent text={errorMessage} /> : null}
         </Box>

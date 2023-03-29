@@ -11,8 +11,8 @@ export default function HawkerDesc({ oneHawkerCentre }) {
     return (
     <>
         <Box 
-        sx={{ height: "50vh",
-            width: "100%",
+        sx={{ height: "50vh", marginLeft: -1,
+            width: "98.93vw",
             objectFit: "cover",
             background: `linear-gradient(to bottom,rgba(0,0,0,0),#FFF 89%),url(${oneHawkerCentre.img})`,
             backgroundSize: "cover",
