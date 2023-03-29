@@ -1,3 +1,10 @@
+
+/**
+* LoginPage component for iHawker website
+* @module LoginPage
+*/
+
+
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -15,6 +22,14 @@ import Navbar from "../../components/Navbar";
 import { useAuth } from "../../context/userAuthContext";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
+
+/**
+* Returns the copyright text
+* @function
+* @param {Object} props - Props for component
+* @return {JSX.Element} Copyright
+*/
+
 function Copyright(props) {
   return (
     <Typography
@@ -30,9 +45,20 @@ function Copyright(props) {
   );
 }
 
+/**
+* LoginPage component
+* @return {JSX.Element}
+*/
+
 export default function LoginPage() {
   const { setUser } = useAuth();
   const [error, setError] = React.useState("");
+
+  /**
+  *Handles form submission
+  *@function
+  * @param {Event} event - The submit event
+  */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,10 +69,10 @@ export default function LoginPage() {
     fetch("http://localhost:4000/api/auth/login", {
       method: "POST",
       body: JSON.stringify(body),
-      headers: { 
-        "Content-Type": "application/json" ,
+      headers: {
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "http://localhost:4000"
-    },
+      },
       credentials: "include"
     }).then(async (response) => {
       if (response.ok) {

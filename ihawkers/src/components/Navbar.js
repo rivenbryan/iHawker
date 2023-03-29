@@ -1,3 +1,7 @@
+/**
+ * A React component representing the navigation bar of the iHawker application.
+ * @returns {JSX.Element} - A Material-UI AppBar containing the navigation buttons.
+ */
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import { Divider, Container } from "@mui/material";
@@ -12,7 +16,11 @@ import { useAuth } from "../context/userAuthContext";
 
 const Navbar = () => {
   const {getUser, clearUser} = useAuth()
-  //For logging Out
+   /**
+   * Handles a click on the 'Log Out' button by sending a POST request to the authentication API endpoint
+   * to log the user out and clearing the user authentication state.
+   * @returns {void}
+   */
   const handleLogout = () => {
     fetch("http://localhost:4000/api/auth/logout", {
       method: "POST",

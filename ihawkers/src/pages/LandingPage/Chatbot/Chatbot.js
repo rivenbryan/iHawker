@@ -1,5 +1,25 @@
+/**
+ * Represents a chatbot for iHawker website.
+ * @module iHawkerChatbot
+ */
+
 import RecFood from "./RecFood";
 import BestFood from "./BestFood";
+
+/**
+ * The configuration of the iHawker chatbot.
+ *
+ * @typedef {Object} Config
+ * @property {string} width - The width of the chatbot in pixels.
+ * @property {string} height - The height of the chatbot in pixels.
+ * @property {boolean} floating - Determines if the chatbot is floating or not.
+ */
+
+/**
+ * The steps of the iHawker chatbot conversation.
+ *
+ * @type {Array<Object>}
+ */
 
 // Set some properties of the bot
 export const config = {

@@ -4,6 +4,11 @@ import CabinIcon from "@mui/icons-material/Cabin";
 import SecurityIcon from "@mui/icons-material/Security";
 import PublicIcon from "@mui/icons-material/Public";
 import Slide from 'react-reveal/Slide';
+
+/**
+ * A component that displays information about iHawker, including its values and an image.
+ * @returns JSX.Element
+ */
 export default function Content() {
   return (
     <Container sx={{ marginTop: 5 }}>
@@ -20,7 +25,7 @@ export default function Content() {
             for community bonding.
           </Typography>
           <Typography sx={{ paddingTop: 2 }} variant="subtitle1">
-            We believe in this 3 values
+            We believe in these 3 values
           </Typography>
 
           <Stack direction="row" sx={{paddingTop: 3}}>
