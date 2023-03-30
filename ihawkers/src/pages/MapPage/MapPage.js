@@ -5,6 +5,12 @@ import GoogleMap from './GoogleMap'
 import List from './List'
 import { Grid, Container } from '@mui/material'
 import Fade from 'react-reveal/Fade';
+
+/**
+ * MapPage component that displays a map and a list of nearby hawker centres.
+ * @function MapPage
+ * @returns {JSX.Element}
+ */
 export default function MapPage() {
   const [hawker, setHawker] = useState("")
   return (

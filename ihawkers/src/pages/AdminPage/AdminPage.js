@@ -1,3 +1,9 @@
+/**
+* AdminPage component displays the management page for stall owners
+* @summary It renders the Navbar, AdminPageHeader, HawkerChoose and Footer components
+* @return {JSX.Element}
+*/
+
 import React, { useContext, useEffect, useState } from 'react';
 import { HawkerContext } from '../../context/HawkerContext';
 import Footer from "../../components/Footer";

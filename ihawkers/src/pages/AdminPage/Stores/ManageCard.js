@@ -1,3 +1,13 @@
+/**
+* HawkersCard component that displays a card for a hawker store.
+* @param {Object} props - Component props
+* @param {string} props.id - Id of the hawker store
+* @param {string} props.img - URL of the hawker store image
+* @param {string} props.short_description - Short description of the hawker store
+* @param {string} props.name_of_centre - Name of the hawker centre that the hawker store belongs to
+* @returns {JSX.Element} - Rendered component
+*/
+
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -21,7 +31,11 @@ export default function HawkersCard({id, img, short_description, name_of_centre}
     const handleClose = () => {
       setOpen(false);
     };
-
+    /**
+     * Deletes a hawker store from the database and redirects the user to the Admin Page.
+     * @param {Object} e - Event object
+     * @param {string} e.target.id - Id of the hawker store
+     */
     const handleDelete = (e) => {
         console.log(e.target.id)
         fetch('http://localhost:4000/api/stall/'+e.target.id, {

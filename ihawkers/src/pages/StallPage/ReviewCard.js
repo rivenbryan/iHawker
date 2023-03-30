@@ -1,3 +1,17 @@
+/**
+* A component that displays a card that provides details of a review
+* @component
+* @param {Object} props - The component's props
+* @param {string} props.name - The name of the user who wrote the review
+* @param {string} props.food - The name of the dish reviewed
+* @param {string} props.date_of_review - The date the review was written
+* @param {string} props.date_of_visit - The date the user visited the hawker stall
+* @param {number} props.rating - The rating given by the user
+* @param {string} props.comment - The comment written by the user
+* @param {string} props.reviewImg - The image uploaded by the user
+* @return {JSX.Element} - Returns the JSX code for the ReviewCard component
+*/
+
 import React from 'react';
 import { Rating, Paper, Stack, Divider, Avatar, Box, Typography } from '@mui/material';
 

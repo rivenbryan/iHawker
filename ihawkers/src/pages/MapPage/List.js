@@ -1,3 +1,10 @@
+/**
+ * A component that displays information about a hawker centre.
+ * @param {Object} props - The props object.
+ * @param {Object} props.hawker - The hawker centre object.
+ * @returns {JSX.Element} - The component JSX.
+ */
+
 import React from 'react'
 import Fade from 'react-reveal/Fade';
 import { Paper, Typography,} from '@mui/material'

@@ -1,3 +1,8 @@
+/**
+* A component that displays the header for the Add Store page.
+* @returns {JSX.Element} Header component for Add Store page
+*/
+
 import React from 'react';
 import {Box, Divider, Typography} from '@mui/material'
 

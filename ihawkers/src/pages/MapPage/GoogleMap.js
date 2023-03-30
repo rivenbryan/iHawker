@@ -8,6 +8,11 @@ import { HawkerContext } from '../../context/HawkerContext'
 // 2. Create markers for each hawker centres
 // 3. Calculate distance between them
 
+/**
+ * GoogleMap component that renders a map with location markers for hawker centres.
+ * @param {Object} setHawker - Function to set the selected hawker centre.
+ * @returns {JSX.Element}
+ */
 export default function GoogleMap({setHawker}) {
   const {hawkerCentres} = useContext(HawkerContext)
   const [center, setCenter] = useState({

@@ -1,3 +1,9 @@
+/**
+* A component that displays the menu of a hawker stall, including top sellers and other menu items.
+* @param {Object} props - The props object containing oneHawkerStore, which is an object containing information about the hawker stall.
+* @returns {JSX.Element} - A JSX element representing the StallMenu component.
+*/
+
 import React from 'react';
 import { Container, Typography,Box, Grid, Divider} from '@mui/material';
 import StallMenuBox from './StallMenuBox';

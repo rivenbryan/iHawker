@@ -1,10 +1,14 @@
+/**
+* HawkerStalls component displays a list of hawker stalls in a given hawker centre.
+* @param {Array} hawkerStores - An array of hawker stalls belonging to a particular hawker centre
+* @returns A React component that displays the hawker stalls in a grid format
+*/
+
 import React from 'react'
 import { Container, Typography,Box, Grid} from '@mui/material'
 import StallsCardComponent from './StallsCardComponent'
 
 export default function HawkerStalls({ hawkerStores }) {
-    console.log("hawkerpage")
-    console.log(hawkerStores)
     return(
         <Container sx={{marginTop: 4}}>
             <Typography variant='h4' sx={{fontWeight: 'bold'}}>
