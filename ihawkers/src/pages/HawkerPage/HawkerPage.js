@@ -1,3 +1,8 @@
+/** 
+* React component that displays a Hawker Centre's description and its stalls.
+* @returns {JSX.Element} HawkerPage component
+*/
+
 import React, { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import Footer from '../../components/Footer'
@@ -11,6 +16,9 @@ export default function HawkerPage() {
   const {oneHawkerCentre} = useContext(HawkerContext);
   const { hawkerStores } = useContext(HawkerContext);
   const [ filteredStoreList, setFilteredStoreList ] = useState([]);
+  /**
+  * Filters the list of hawker stores to only include stores belonging to the displayed hawker centre.
+  */
   useEffect(() => {
     if (oneHawkerCentre && hawkerStores) {
       const filteredList = hawkerStores.filter(

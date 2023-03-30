@@ -1,3 +1,10 @@
+/**
+* StallPage component to display the details of a single hawker store.
+* @module StallPage
+* @see HawkerContext
+* @component
+*/
+
 import React, { useContext, useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
@@ -6,7 +13,11 @@ import StallMenu from './StallMenu'
 import ViewReviews from './ViewRecentReview'
 import AddReview from './AddReview'
 import { HawkerContext } from '../../context/HawkerContext'
-
+/**
+* Represents the StallPage component.
+* @function StallPage
+* @returns {JSX.Element}
+*/
 export default function StallPage() {
 
   const { oneHawkerStore } = useContext(HawkerContext);
@@ -15,7 +26,12 @@ export default function StallPage() {
   const [hawkerLocation, sethawkerLocation] = useState("");
   const [hawkerLat, setHawkerLat] = useState("");
   const [hawkerLong, setHawkerLong] = useState("");
-
+  /**
+  * Set the hawker location, latitude and longitude based on the hawker center where the store belongs to.
+  * @function useEffect
+  * @param {Array} hawkerCentres - Array of all hawker centers.
+  * @param {Object} oneHawkerStore - The single hawker store object for which the details are being displayed.
+  */
   useEffect(() => {
     if (hawkerCentres && oneHawkerStore) {
       const oneCentre = hawkerCentres.find(

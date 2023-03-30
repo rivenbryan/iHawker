@@ -1,10 +1,21 @@
-import { Box, TextField, Button, Divider, Typography, MenuItem} from '@mui/material';
+/**
+* @module AddStoreForm
+* @desc A form component to add a store with its details, top sellers, and menu items
+* @requires Box, TextField, Button, Divider, Typography, MenuItem from @mui/material
+* @requires HawkerContext, useAuth from context
+* @requires ToastContainer from react-toastify
+*/
 
+import { Box, TextField, Button, Divider, Typography, MenuItem} from '@mui/material';
 import { HawkerContext } from '../../../context/HawkerContext';
 import { ToastContainer, toast } from "react-toastify";
 import React, { Fragment, useContext } from 'react';
 import { useAuth } from '../../../context/userAuthContext';
 
+/**
+* AddStoreForm functional component
+* @returns {JSX.Element} AddStoreForm component
+*/
 export default function AddStoreForm() {
     const { getUser } = useAuth();
     const user = getUser();
@@ -25,6 +36,10 @@ export default function AddStoreForm() {
     const [image, setImage] = React.useState([]);
     const [tsImg, setTsImg] = React.useState([]);
 
+    /**
+    * Handle input changes
+    * @param {event} event The input event
+    */
     const handleChange = (event) => {
 
         if (event.target.id === 'storeName') {
@@ -36,13 +51,19 @@ export default function AddStoreForm() {
         }
 
     }
-    //handle and convert it in base 64
+    /**
+    * Handle image upload and convert it to base64
+    * @param {event} e The input event
+    */
     const handleImage = (e) => {
         const file = e.target.files[0];
         setFileToBase(file);
         // console.log(file);
     }
-
+    /**
+    * Convert file to base64
+    * @param {File} file The image file
+    */
     const setFileToBase = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -51,7 +72,9 @@ export default function AddStoreForm() {
         }
 
     }
-
+    /**
+    * Add a new top seller input section
+    */
     const handleAddTopSeller = () => {
         const values = [...topseller];
         values.push({
@@ -61,7 +84,11 @@ export default function AddStoreForm() {
         });
         setTopSeller(values);
     };
-
+    /**
+    * Handle input changes in top seller section
+    * @param {number} index The index of the top seller input section
+    * @param {event} event The input event
+    */
     const handleTopInputChange = (index, event) => {
         const values = [...topseller];
         const updatedValue = event.target.id;
@@ -79,7 +106,9 @@ export default function AddStoreForm() {
         }
         setTopSeller(values);
     };
-
+    /**
+    * Adds a new empty string to the menu_item array in the state and updates the state with the new array.
+    */
     const handleAddOtherMenu = () => {
         const values = [...menu_item];
         values.push(
@@ -87,6 +116,11 @@ export default function AddStoreForm() {
         );
         setMenuItems(values);
     }
+    /**
+    * Updates the menu_item array in the state with the new value at the given index and updated field.
+    * @param {number} index - The index of the menu item to update.
+    * @param {Event} event - The input event that triggered the function.
+    */
     const handleOtherInputChange = (index, event) => {
         const values = [...menu_item];
         const updatedValue = event.target.id;
@@ -94,7 +128,10 @@ export default function AddStoreForm() {
         values[index] = event.target.value;
         setMenuItems(values);
     };
-
+    /**
+    * Sends a POST request to the server to add a new store with the given form data.
+    * @param {Event} event - The form submit event that triggered the function.
+    */
     async function addStore(event) {
         const body = {
             stall_name,
@@ -132,6 +169,10 @@ export default function AddStoreForm() {
             }
         })
     }
+    /**
+    * Renders a form to add a new store to the system.
+    * @returns {JSX.Element} A form to add a new store.
+    */
     return (
         <>
             <ToastContainer position="bottom-right" newestOnTop />

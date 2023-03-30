@@ -1,3 +1,9 @@
+/**
+ * React component that renders a search page with a search bar, a button to switch between hawker centres and stalls, and a grid of result cards.
+ *
+ * @returns {JSX.Element} SearchPage component.
+ */
+
 import React, { useState, useContext } from "react";
 import Navbar from "../../components/Navbar";
 import Searchbar from "./Searchbar";
@@ -16,6 +22,10 @@ export default function SearchPage() {
   const [searchFilter, setSearchFilter] = useState("");
   const [errorMessage, setErrorMessage] = useState();
 
+  /**
+   * Filter the list of hawker centres or hawker stalls based on the search query.
+   * @param {Object} event - Event object.
+   */
   const filterBySearch = (event) => {
     // Access input value
     const query = event.target.value;
@@ -45,6 +55,9 @@ export default function SearchPage() {
     }
   };
 
+  /**
+   * Switches the disabled state and the list state between hawker centres and hawker stalls.
+   */
   const switchButtonState = () => {
     isDisabled((prevValue) => !prevValue);
     setIsHawkerCentre((prevValue) => !prevValue);

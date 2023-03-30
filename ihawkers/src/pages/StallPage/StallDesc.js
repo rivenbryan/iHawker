@@ -1,3 +1,14 @@
+/**
+ * A component that displays the details of a hawker store, including its name, rating, location, image, and description.
+ *
+ * @param {Object} props - The component props.
+ * @param {Object} props.oneHawkerStore - The details of the hawker store to display.
+ * @param {string} props.hawkerLocation - The location of the hawker store.
+ * @param {number} props.hawkerLat - The latitude of the hawker store location.
+ * @param {number} props.hawkerLong - The longitude of the hawker store location.
+ * @returns {JSX.Element} The JSX element that displays the hawker store details.
+ */
+
 import React from 'react'
 import { Container,Stack, Typography,Box, Button, Rating ,Link, Grid} from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -6,7 +17,7 @@ import Divider from '@mui/material/Divider';
 export default function StallDesc({oneHawkerStore, hawkerLocation, hawkerLat, hawkerLong}) {
     return (
     <Box sx={{ width: "100%", margin: "0 auto" }}>
-    <Box 
+        <Box 
         sx={{ height: "50vh",
             width: "98.93vw",
             ml: -1,
@@ -19,15 +30,10 @@ export default function StallDesc({oneHawkerStore, hawkerLocation, hawkerLat, ha
                 url(${oneHawkerStore.image.url})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-        }}></Box>
+        }}/>
     
-
-
-    <Container maxWidth="lg" sx={{marginTop: -25}}>
-        
+        <Container maxWidth="lg" sx={{marginTop: -25}}>
             <Stack direction="row" spacing={15} sx={{display: 'flex', alignItems: 'center'}}>
-                
-                
                 <Box component="img" 
                 alt="Store front img"
                 src={oneHawkerStore.image.url}
@@ -36,10 +42,8 @@ export default function StallDesc({oneHawkerStore, hawkerLocation, hawkerLat, ha
                     objectFit: "cover",
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat"
-                }}>
-                </Box>
+                }}/>
 
-                
                 <Box sx={{marginTop: 10, alignItems: 'center'}}>
                     <Typography variant="h2" sx={{fontWeight: 'bold'}}>
                         { oneHawkerStore.stall_name }
@@ -56,7 +60,6 @@ export default function StallDesc({oneHawkerStore, hawkerLocation, hawkerLat, ha
                                 No Reviews
                             </Typography>                            
                         )} 
-                        
                     </Grid>
 
                     <Grid container direction="row" marginTop={-0.5}>
@@ -69,11 +72,10 @@ export default function StallDesc({oneHawkerStore, hawkerLocation, hawkerLat, ha
                     <Typography variant="body1" sx={{ marginTop: 4, marginBottom: 4, fontWeight: 'medium'}}>
                         { oneHawkerStore.description }
                     </Typography>
-                    <Divider variant="string" width="50%" sx={{background: "#000"}}></Divider>
-                </Box>
-                
+                    <Divider variant="string" width="50%" sx={{background: "#000"}}/>
+                </Box> 
             </Stack>
-        {/* </Box> */}
-    </Container></Box>
+        </Container>
+    </Box>
   )
 }

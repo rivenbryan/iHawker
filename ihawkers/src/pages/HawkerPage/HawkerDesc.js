@@ -1,3 +1,16 @@
+/** 
+* Component for displaying details of a hawker center
+* @param {Object} oneHawkerCentre - object containing details of the hawker center
+* @param {string} oneHawkerCentre.name_of_centre - name of the hawker center
+* @param {string} oneHawkerCentre.img - image url for the hawker center
+* @param {string} oneHawkerCentre.location_of_centre - location of the hawker center
+* @param {string} oneHawkerCentre.short_description - short description of the hawker center
+* @param {string} oneHawkerCentre.long_description - long description of the hawker center
+* @param {string} oneHawkerCentre.lat - latitude of the hawker center for Google Maps integration
+* @param {string} oneHawkerCentre.long - longitude of the hawker center for Google Maps integration
+* @returns {JSX.Element} - Hawker center details component
+*/
+
 import React from 'react'
 import { Container,Stack, Typography,Box, Button, Modal ,Link, Grid, Fade } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
@@ -6,7 +19,13 @@ import Divider from '@mui/material/Divider'
 
 export default function HawkerDesc({ oneHawkerCentre }) {
     const [open, setOpen] = React.useState(false);
+    /**
+    * Function to handle opening of modal
+    */
     const handleOpen = () => setOpen(true);
+    /**
+    * Function to handle closing of modal
+    */
     const handleClose = () => setOpen(false);
     return (
     <>
