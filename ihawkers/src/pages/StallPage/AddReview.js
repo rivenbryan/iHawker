@@ -1,10 +1,20 @@
+/**
+* @module AddReview
+* @description Form Component to add a review for a hawker store.
+* @param {object} props - Component props.
+* @param {string} props.storeID - The ID of the hawker store to add the review for.
+* @return {JSX.Element} - Rendered component.
+*/
+
 import * as React from 'react';
 import { Button, Container, Typography, Rating, TextField} from '@mui/material';
 import { ToastContainer, toast } from "react-toastify";
 import { Box } from '@mui/system';
 import { useAuth } from '../../context/userAuthContext';
 
-
+/**
+* AddReview component
+*/
 export default function AddReview({storeID}) {
     
     const { getUser } = useAuth();
@@ -15,6 +25,10 @@ export default function AddReview({storeID}) {
     const [comment, setComment] = React.useState("");
     const [reviewImg, setImage] = React.useState([]);
 
+    /**
+    * Handles changes to the form input fields.
+    * @param {object} event - Event object.
+    */
     const handleChange = (event) => {
         if (event.target.id === "food"){
             setFood(event.target.value)
@@ -24,14 +38,19 @@ export default function AddReview({storeID}) {
             setComment(event.target.value)
         }
     };
-
-    //handle and convert it in base 64
+    /**
+    * Handles the selected image file.
+    * @param {object} e - Event object.
+    */
     const handleImage = (e) => {
         const file = e.target.files[0];
         setFileToBase(file);
         console.log(file);
     }
-
+    /**
+    * Converts selected file to base64 and sets the state.
+    * @param {object} file - Selected file object.
+    */
     const setFileToBase = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -39,7 +58,10 @@ export default function AddReview({storeID}) {
             setImage(reader.result);
         }
     }
-    
+    /**
+    * Sends a POST request to add a review for a hawker store.
+    * @param {object} event - Event object.
+    */
     async function addReview(event){
           event.preventDefault();
         if (reviewImg.length === 0){

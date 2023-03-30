@@ -1,3 +1,9 @@
+/**
+ * A header component for the admin page to manage stalls.
+ * 
+ * @return {JSX.Element} Header component for the admin page.
+ */
+
 import React from 'react';
 import {Box, Divider, Typography} from '@mui/material'
 

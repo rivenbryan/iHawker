@@ -1,3 +1,14 @@
+/**
+ * Component for rendering a card containing information about a hawker stall.
+ * @param {Object} props - The props object.
+ * @param {string} props.id - The ID of the hawker stall.
+ * @param {string} props.img - The image URL of the hawker stall.
+ * @param {string} props.description - The description of the hawker stall.
+ * @param {string} props.name_of_centre - The name of the hawker centre the stall belongs to.
+ * @param {number} props.avg_rating - The average rating of the hawker stall.
+ * @returns {JSX.Element} - The StallsCardComponent JSX element.
+ */
+
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';

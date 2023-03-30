@@ -1,3 +1,15 @@
+/**
+* @typedef {Object} HawkerStore
+* @property {string} _id - The ID of the hawker store.
+* @property {Object} image - The image of the hawker store.
+* @property {string} image.url - The URL of the hawker store image.
+* @property {string} description - The description of the hawker store.
+* @property {string} stall_name - The name of the hawker store.
+* @property {HawkerStore[]} HawkerStores - An array of hawker stores details to display.
+* @param {Props} props - The props object of the viewHawkers component.
+* @returns {JSX.Element} - The viewHawkers component.
+*/
+
 import React from 'react';
 import { Card, Box, Grid, Typography, CardActionArea, CardContent } from '@mui/material';
 import ManageCard from './ManageCard';
