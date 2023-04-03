@@ -62,6 +62,8 @@ export default function Register() {
   async function registerUser(event) {
     event.preventDefault();
     console.log(name, password, email, details)
+    setErrorMessage("");
+    setFlag(false);
     if (!name || !email || !password || (details == "")) {
       setFlag(true)
       setErrorMessage("All Fields must be filled")
