@@ -68,7 +68,7 @@ const createStall= async (req, res) => {
             public_id: result.public_id,
             url: result.secure_url
         }})
-    res.cookie("token", token).status(201).json(stall).send()
+    res.status(201).json(stall).send()
 }
 
 /**
