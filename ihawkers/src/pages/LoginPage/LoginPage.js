@@ -2,6 +2,7 @@
 /**
 * LoginPage component for iHawker website
 * @module LoginPage
+* test
 */
 
 
