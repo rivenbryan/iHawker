@@ -12,3 +12,7 @@ thereby increasing visibility and customer reach.
 ## Installation
 
 Start the server from the root directory: The application should open automatically in your default web browser at http://localhost:3000.
+
+## Video Demostration
+
+// TO BE DONE //
